@@ -27,19 +27,19 @@
 
     // Load vendor
     require __DIR__ . '/vendor/autoload.php';
-    require_once ABS_PATH . 'config/default-constants.php';
+    
     
     if ( !file_exists(ABS_PATH . 'config.php')) {
         require_once LIB_PATH . 'osclass/helpers/hErrors.php';
         $title   = 'Osclass &raquo; Error';
         $message = 'There doesn\'t seem to be a <code>config.php</code> file. Osclass isn\'t installed. <a href="https://osclass.discourse.group/">Need more help?</a></p>';
-        $message .= '<p><a class="button" href="' . osc_get_absolute_url() . 'oc-includes/osclass/install.php">Install</a></p>';
+        $message .= '<p><a class="button" href="' . osc_get_absolute_url() . 'installer/install.php">Install</a></p>';
         osc_die($title, $message);
     }
     
 // load database configuration
     require_once ABS_PATH . 'config.php';
-
+    require_once ABS_PATH . 'config/default-constants.php';
 // Sets PHP error handling
     if (OSC_DEBUG) {
         ini_set('display_errors', 1);

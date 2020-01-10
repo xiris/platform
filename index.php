@@ -16,6 +16,8 @@
  */
 
     define('ABS_PATH', str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']) . '/'));
+    
+    
     if(PHP_SAPI==='cli') {
         define('CLI', true);
     }
@@ -148,6 +150,3 @@
             osc_doRequest(osc_base_url(), array('page' => 'cron'));
         }
     }
-
-    /* file end: ./index.php */
-?>

@@ -15,7 +15,7 @@
 	 * limitations under the License.
 	 */
 
-	require_once dirname( dirname( __FILE__ ) ) . '/osclass/compatibility.php';
+	require_once LIB_PATH . 'osclass/compatibility.php';
 	/**
 	 * @param $value
 	 * @param $xss_check
@@ -138,37 +138,37 @@
 
 			'Folder <code>oc-content/uploads</code> exists' => array (
 				'requirement' => __( 'Folder <code>oc-content/uploads</code> exists' ) ,
-				'fn'          => file_exists( ABS_PATH . 'oc-content/uploads/' ) ,
+				'fn'          => file_exists( ABS_PATH . '/oc-content/uploads/' ) ,
 				'solution'    => sprintf( __( 'You have to create <code>uploads</code> folder, i.e.: <code>mkdir %soc-content/uploads/</code>' ) , ABS_PATH )
 			) ,
 
 			'Folder <code>oc-content/uploads</code> is writable' => array (
 				'requirement' => __( '<code>oc-content/uploads</code> folder is writable' ) ,
-				'fn'          => is_writable( ABS_PATH . 'oc-content/uploads/' ) ,
+				'fn'          => is_writable( ABS_PATH . '/oc-content/uploads/' ) ,
 				'solution'    => sprintf( __( '<code>uploads</code> folder has to be writable, i.e.: <code>chmod 0755 %soc-content/uploads/</code>' ) , ABS_PATH )
 			) ,
 			// oc-content/downlods
 			'Folder <code>oc-content/downloads</code> exists'    => array (
 				'requirement' => __( 'Folder <code>oc-content/downloads</code> exists' ) ,
-				'fn'          => file_exists( ABS_PATH . 'oc-content/downloads/' ) ,
+				'fn'          => file_exists( ABS_PATH . '/oc-content/downloads/' ) ,
 				'solution'    => sprintf( __( 'You have to create <code>downloads</code> folder, i.e.: <code>mkdir %soc-content/downloads/</code>' ) , ABS_PATH )
 			) ,
 
 			'Folder <code>oc-content/downloads</code> is writable' => array (
 				'requirement' => __( '<code>oc-content/downloads</code> folder is writable' ) ,
-				'fn'          => is_writable( ABS_PATH . 'oc-content/downloads/' ) ,
+				'fn'          => is_writable( ABS_PATH . '/oc-content/downloads/' ) ,
 				'solution'    => sprintf( __( '<code>downloads</code> folder has to be writable, i.e.: <code>chmod 0755 %soc-content/downloads/</code>' ) , ABS_PATH )
 			) ,
 			// oc-content/languages
 			'Folder <code>oc-content/languages</code> exists'      => array (
 				'requirement' => __( 'Folder <code>oc-content/languages</code> folder exists' ) ,
-				'fn'          => file_exists( ABS_PATH . 'oc-content/languages/' ) ,
+				'fn'          => file_exists( ABS_PATH . '/oc-content/languages/' ) ,
 				'solution'    => sprintf( __( 'You have to create the <code>languages</code> folder, i.e.: <code>mkdir %soc-content/languages/</code>' ) , ABS_PATH )
 			) ,
 
 			'Folder <code>oc-content/languages</code> is writable' => array (
 				'requirement' => __( '<code>oc-content/languages</code> folder is writable' ) ,
-				'fn'          => is_writable( ABS_PATH . 'oc-content/languages/' ) ,
+				'fn'          => is_writable( ABS_PATH . '/oc-content/languages/' ) ,
 				'solution'    => sprintf( __( '<code>languages</code> folder has to be writable, i.e.: <code>chmod 0755 %soc-content/languages/</code>' ) , ABS_PATH )
 			) ,
 		);
@@ -176,8 +176,8 @@
 		$config_writable = false;
 		$root_writable   = false;
 		$config_sample   = false;
-		if ( file_exists( ABS_PATH . 'config.php' ) ) {
-			if ( is_writable( ABS_PATH . 'config.php' ) ) {
+		if ( file_exists( ABS_PATH . '/config.php' ) ) {
+			if ( is_writable( ABS_PATH . '/config.php' ) ) {
 				$config_writable = true;
 			}
 			$array[ 'File <code>config.php</code> is writable' ] = array (
@@ -195,7 +195,7 @@
 				'solution'    => sprintf( __( 'Root folder has to be writable, i.e.: <code>chmod 0755 %s</code>' ) , ABS_PATH )
 			);
 
-			if ( file_exists( ABS_PATH . 'config-sample.php' ) ) {
+			if ( file_exists( ABS_PATH . '/config-sample.php' ) ) {
 				$config_sample = true;
 			}
 			$array[ 'File <code>config-sample.php</code> exists' ] = array (

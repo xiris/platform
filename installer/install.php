@@ -17,10 +17,12 @@
 
 	error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 
-	define( 'ABS_PATH' , dirname( dirname( __DIR__ ) ) . '/' );
-	define( 'LIB_PATH' , ABS_PATH . 'oc-includes/' );
-	define( 'CONTENT_PATH' , ABS_PATH . 'oc-content/' );
-	define( 'TRANSLATIONS_PATH' , CONTENT_PATH . 'languages/' );
+	define( 'ABS_PATH' , dirname(__DIR__));
+	define( 'INSTALLER_PATH' , ABS_PATH . '/installer/');
+	define( 'CONFIG_PATH' , ABS_PATH . '/config/');
+	define( 'LIB_PATH' , ABS_PATH . '/oc-includes/' );
+	define( 'CONTENT_PATH' , ABS_PATH . '/oc-content/' );
+	define( 'TRANSLATIONS_PATH' , CONTENT_PATH . '/languages/' );
 	define( 'OSC_INSTALLING' , 1 );
 
     require ABS_PATH . '/vendor/autoload.php';
@@ -29,10 +31,10 @@
 		require_once LIB_PATH . 'osclass/Logger/Logger.php';
 		require_once LIB_PATH . 'osclass/Logger/LogDatabase.php';
 		require_once LIB_PATH . 'osclass/Logger/LogOsclassInstaller.php';
-		require_once LIB_PATH . 'osclass/classes/database/DBConnectionClass.php';
-		require_once LIB_PATH . 'osclass/classes/database/DBCommandClass.php';
-		require_once LIB_PATH . 'osclass/classes/database/DBRecordsetClass.php';
-		require_once LIB_PATH . 'osclass/classes/database/DAO.php';
+		require_once LIB_PATH . 'database/DBConnectionClass.php';
+		require_once LIB_PATH . 'database/DBCommandClass.php';
+		require_once LIB_PATH . 'database/DBRecordsetClass.php';
+		require_once LIB_PATH . 'database/DAO.php';
 		require_once LIB_PATH . 'osclass/model/Preference.php';
 		require_once LIB_PATH . 'osclass/helpers/hPreference.php';
 	}
@@ -50,8 +52,8 @@
 	require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
 	require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
 	require_once LIB_PATH . 'osclass/helpers/hSanitize.php';
-	require_once LIB_PATH . 'osclass/default-constants.php';
-	require_once LIB_PATH . 'osclass/install-functions.php';
+	require_once CONFIG_PATH . 'default-constants.php';
+	require_once INSTALLER_PATH . 'install-functions.php';
 	require_once LIB_PATH . 'osclass/utils.php';
 	require_once LIB_PATH . 'osclass/core/Translation.php';
 	require_once LIB_PATH . 'osclass/classes/Plugins.php';
@@ -138,16 +140,16 @@
             type="text/javascript"></script>
     <script src="<?php echo get_absolute_url(); ?>oc-includes/osclass/assets/js/jquery-ui.min.js"
             type="text/javascript"></script>
-    <script src="<?php echo get_absolute_url(); ?>oc-includes/osclass/installer/vtip/vtip.js"
+    <script src="<?php echo get_absolute_url(); ?>installer/vtip/vtip.js"
             type="text/javascript"></script>
     <script src="<?php echo get_absolute_url(); ?>oc-includes/osclass/assets/js/jquery.json.js"
             type="text/javascript"></script>
-    <script src="<?php echo get_absolute_url(); ?>oc-includes/osclass/installer/install.js"
+    <script src="<?php echo get_absolute_url(); ?>installer/assets/install.js"
             type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" media="all"
-          href="<?php echo get_absolute_url(); ?>oc-includes/osclass/installer/install.css"/>
+          href="<?php echo get_absolute_url(); ?>installer/assets/install.css"/>
     <link rel="stylesheet" type="text/css" media="all"
-          href="<?php echo get_absolute_url(); ?>oc-includes/osclass/installer/vtip/css/vtip.css"/>
+          href="<?php echo get_absolute_url(); ?>installer/vtip/css/vtip.css"/>
 </head>
 <body>
 <div id="wrapper">
@@ -252,7 +254,7 @@
 				setcookie( 'osclass_ping_engines' , '' , time() - 3600 );
 
 				// copy robots.txt
-				$source      = LIB_PATH . 'osclass/installer/robots.txt';
+				$source      = INSTALLER_PATH . 'robots.txt';
 				$destination = ABS_PATH . 'robots.txt';
 				if ( function_exists( 'copy' ) ) {
 					@copy( $source , $destination );

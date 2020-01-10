@@ -16,70 +16,98 @@
  * limitations under the License.
  */
 
-if (!defined('MULTISITE')) {
-    define('MULTISITE', 0);
-}
+    if (!defined('OSCLASS_VERSION')){
+		define('OSCLASS_VERSION', '3.9.0');
+	} 
 
-if (!defined('OC_ADMIN')) {
-    define('OC_ADMIN', false);
-}
+    if( !defined('MULTISITE') ) {
+        define('MULTISITE', 0);
+    }
 
-if (!defined('LIB_PATH')) {
-    define('LIB_PATH', ABS_PATH . 'oc-includes/');
-}
+    if( !defined('OC_ADMIN') ) {
+        define('OC_ADMIN', false);
+    }
 
-if (!defined('CONTENT_PATH')) {
-    define('CONTENT_PATH', ABS_PATH . 'oc-content/');
-}
+    if( !defined('LIB_PATH') ) {
+        define('LIB_PATH', ABS_PATH . 'oc-includes/');
+    }
 
-if (!defined('THEMES_PATH')) {
-    define('THEMES_PATH', CONTENT_PATH . 'themes/');
-}
+    if( !defined('BASE_PATH') ) {
+        define('BASE_PATH', ABS_PATH);
+    }
 
-if (!defined('PLUGINS_PATH')) {
-    define('PLUGINS_PATH', CONTENT_PATH . 'plugins/');
-}
+    if( !defined('CONTENT_PATH') ) {
+        define('CONTENT_PATH', ABS_PATH . 'oc-content/');
+    }
 
-if (!defined('TRANSLATIONS_PATH')) {
-    define('TRANSLATIONS_PATH', CONTENT_PATH . 'languages/');
-}
+    if( !defined('CONTENT_WEB_PATH') ) {
+        define('CONTENT_WEB_PATH', WEB_PATH . 'oc-content/');
+    }
 
-if (!defined('UPLOADS_PATH')) {
-    define('UPLOADS_PATH', CONTENT_PATH . 'uploads/');
-}
+    if( !defined('THEMES_PATH') ) {
+        define('THEMES_PATH', CONTENT_PATH . 'themes/');
+    }
 
-if (!defined('OSC_DEBUG_DB')) {
-    define('OSC_DEBUG_DB', false);
-}
+    if( !defined('THEMES_WEB_PATH') ) {
+        define('THEMES_WEB_PATH', CONTENT_WEB_PATH . 'themes/');
+    }
 
-if (!defined('OSC_DEBUG_DB_LOG')) {
-    define('OSC_DEBUG_DB_LOG', false);
-}
+    if( !defined('PLUGINS_PATH') ) {
+        define('PLUGINS_PATH', CONTENT_PATH . 'plugins/');
+    }
 
-if (!defined('OSC_DEBUG_DB_EXPLAIN')) {
-    define('OSC_DEBUG_DB_EXPLAIN', false);
-}
+    if( !defined('PLUGINS_WEB_PATH') ) {
+        define('PLUGINS_WEB_PATH', CONTENT_WEB_PATH . 'plugins/');
+    }
 
-if (!defined('OSC_DEBUG')) {
-    define('OSC_DEBUG', false);
-}
+    if( !defined('TRANSLATIONS_PATH') ) {
+        define('TRANSLATIONS_PATH', CONTENT_PATH . 'languages/');
+    }
 
-if (!defined('OSC_DEBUG_LOG')) {
-    define('OSC_DEBUG_LOG', false);
-}
+    if( !defined('TRANSLATIONS_WEB_PATH') ) {
+        define('TRANSLATIONS_WEB_PATH', CONTENT_WEB_PATH . 'languages/');
+    }
 
-if (!defined('OSC_MEMORY_LIMIT')) {
-    define('OSC_MEMORY_LIMIT', '32M');
-}
+    if( !defined('UPLOADS_PATH') ) {
+        define('UPLOADS_PATH', CONTENT_PATH . 'uploads/');
+    }
 
-if (function_exists('memory_get_usage') && ((int)@ini_get('memory_limit') < abs(intval(OSC_MEMORY_LIMIT)))) {
-    @ini_set('memory_limit', OSC_MEMORY_LIMIT);
-}
+    if( !defined('UPLOADS_WEB_PATH') ) {
+        define('UPLOADS_WEB_PATH', CONTENT_WEB_PATH . 'uploads/');
+    }
 
-if (!defined('CLI')) {
-    define('CLI', false);
-}
+    if( !defined('OSC_DEBUG_DB') ) {
+        define('OSC_DEBUG_DB', false);
+    }
 
-if (!defined('OSC_CACHE_TTL')) {
-    define('OSC_CACHE_TTL', 60);
-}
+    if( !defined('OSC_DEBUG_DB_LOG') ) {
+        define('OSC_DEBUG_DB_LOG', false);
+    }
+
+    if( !defined('OSC_DEBUG_DB_EXPLAIN') ) {
+        define('OSC_DEBUG_DB_EXPLAIN', false);
+    }
+
+    if( !defined('OSC_DEBUG') ) {
+        define('OSC_DEBUG', false);
+    }
+
+    if( !defined('OSC_DEBUG_LOG') ) {
+        define('OSC_DEBUG_LOG', false);
+    }
+
+    if( !defined('OSC_MEMORY_LIMIT') ) {
+        define('OSC_MEMORY_LIMIT', '32M');
+    }
+
+	if ( function_exists( 'memory_get_usage' ) && ( (int) @ini_get( 'memory_limit' ) < abs( (int) OSC_MEMORY_LIMIT ) ) ) {
+        @ini_set('memory_limit', OSC_MEMORY_LIMIT);
+    }
+
+    if( !defined('CLI') ) {
+        define('CLI', false);
+    }
+
+    if( !defined('OSC_CACHE_TTL') ) {
+        define('OSC_CACHE_TTL', 60);
+    }
