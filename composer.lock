@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "66118de0ea24dc08297fc8b9a497d038",
+    "content-hash": "c835669935338fcd9fbfae785fa7ac2d",
     "packages": [
         {
             "name": "claxifieds/ajaxuploader",
@@ -34,82 +34,6 @@
             ],
             "description": "OSclass Ajaxuploader library",
             "time": "2020-01-10T16:42:31+00:00"
-        },
-        {
-            "name": "claxifieds/core",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:claxifieds/core.git",
-                "reference": "b42fac4ec6f1f8532246afb3e7692b5ebc43130a"
-            },
-            "require": {
-                "php": ">=5.6.3"
-            },
-            "require-dev": {
-                "pdepend/pdepend": "2.4.0",
-                "phpmd/phpmd": "@stable",
-                "phpunit/phpunit": "~4.2",
-                "squizlabs/php_codesniffer": "1.5.3"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ],
-                "files": [
-                    "src/helpers/hAdminMenu.php",
-                    "src/helpers/hCache.php",
-                    "src/helpers/hCategories.php",
-                    "src/helpers/hDatabaseInfo.php",
-                    "src/helpers/hDefines.php",
-                    "src/helpers/hErrors.php",
-                    "src/helpers/hItems.php",
-                    "src/helpers/hLocale.php",
-                    "src/helpers/hLocation.php",
-                    "src/helpers/hMessages.php",
-                    "src/helpers/hPage.php",
-                    "src/helpers/hPagination.php",
-                    "src/helpers/hPlugins.php",
-                    "src/helpers/hPreference.php",
-                    "src/helpers/hPremium.php",
-                    "src/helpers/hSanitize.php",
-                    "src/helpers/hSearch.php",
-                    "src/helpers/hSecurity.php",
-                    "src/helpers/hTheme.php",
-                    "src/helpers/hTranslations.php",
-                    "src/helpers/hUsers.php",
-                    "src/helpers/hUtils.php",
-                    "src/helpers/hValidate.php",
-                    "src/alerts.php",
-                    "src/compatibility.php",
-                    "src/cron.php",
-                    "src/default-constants.php",
-                    "src/emails.php",
-                    "src/formatting.php",
-                    "src/functions.php",
-                    "src/install.php",
-                    "src/install-functions.php",
-                    "src/install-location.php",
-                    "src/locales.php",
-                    "src/mimes.php",
-                    "src/timezones.php",
-                    "src/upgrade-funcs.php",
-                    "src/user-agents.php",
-                    "src/utils.php"
-                ]
-            },
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Christopher Silva",
-                    "email": "xiris@xiris.com.br"
-                }
-            ],
-            "description": "OSclass core framework",
-            "time": "2020-01-10T17:26:57+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
