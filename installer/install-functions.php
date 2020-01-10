@@ -396,7 +396,7 @@
 
 		require_once ABS_PATH . 'config.php';
 
-		$sql = file_get_contents( ABS_PATH . 'oc-includes/osclass/installer/struct.sql' );
+		$sql = file_get_contents( INSTALLER_PATH . 'struct.sql' );
 
 		$c_db = $conn->getOsclassDb();
 		$comm = new DBCommandClass( $c_db );
@@ -444,8 +444,8 @@
 
 
 		$required_files = array (
-			ABS_PATH . 'oc-includes/osclass/installer/basic_data.sql' ,
-			ABS_PATH . 'oc-includes/osclass/installer/pages.sql' ,
+			INSTALLER_PATH . 'basic_data.sql' ,
+			INSTALLER_PATH . 'pages.sql' ,
 			ABS_PATH . 'oc-content/languages/' . osc_current_admin_locale() . '/mail.sql' ,
 		);
 
@@ -506,7 +506,7 @@
 	 */
 	function oc_install_example_data() {
 		require_once LIB_PATH . 'osclass/formatting.php';
-		require LIB_PATH . 'osclass/installer/basic_data.php';
+		require INSTALLER_PATH . 'basic_data.php';
 		require_once LIB_PATH . 'osclass/model/Category.php';
 		$mCat = Category::newInstance();
 
