@@ -4,9 +4,9 @@
 
 	define( 'ABS_PATH' , dirname( dirname( __DIR__ ) ) . '/' );
 	define( 'LIB_PATH' , ABS_PATH . 'oc-includes/' );
-
+    require ABS_PATH . '/vendor/autoload.php';
+	
 	require_once ABS_PATH . 'config.php';
-	require_once LIB_PATH . 'vendor/autoload.php';
 	require_once LIB_PATH . 'osclass/classes/database/DBConnectionClass.php';
 	require_once LIB_PATH . 'osclass/classes/database/DBCommandClass.php';
 	require_once LIB_PATH . 'osclass/classes/database/DBRecordsetClass.php';

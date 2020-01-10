@@ -864,7 +864,8 @@ CONFIG;
 		if(preg_match('|([a-z]{2})-([A-Z]{2})|', Params::getServerParam('HTTP_ACCEPT_LANGUAGE'), $match)) {
 			$country_ip = $match[2];
 		}
-
+        
+        $internet_error = false;
 		if (!isset($country_list[0]) || !isset($country_list[0]['name'])) {
 			$internet_error = true;
 		}
