@@ -154,7 +154,7 @@
     <div id="container">
         <div id="header" class="installation">
             <h1 id="logo">
-                <img src="<?php echo get_absolute_url(); ?>oc-includes/images/osclass-logo.png" alt="Osclass"
+                <img src="<?php echo get_absolute_url(); ?>oc-includes/osclass/assets/images/osclass-logo.png" alt="Osclass"
                      title="Osclass"/>
             </h1>
 			<?php if ( in_array( $step , array ( 2 , 3 ) ) ) { ?>
@@ -218,7 +218,7 @@
                         <ul>
 							<?php foreach ( $requirements as $k => $v ) { ?>
                                 <li><?php echo $v[ 'requirement' ]; ?> <img
-                                            src="<?php echo get_absolute_url(); ?>oc-includes/images/<?php echo $v[ 'fn' ] ? 'tick.png' : 'cross.png'; ?>"
+                                            src="<?php echo get_absolute_url(); ?>oc-includes/osclass/assets/images/<?php echo $v[ 'fn' ] ? 'tick.png' : 'cross.png'; ?>"
                                             alt="" title=""/></li>
 							<?php } ?>
                         </ul>

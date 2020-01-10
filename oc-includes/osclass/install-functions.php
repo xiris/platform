@@ -896,7 +896,7 @@ CONFIG;
                 </table>
                 <div class="admin-user">
 					<?php _e( 'A password will be automatically generated for you if you leave this blank.' ); ?>
-                    <img src="<?php echo get_absolute_url() ?>oc-includes/images/question.png" class="question-skip vtip" title="<?php echo osc_esc_html( __( 'You can modify username and password if you like, just change the input value.' ) ); ?>" />
+                    <img src="<?php echo get_absolute_url() ?>oc-includes/osclass/assets/images/question.png" class="question-skip vtip" title="<?php echo osc_esc_html( __( 'You can modify username and password if you like, just change the input value.' ) ); ?>" />
                 </div>
                 <h2 class="title"><?php _e( 'Contact information' ); ?></h2>
                 <table class="contact-info">
@@ -947,7 +947,7 @@ CONFIG;
         </form>
         <div id="lightbox" style="display:none;">
             <div class="center">
-                <img src="<?php echo get_absolute_url(); ?>oc-includes/images/loading.gif"
+                <img src="<?php echo get_absolute_url(); ?>oc-includes/osclass/assets/images/loading.gif"
                      alt="<?php echo osc_esc_html( __( "Loading..." ) ); ?>" title=""/>
             </div>
         </div>
