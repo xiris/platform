@@ -2,15 +2,18 @@
 
 	error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 
-	define( 'ABS_PATH' , dirname(dirname(__DIR__)) . 'install-location.php/');
+	define( 'ABS_PATH' , dirname(__DIR__) . '/');
 	define( 'LIB_PATH' , ABS_PATH . 'oc-includes/' );
+    define( 'CONFIG_PATH' , ABS_PATH . 'config/');
+    define( 'INSTALLER_PATH' , ABS_PATH . 'installer/');
+    
     require ABS_PATH . '/vendor/autoload.php';
 	
 	require_once ABS_PATH . 'config.php';
-	require_once LIB_PATH . 'osclass/classes/database/DBConnectionClass.php';
-	require_once LIB_PATH . 'osclass/classes/database/DBCommandClass.php';
-	require_once LIB_PATH . 'osclass/classes/database/DBRecordsetClass.php';
-	require_once LIB_PATH . 'osclass/classes/database/DAO.php';
+	require_once LIB_PATH . 'database/DBConnectionClass.php';
+	require_once LIB_PATH . 'database/DBCommandClass.php';
+	require_once LIB_PATH . 'database/DBRecordsetClass.php';
+	require_once LIB_PATH . 'database/DAO.php';
 	require_once LIB_PATH . 'osclass/Logger/Logger.php';
 	require_once LIB_PATH . 'osclass/Logger/LogDatabase.php';
 	require_once LIB_PATH . 'osclass/Logger/LogOsclassInstaller.php';
@@ -26,9 +29,9 @@
 	require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
 	require_once LIB_PATH . 'osclass/helpers/hUtils.php';
 	require_once LIB_PATH . 'osclass/compatibility.php';
-	require_once LIB_PATH . 'osclass/default-constants.php';
+	require_once CONFIG_PATH . 'default-constants.php';
 	require_once LIB_PATH . 'osclass/formatting.php';
-	require_once LIB_PATH . 'osclass/install-functions.php';
+	require_once INSTALLER_PATH . 'install-functions.php';
 	require_once LIB_PATH . 'osclass/utils.php';
 	require_once LIB_PATH . 'osclass/core/Translation.php';
 	require_once LIB_PATH . 'osclass/classes/Plugins.php';
