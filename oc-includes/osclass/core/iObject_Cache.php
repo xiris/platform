@@ -4,15 +4,43 @@
  */
 interface iObject_Cache {
 
-    function add( $key, $data, $expire = 0);
-    function set($key, $data, $expire = 0);
-    function get( $key, &$found = null ) ;
-    function delete($key);
-    function flush();
-    function stats();
-    function _get_cache(); // return string 
-    static function is_supported();
+	/**
+	 * @param     $key
+	 * @param     $data
+	 * @param int $expire
+	 *
+	 * @return mixed
+	 */
+	public function add( $key , $data , $expire = 0 );
+
+	/**
+	 * @param     $key
+	 * @param     $data
+	 * @param int $expire
+	 *
+	 * @return mixed
+	 */
+	public function set( $key , $data , $expire = 0 );
+
+	/**
+	 * @param      $key
+	 * @param null $found
+	 *
+	 * @return mixed
+	 */
+	public function get( $key , &$found = null );
+
+	/**
+	 * @param $key
+	 *
+	 * @return mixed
+	 */
+	public function delete( $key );
+    public function flush();
+    public function stats();
+    public function _get_cache(); // return string 
+    public static function is_supported();
 
 
-    function __destruct();
+    public function __destruct();
 }

@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,12 +18,15 @@
  * limitations under the License.
  */
 
-    class CWebSearch extends BaseModel
+	/**
+	 * Class CWebSearch
+	 */
+	class CWebSearch extends BaseModel
     {
-        var $mSearch;
-        var $uri;
+        public $mSearch;
+        public $uri;
 
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
 
@@ -75,19 +80,28 @@
                         }
                     } else {
                         if(!Params::existParam('sCategory')) {
-                            $category  = Category::newInstance()->findBySlug($search_uri);
-                            if( count($category) === 0 ) {
+	                        try {
+		                        $category = Category::newInstance()->findBySlug( $search_uri );
+	                        } catch ( Exception $e ) {
+	                        }
+	                        if( count($category) === 0 ) {
                                 $this->do404();
                             }
                             Params::setParam('sCategory', $search_uri);
                         } else {
-                            if(stripos(Params::getParam('sCategory'), '/')!==false) {
-                                $tmp = explode("/", preg_replace('|/$|', '', Params::getParam('sCategory')));
-                                $category  = Category::newInstance()->findBySlug($tmp[count($tmp)-1]);
-                                Params::setParam('sCategory', $tmp[count($tmp)-1]);
+	                        if ( strpos( Params::getParam( 'sCategory' ) , '/' ) !== false ) {
+                                $tmp = explode( '/' , preg_replace( '|/$|', '', Params::getParam( 'sCategory')));
+		                        try {
+			                        $category = Category::newInstance()->findBySlug( $tmp[ count( $tmp ) - 1 ] );
+		                        } catch ( Exception $e ) {
+		                        }
+		                        Params::setParam('sCategory', $tmp[count($tmp)-1]);
                             } else {
-                                $category  = Category::newInstance()->findBySlug(Params::getParam('sCategory'));
-                                Params::setParam('sCategory', Params::getParam('sCategory'));
+		                        try {
+			                        $category = Category::newInstance()->findBySlug( Params::getParam( 'sCategory' ) );
+		                        } catch ( Exception $e ) {
+		                        }
+		                        Params::setParam('sCategory', Params::getParam('sCategory'));
                             }
                             if( count($category) === 0 ) {
                                 $this->do404();
@@ -99,14 +113,14 @@
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
 
             osc_run_hook('before_search');
 
             if(osc_rewrite_enabled()) {
                 // IF rewrite is not enabled, skip this part, preg_match is always time&resources consuming task
-                $p_sParams = "/".Params::getParam('sParams', false, false);
+                $p_sParams = '/' . Params::getParam( 'sParams', false, false);
                 if(preg_match_all('|\/([^,]+),([^\/]*)|', $p_sParams, $m)) {
                     $l = count($m[0]);
                     for($k = 0;$k<$l;$k++) {
@@ -165,13 +179,16 @@
 
 
             $uriParams = Params::getParamsAsArray();
-            $searchUri = osc_search_url($uriParams);
-            if($this->uri!='feed') {
+	        try {
+		        $searchUri = osc_search_url( $uriParams );
+	        } catch ( Exception $e ) {
+	        }
+	        if( $this->uri !== 'feed') {
                 $_base_url = WEB_PATH;
                 if( MULTISITE==1 ) {
                     $_base_url = osc_multisite_url();
                 }
-                if (str_replace("%20", '+', $searchUri) != str_replace("%20", '+', ($_base_url . $this->uri))) {
+                if ( str_replace( '%20' , '+', $searchUri) != str_replace( '%20' , '+', $_base_url . $this->uri )) {
                     $this->redirectTo($searchUri, 301);
                 }
             }
@@ -184,7 +201,7 @@
                 if($p_sCategory == '') {
                     $p_sCategory = array();
                 } else {
-                    $p_sCategory = explode(",",$p_sCategory);
+                    $p_sCategory = explode( ',' , $p_sCategory);
                 }
             }
 
@@ -193,7 +210,7 @@
                 if($p_sCityArea == '') {
                     $p_sCityArea = array();
                 } else {
-                    $p_sCityArea = explode(",", $p_sCityArea);
+                    $p_sCityArea = explode( ',' , $p_sCityArea);
                 }
             }
 
@@ -202,7 +219,7 @@
                 if($p_sCity == '') {
                     $p_sCity = array();
                 } else {
-                    $p_sCity = explode(",", $p_sCity);
+                    $p_sCity = explode( ',' , $p_sCity);
                 }
             }
 
@@ -211,7 +228,7 @@
                 if($p_sRegion == '') {
                     $p_sRegion = array();
                 } else {
-                    $p_sRegion = explode(",", $p_sRegion);
+                    $p_sRegion = explode( ',' , $p_sRegion);
                 }
             }
 
@@ -220,7 +237,7 @@
                 if($p_sCountry == '') {
                     $p_sCountry = array();
                 } else {
-                    $p_sCountry = explode(",", $p_sCountry);
+                    $p_sCountry = explode( ',' , $p_sCountry);
                 }
             }
 
@@ -229,7 +246,7 @@
                 if($p_sUser == '') {
                     $p_sUser = '';
                 } else {
-                    $p_sUser = explode(",", $p_sUser);
+                    $p_sUser = explode( ',' , $p_sUser);
                 }
             }
 
@@ -238,11 +255,11 @@
                 if($p_sLocale == '') {
                     $p_sLocale = '';
                 } else {
-                    $p_sLocale = explode(",", $p_sLocale);
+                    $p_sLocale = explode( ',' , $p_sLocale);
                 }
             }
 
-            $p_sPattern   = trim(strip_tags(Params::getParam('sPattern')));
+            $p_sPattern   = osc_apply_filter('search_pattern', trim(strip_tags(Params::getParam('sPattern'))));
 
             // ADD TO THE LIST OF LAST SEARCHES
             if(osc_save_latest_searches() && (!Params::existParam('iPage') || Params::getParam('iPage')==1)) {
@@ -283,7 +300,7 @@
             $p_sFeed      = Params::getParam('sFeed');
             $p_iPage      = 0;
             if( is_numeric(Params::getParam('iPage')) && Params::getParam('iPage') > 0 ) {
-                $p_iPage      = intval(Params::getParam('iPage')) - 1;
+	            $p_iPage = (int) Params::getParam( 'iPage' ) - 1;
             }
 
             if($p_sFeed != '') {
@@ -297,9 +314,11 @@
             }
 
             // search results: it's blocked with the maxResultsPerPage@search defined in t_preferences
-            $p_iPageSize  = intval(Params::getParam('iPagesize'));
+	        $p_iPageSize = (int) Params::getParam( 'iPagesize' );
             if($p_iPageSize > 0) {
-                if($p_iPageSize > osc_max_results_per_page_at_search()) $p_iPageSize = osc_max_results_per_page_at_search();
+	            if ( $p_iPageSize > osc_max_results_per_page_at_search() ) {
+		            $p_iPageSize = osc_max_results_per_page_at_search();
+	            }
             } else {
                 $p_iPageSize = osc_default_results_per_page_at_search();
             }
@@ -309,7 +328,10 @@
             $successCat = false;
             if(count($p_sCategory) > 0) {
                 foreach($p_sCategory as $category) {
-                    $successCat = ($this->mSearch->addCategory($category) || $successCat);
+	                try {
+		                $successCat = ( $this->mSearch->addCategory( $category ) || $successCat );
+	                } catch ( Exception $e ) {
+	                }
                 }
             } else {
                 $bAllCategoriesChecked = true;
@@ -319,25 +341,25 @@
             foreach($p_sCityArea as $city_area) {
                 $this->mSearch->addCityArea($city_area);
             }
-            $p_sCityArea = implode(", ", $p_sCityArea);
+            $p_sCityArea = implode( ', ' , $p_sCityArea);
 
             //FILTERING CITY
             foreach($p_sCity as $city) {
                 $this->mSearch->addCity($city);
             }
-            $p_sCity = implode(", ", $p_sCity);
+            $p_sCity = implode( ', ' , $p_sCity);
 
             //FILTERING REGION
             foreach($p_sRegion as $region) {
                 $this->mSearch->addRegion($region);
             }
-            $p_sRegion = implode(", ", $p_sRegion);
+            $p_sRegion = implode( ', ' , $p_sRegion);
 
             //FILTERING COUNTRY
             foreach($p_sCountry as $country) {
                 $this->mSearch->addCountry($country);
             }
-            $p_sCountry = implode(", ", $p_sCountry);
+            $p_sCountry = implode( ', ' , $p_sCountry);
 
             // FILTERING PATTERN
             if($p_sPattern != '') {
@@ -391,8 +413,11 @@
 
             // CUSTOM FIELDS
             $custom_fields = Params::getParam('meta');
-            $fields = Field::newInstance()->findIDSearchableByCategories($p_sCategory);
-            $table = DB_TABLE_PREFIX.'t_item_meta';
+	        try {
+		        $fields = Field::newInstance()->findIDSearchableByCategories( $p_sCategory );
+	        } catch ( Exception $e ) {
+	        }
+	        $table = DB_TABLE_PREFIX.'t_item_meta';
             if(is_array($custom_fields)) {
                 foreach($custom_fields as $key => $aux) {
                     if(in_array($key, $fields)) {
@@ -406,7 +431,7 @@
                                     $sql = "SELECT fk_i_item_id FROM $table WHERE ";
                                     $str_escaped = Search::newInstance()->dao->escape($aux);
                                     $sql .= $table.'.fk_i_field_id = '.$key.' AND ';
-                                    $sql .= $table.".s_value LIKE ".$str_escaped;
+                                    $sql .= $table . '.s_value LIKE ' . $str_escaped;
                                     $this->mSearch->addConditions(DB_TABLE_PREFIX.'t_item.pk_i_id IN ('.$sql.')');
                                 }
                                 break;
@@ -416,7 +441,7 @@
                                     $sql = "SELECT fk_i_item_id FROM $table WHERE ";
                                     $str_escaped = Search::newInstance()->dao->escape($aux);
                                     $sql .= $table.'.fk_i_field_id = '.$key.' AND ';
-                                    $sql .= $table.".s_value = ".$str_escaped;
+                                    $sql .= $table . '.s_value = ' . $str_escaped;
                                     $this->mSearch->addConditions(DB_TABLE_PREFIX.'t_item.pk_i_id IN ('.$sql.')');
                                 }
                                 break;
@@ -424,7 +449,7 @@
                                 if($aux!='') {
                                     $sql = "SELECT fk_i_item_id FROM $table WHERE ";
                                     $sql .= $table.'.fk_i_field_id = '.$key.' AND ';
-                                    $sql .= $table.".s_value = 1";
+                                    $sql .= $table . '.s_value = 1';
                                     $this->mSearch->addConditions(DB_TABLE_PREFIX.'t_item.pk_i_id IN ('.$sql.')');
                                 }
                                 break;
@@ -437,8 +462,8 @@
                                     $end   = mktime('23', '59', '59', $m, $d, $y);
                                     $sql = "SELECT fk_i_item_id FROM $table WHERE ";
                                     $sql .= $table.'.fk_i_field_id = '.$key.' AND ';
-                                    $sql .= $table.".s_value >= ".($start)." AND ";
-                                    $sql .= $table.".s_value <= ".$end;
+                                    $sql .= $table . '.s_value >= ' . $start . ' AND ';
+                                    $sql .= $table . '.s_value <= ' . $end;
                                     $this->mSearch->addConditions(DB_TABLE_PREFIX.'t_item.pk_i_id IN ('.$sql.')');
                                 }
                                 break;
@@ -450,11 +475,11 @@
                                     $end   = $to;
                                     $sql = "SELECT fk_i_item_id FROM $table WHERE ";
                                     $sql .= $table.'.fk_i_field_id = '.$key.' AND ';
-                                    $sql .= $start." >= ".$table.".s_value AND s_multi = 'from'";
+                                    $sql .= $start . ' >= ' . $table . ".s_value AND s_multi = 'from'";
                                     $sql1 = "SELECT fk_i_item_id FROM $table WHERE ";
-                                    $sql1 .= $table.".fk_i_field_id = ".$key." AND ";
-                                    $sql1 .= $end." <= ".$table.".s_value AND s_multi = 'to'";
-                                    $sql_interval = "select a.fk_i_item_id from (".$sql.") a where a.fk_i_item_id IN (".$sql1.")";
+                                    $sql1 .= $table . '.fk_i_field_id = ' . $key . ' AND ';
+                                    $sql1 .= $end . ' <= ' . $table . ".s_value AND s_multi = 'to'";
+                                    $sql_interval = 'select a.fk_i_item_id from (' . $sql . ') a where a.fk_i_item_id IN (' . $sql1 . ')';
                                     $this->mSearch->addConditions(DB_TABLE_PREFIX.'t_item.pk_i_id IN ('.$sql_interval.')');
                                 }
                                 break;
@@ -471,9 +496,12 @@
             // RETRIEVE ITEMS AND TOTAL
             $key    = md5(osc_base_url().$this->mSearch->toJson());
             $found  = null;
-            $cache  = osc_cache_get($key, $found);
+	        try {
+		        $cache = osc_cache_get( $key , $found );
+	        } catch ( Exception $e ) {
+	        }
 
-            $aItems         = null;
+	        $aItems         = null;
             $iTotalItems    = null;
             if($cache) {
                 $aItems         = $cache['aItems'];
@@ -483,8 +511,13 @@
                 $iTotalItems = $this->mSearch->count();
                 $_cache['aItems']      = $aItems;
                 $_cache['iTotalItems'] = $iTotalItems;
-                osc_cache_set($key, $_cache, OSC_CACHE_TTL);
+	            try {
+		            osc_cache_set( $key , $_cache , OSC_CACHE_TTL );
+	            } catch ( Exception $e ) {
+	            }
             }
+            
+            $aItems = osc_apply_filter('pre_show_items', $aItems);
 
             $iStart    = $p_iPage * $p_iPageSize;
             $iEnd      = min(($p_iPage+1) * $p_iPageSize, $iTotalItems);
@@ -564,7 +597,7 @@
                 header('HTTP/1.1 404 Not Found');
             }
 
-            osc_run_hook("after_search");
+            osc_run_hook( 'after_search' );
 
             if(!Params::existParam('sFeed')) {
                 $this->doView('search.php');
@@ -581,25 +614,39 @@
                     if(osc_count_items()>0) {
                         while(osc_has_items()) {
 
-                            $itemArray = array(
-                                'title' => osc_item_title(),
-                                'link' => htmlentities( osc_item_url() , ENT_COMPAT, "UTF-8"),
-                                'description' => osc_item_description(),
-                                'country' => osc_item_country(),
-                                'region' => osc_item_region(),
-                                'city' => osc_item_city(),
-                                'city_area' => osc_item_city_area(),
-                                'category' => osc_item_category(),
-                                'dt_pub_date' => osc_item_pub_date()
-                            );
+	                        try {
+		                        $itemArray = array (
+			                        'title'       => osc_item_title() ,
+			                        'link'        => htmlentities( osc_item_url() , ENT_COMPAT , 'UTF-8' ) ,
+			                        'description' => osc_item_description() ,
+			                        'country'     => osc_item_country() ,
+			                        'region'      => osc_item_region() ,
+			                        'city'        => osc_item_city() ,
+			                        'city_area'   => osc_item_city_area() ,
+			                        'category'    => osc_item_category() ,
+			                        'dt_pub_date' => osc_item_pub_date()
+		                        );
+	                        } catch ( Exception $e ) {
+	                        }
 
-                            if(osc_count_item_resources() > 0) {
-                                osc_has_item_resources();
-                                $itemArray['image'] = array('url' => htmlentities(osc_resource_thumbnail_url(), ENT_COMPAT, "UTF-8"),
-                                    'title' => osc_item_title(),
-                                    'link' => htmlentities(osc_item_url(), ENT_COMPAT, "UTF-8"));
-                            }
-                            $feed->addItem($itemArray);
+	                        try {
+		                        if ( osc_count_item_resources() > 0 ) {
+			                        try {
+				                        osc_has_item_resources();
+			                        } catch ( Exception $e ) {
+			                        }
+			                        try {
+				                        $itemArray[ 'image' ] = array (
+					                        'url'   => htmlentities( osc_resource_thumbnail_url() , ENT_COMPAT , 'UTF-8' ) ,
+					                        'title' => osc_item_title() ,
+					                        'link'  => htmlentities( osc_item_url() , ENT_COMPAT , 'UTF-8' )
+				                        );
+			                        } catch ( Exception $e ) {
+			                        }
+		                        }
+	                        } catch ( Exception $e ) {
+	                        }
+	                        $feed->addItem($itemArray);
                         }
                     }
 
@@ -612,12 +659,18 @@
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
             Session::newInstance()->_clearVariables();
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 

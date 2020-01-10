@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -54,7 +56,7 @@
         /**
          * Set data related to t_city_area table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_city_area');
@@ -62,16 +64,18 @@
             $this->setFields( array('pk_i_id', 'fk_i_city_id', 's_name') );
         }
 
-        /**
-         * Get the cityArea by its name and city
-         *
-         * @access public
-         * @since unknown
-         * @param string $query
-         * @param int $cityId
-         * @return array
-         */
-        function findByName($cityAreaName, $cityId = null)
+	    /**
+	     * Get the cityArea by its name and city
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param     $cityAreaName
+	     * @param int $cityId
+	     *
+	     * @return array
+	     */
+        public function findByName($cityAreaName, $cityId = null)
         {
             $this->dao->select($this->getFields());
             $this->dao->from($this->getTableName());
@@ -98,7 +102,7 @@
          * @param $cityId
          * @return array
          */
-        function findByCity($cityId) {
+        public function findByCity($cityId) {
             $this->dao->select($this->getFields());
             $this->dao->from($this->getTableName());
             $this->dao->where('fk_i_city_id', $cityId);
@@ -112,15 +116,18 @@
             return $result->result();
         }
 
-        /**
-         *  Delete a city area
-         *
-         *  @access public
-         *  @since 3.1
-         *  @param $pk
-         *  @return int number of failed deletions or 0 in case of none
-         */
-        function deleteByPrimaryKey($pk) {
+	    /**
+	     *  Delete a city area
+	     *
+	     * @access public
+	     * @since  3.1
+	     *
+	     * @param $pk
+	     *
+	     * @return int number of failed deletions or 0 in case of none
+	     * @throws \Exception
+	     */
+        public function deleteByPrimaryKey($pk) {
             Item::newInstance()->deleteByCityArea($pk);
             User::newInstance()->update(array('fk_i_city_area_id' => null, 's_city_area' => ''), array('fk_i_city_area_id' => $pk));
             if(!$this->delete(array('pk_i_id' => $pk))) {
@@ -133,4 +140,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/CityArea.php */
-?>

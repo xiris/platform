@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,20 +18,26 @@
  * limitations under the License.
  */
 
-    class WebSecBaseModel extends SecBaseModel
+	/**
+	 * Class WebSecBaseModel
+	 */
+	class WebSecBaseModel extends SecBaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
         }
 
-        function isLogged()
+		/**
+		 * @return bool
+		 */
+		public function isLogged()
         {
             return osc_is_web_user_logged_in();
         }
 
         //destroying current session
-        function logout()
+        public function logout()
         {
             //destroying session
             $locale = Session::newInstance()->_get('userLocale');
@@ -39,16 +47,16 @@
             Session::newInstance()->_drop('userEmail');
             Session::newInstance()->_drop('userPhone');
             Session::newInstance()->session_start();
-            Session::newinstance()->_set('userLocale', $locale);
+            Session::newInstance()->_set( 'userLocale', $locale);
 
             Cookie::newInstance()->pop('oc_userId');
             Cookie::newInstance()->pop('oc_userSecret');
             Cookie::newInstance()->set();
         }
 
-        function showAuthFailPage()
+        public function showAuthFailPage()
         {
-            if(Params::getParam('page')=='ajax') {
+            if( Params::getParam('page') === 'ajax') {
                 echo json_encode(array('error' => 1, 'msg' => __('Session timed out')));
                 exit;
             } else {
@@ -59,4 +67,3 @@
     }
 
     /* file end: ./oc-includes/osclass/core/WebSecBaseModel.php */
-?>

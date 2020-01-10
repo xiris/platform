@@ -45,7 +45,7 @@
     osc_add_hook('admin_header','customHead', 10);
 
     function addHelp() {
-        echo '<p>' . sprintf(__("Change your site's look and feel by activating a theme among those available. You can download new themes from the <a href=\"%s\">market</a>. <strong>Be careful</strong>: if your theme has been customized, you'll lose all changes if you change to a new theme."), osc_admin_base_url(true) . '?page=market&action=themes') . '</p>';
+        echo '<p>' . __("Change your site's look and feel by activating a theme among those available. <strong>Be careful</strong>: if your theme has been customized, you'll lose all changes if you change to a new theme."). '</p>';
     }
     osc_add_hook('help_box','addHelp');
 
@@ -69,7 +69,6 @@
     <div class="appearance">
         <div id="tabs" class="ui-osc-tabs ui-tabs-right">
             <ul>
-                <li><a href="#market" onclick="window.location = '<?php echo osc_admin_base_url(true) . '?page=market&action=themes'; ?>'; return false; "><?php _e('Market'); ?></a></li>
                 <li><a href="#available-themes"><?php _e('Available themes'); ?></a></li>
             </ul>
             <div id="available-themes" class="ui-osc-tabs-panel">
@@ -200,7 +199,7 @@
                 if(data.error == 0) { // no errors
                     content += '<h3><?php echo osc_esc_js(__('The theme has been downloaded correctly, proceed to activate or preview it.')); ?></h3>';
                     content += "<p>";
-                    content += '<a class="btn btn-mini btn-green" href="<?php echo osc_admin_base_url(true); ?>?page=appearance&marketError='+data.error+'&slug='+data.data['s_update_url']+'"><?php echo osc_esc_js(__('Ok')); ?></a>';
+                    content += '<a class="btn btn-mini btn-green" href="<?php echo osc_admin_base_url(true); ?>?page=appearance&marketError='+data.error+'&slug='+oscEscapeHTML(data.data['s_update_url'])+'"><?php echo osc_esc_js(__('Ok')); ?></a>';
                     content += '<a class="btn btn-mini" href="javascript:location.reload(true)"><?php echo osc_esc_js(__('Close')); ?></a>';
                     content += "</p>";
                 } else {
@@ -218,13 +217,14 @@
             {"code" : $(this).attr('href').replace('#',''), 'section' : 'themes'},
             function(data){
                 if(data!=null) {
-                    $("#market_thumb").attr('src',data.s_thumbnail);
+                    $("#market_thumb").attr('src', data.s_thumbnail);
                     $("#market_code").attr("value", data.s_update_url);
-                    $("#market_name").html(data.s_title);
-                    $("#market_version").html(data.s_version);
-                    $("#market_author").html(data.s_contact_name);
+                    $("#market_name").text(data.s_title);
+                    $("#market_version").text(data.s_version);
+                    $("#market_author").text(data.s_contact_name);
                     $("#market_url").attr('href',data.s_source_file);
-                    $('#market_install').html("<?php echo osc_esc_js( __('Update') ); ?>");
+
+                    $('#market_install').text("<?php echo osc_esc_js( __('Update') ); ?>");
 
                     $('#market_installer').dialog({
                         modal:true,

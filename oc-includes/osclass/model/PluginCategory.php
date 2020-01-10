@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -23,14 +25,14 @@
     {
         /**
          *
-         * @var type
+         * @var
          */
         private static $instance;
 
-        /**
-         *
-         * @return type
-         */
+	    /**
+	     *
+	     * @return \PluginCategory
+	     */
         public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
@@ -50,15 +52,17 @@
             $this->setFields( array('s_plugin_name', 'fk_i_category_id') );
         }
 
-        /**
-         * Return all information given a category id
-         *
-         * @access public
-         * @since unknown
-         * @param type $categoryId
-         * @return type
-         */
-        function findByCategoryId($categoryId)
+	    /**
+	     * Return all information given a category id
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param $categoryId
+	     *
+	     * @return array
+	     */
+        public function findByCategoryId($categoryId)
         {
             $this->dao->select( $this->getFields() );
             $this->dao->from( $this->getTableName() );
@@ -81,7 +85,7 @@
          * @param string $plugin
          * @return array
          */
-        function listSelected($plugin)
+        public function listSelected($plugin)
         {
             $this->dao->select( $this->getFields() );
             $this->dao->from( $this->getTableName() );
@@ -110,7 +114,7 @@
          * @param int $categoryId
          * @return bool
          */
-        function isThisCategory($pluginName, $categoryId)
+        public function isThisCategory($pluginName, $categoryId)
         {
             $this->dao->select('COUNT(*) AS numrows');
             $this->dao->from( $this->getTableName() );
@@ -129,13 +133,8 @@
 
             $row = $result->row();
 
-            if( $row['numrows'] == 0 ) {
-                return false;
-            }
-
-            return true;
+	        return ! ( $row[ 'numrows' ] == 0 );
         }
     }
 
     /* file end: ./oc-includes/osclass/model/PluginCategory.php */
-?>

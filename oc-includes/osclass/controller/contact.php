@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,16 +18,19 @@
  * limitations under the License.
  */
 
-    class CWebContact extends BaseModel
+	/**
+	 * Class CWebContact
+	 */
+	class CWebContact extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             osc_run_hook( 'init_contact' );
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
             switch($this->action) {
                 case('contact_post'):   //contact_post
@@ -35,7 +40,7 @@
                                         $subject   = Params::getParam('subject');
                                         $message   = Params::getParam('message');
 
-                                        if( (osc_recaptcha_private_key() != '') ) {
+                                        if( osc_recaptcha_private_key() != '' ) {
                                             if( !osc_check_recaptcha() ) {
                                                 osc_add_flash_error_message( _m('The Recaptcha code is wrong'));
                                                 Session::newInstance()->_setForm('yourName', $yourName);
@@ -62,7 +67,7 @@
                                             $this->redirectTo(osc_contact_url());
                                         }
 
-                                        if ( !osc_validate_email($yourEmail, true) ) {
+                                        if ( !osc_validate_email($yourEmail) ) {
                                             osc_add_flash_error_message( _m('Please enter a correct email') );
                                             Session::newInstance()->_setForm('yourName', $yourName);
                                             Session::newInstance()->_setForm('subject', $subject);
@@ -87,11 +92,11 @@
 MESSAGE;
 
                                         $params = array(
-                                            'from'      => osc_contact_email(),
+                                            'from'      => _osc_from_email_aux(),
                                             'to'        => osc_contact_email(),
                                             'to_name'   => osc_page_title(),
                                             'reply_to'  => $yourEmail,
-                                            'subject'   => '[' . osc_page_title() . '] ' . __('Contact'),
+                                            'subject'   => '[' . osc_page_title() . '] ' . __('Contact') . ' - ' . $subject,
                                             'body'      => nl2br($message)
                                         );
 
@@ -122,7 +127,7 @@ MESSAGE;
                                                     $output = finfo_file($finfo, $tmpName);
                                                     finfo_close($finfo);
 
-                                                    $output = explode("; ",$output);
+                                                    $output = explode( '; ' , $output);
                                                     if ( is_array($output) ) {
                                                         $output = $output[0];
                                                     }
@@ -167,14 +172,20 @@ MESSAGE;
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
             Session::newInstance()->_clearVariables();
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 
     /* file end: ./contact.php */
-?>
+

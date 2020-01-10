@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -32,10 +34,17 @@
 
         public function __construct()
         {
+            parent::__construct();
             osc_add_filter('datatable_listing_class', array(&$this, 'row_class'));
         }
 
-        public function table($params)
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     * @throws \Exception
+	     */
+	    public function table( $params )
         {
             $this->addTableHeader();
             $this->mSearch = new Search(true);
@@ -43,14 +52,20 @@
             // add more conditions here
             osc_run_hook('manage_item_search_conditions', $this->mSearch);
             // do Search
-            $this->processData(Item::newInstance()->extendCategoryName($this->mSearch->doSearch(true)));
+            $this->processData(Item::newInstance()->extendCategoryName($this->mSearch->doSearch()));
             $this->totalFiltered = $this->mSearch->countAll();
             $this->total = $this->mSearch->count();
 
             return $this->getData();
         }
 
-        public function tableReported($params)
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     * @throws \Exception
+	     */
+	    public function tableReported( $params )
         {
             $this->addTableHeaderReported();
             $this->mSearch = new Search(true);
@@ -74,12 +89,12 @@
                 'expiration'  => 'dt_expiration'
                 );
             // column sort
-            if( !key_exists($sort, $arraySortColumns) ) {
+	        if ( ! array_key_exists( $sort , $arraySortColumns ) ) {
                 $sort       = 'dt_pub_date';
                 $this->mSearch->addHaving('i_num_spam > 0 OR i_num_bad_classified > 0 OR i_num_repeated > 0 OR i_num_offensive > 0 OR i_num_expired > 0');
             } else {
                 $sort = $arraySortColumns[$sort];
-                if($sort!='dt_pub_date') {
+                if( $sort !== 'dt_pub_date') {
                     $this->mSearch->addHaving($sort.' > 0');
                 } else {
                     $this->mSearch->addHaving('i_num_spam > 0 OR i_num_bad_classified > 0 OR i_num_repeated > 0 OR i_num_offensive > 0 OR i_num_expired > 0');
@@ -88,7 +103,7 @@
 
             $this->mSearch->order( $sort, $direction );
 
-            $this->mSearch->addTable(sprintf("%st_item_stats s", DB_TABLE_PREFIX));
+            $this->mSearch->addTable(sprintf( '%st_item_stats s' , DB_TABLE_PREFIX));
             $this->mSearch->addField('SUM(s.`i_num_spam`) as i_num_spam');
             $this->mSearch->addField('SUM(s.`i_num_bad_classified`) as i_num_bad_classified');
             $this->mSearch->addField('SUM(s.`i_num_repeated`) as i_num_repeated');
@@ -98,11 +113,11 @@
             // having
 
 
-            $this->mSearch->addConditions(sprintf(" %st_item.pk_i_id ", DB_TABLE_PREFIX));
-            $this->mSearch->addConditions(sprintf(" %st_item.pk_i_id = s.fk_i_item_id", DB_TABLE_PREFIX));
-            $this->mSearch->addGroupBy(sprintf(" %st_item.pk_i_id ", DB_TABLE_PREFIX));
+            $this->mSearch->addConditions(sprintf( ' %st_item.pk_i_id ' , DB_TABLE_PREFIX));
+            $this->mSearch->addConditions(sprintf( ' %st_item.pk_i_id = s.fk_i_item_id' , DB_TABLE_PREFIX));
+            $this->mSearch->addGroupBy(sprintf( ' %st_item.pk_i_id ' , DB_TABLE_PREFIX));
             // do Search
-            $this->processDataReported(Item::newInstance()->extendCategoryName($this->mSearch->doSearch(true)));
+            $this->processDataReported(Item::newInstance()->extendCategoryName($this->mSearch->doSearch()));
             $this->totalFiltered = $this->mSearch->countAll();
             $this->total = $this->mSearch->count();
 
@@ -113,22 +128,22 @@
         {
 
             $arg_date = '&sort=date';
-            if(Params::getParam('sort') == 'date') {
-                if(Params::getParam('direction') == 'desc') {
+            if( Params::getParam('sort') === 'date') {
+                if( Params::getParam('direction') === 'desc') {
                     $arg_date .= '&direction=asc';
-                };
+                }
             }
             $arg_expiration = '&sort=expiration';
-            if(Params::getParam('sort') == 'expiration') {
-                if(Params::getParam('direction') == 'desc') {
+            if( Params::getParam('sort') === 'expiration') {
+                if( Params::getParam('direction') === 'desc') {
                     $arg_expiration .= '&direction=asc';
-                };
+                }
             }
 
             Rewrite::newInstance()->init();
             $page  = (int)Params::getParam('iPage');
-            if($page==0) { $page = 1; };
-            Params::setParam('iPage', $page);
+            if($page==0) { $page = 1; }
+	        Params::setParam('iPage', $page);
             $url_base = preg_replace('|&direction=([^&]*)|', '', preg_replace('|&sort=([^&]*)|', '', osc_base_url().Rewrite::newInstance()->get_raw_request_uri()));
 
             $this->addColumn('status-border', '');
@@ -142,7 +157,7 @@
             $this->addColumn('expiration', '<a href="'.osc_esc_html($url_base.$arg_expiration).'">'.__('Expiration date').'</a>');
 
             $dummy = &$this;
-            osc_run_hook("admin_items_table", $dummy);
+            osc_run_hook( 'admin_items_table' , $dummy);
         }
 
         private function addTableHeaderReported()
@@ -150,37 +165,51 @@
 
             Rewrite::newInstance()->init();
             $page  = (int)Params::getParam('iPage');
-            if($page==0) { $page = 1; };
-            Params::setParam('iPage', $page);
+            if($page==0) { $page = 1; }
+	        Params::setParam('iPage', $page);
             $url_base = preg_replace('|&direction=([^&]*)|', '', preg_replace('|&sort=([^&]*)|', '', osc_base_url().Rewrite::newInstance()->get_raw_request_uri()));
             $arg_spam   = '&sort=spam'; $arg_bad    = '&sort=bad';
             $arg_rep    = '&sort=rep';  $arg_off    = '&sort=off';
             $arg_exp    = '&sort=exp';  $arg_date   = '&sort=date';
             $arg_expiration = '&sort=expiration';
-            $sort       = Params::getParam("sort");
-            $direction  = Params::getParam("direction");
+            $sort       = Params::getParam( 'sort' );
+            $direction  = Params::getParam( 'direction' );
 
             switch ($sort) {
                 case('spam'):
-                    if($direction == 'desc' || $direction == '') $arg_spam .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_spam .= '&direction=asc';
+	                }
                     break;
                 case('bad'):
-                    if($direction == 'desc' || $direction == '') $arg_bad .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_bad .= '&direction=asc';
+	                }
                     break;
                 case('rep'):
-                    if($direction == 'desc' || $direction == '') $arg_rep .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_rep .= '&direction=asc';
+	                }
                     break;
                 case('off'):
-                    if($direction == 'desc' || $direction == '') $arg_off .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_off .= '&direction=asc';
+	                }
                     break;
                 case('exp'):
-                    if($direction == 'desc' || $direction == '') $arg_exp .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_exp .= '&direction=asc';
+	                }
                     break;
                 case('date'):
-                    if($direction == 'desc' || $direction == '') $arg_date .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_date .= '&direction=asc';
+	                }
                     break;
                 case('expiration'):
-                    if($direction == 'desc' || $direction == '') $arg_expiration .= '&direction=asc';
+	                if ( $direction === 'desc' || $direction == '' ) {
+		                $arg_expiration .= '&direction=asc';
+	                }
                     break;
                 default:
                     break;
@@ -206,10 +235,15 @@
             $this->addColumn('expiration', '<a id="order_expiration" href="'.osc_esc_html($url_expiration).'">'.__('Expiration date').'</a>');
 
             $dummy = &$this;
-            osc_run_hook("admin_items_reported_table", $dummy);
+            osc_run_hook( 'admin_items_reported_table' , $dummy);
         }
 
-        private function processData($items)
+	    /**
+	     * @param $items
+	     *
+	     * @throws \Exception
+	     */
+	    private function processData( $items )
         {
             if(!empty($items)) {
 
@@ -267,7 +301,7 @@
                     // more actions
                     $moreOptions = '<li class="show-more">'.PHP_EOL.'<a href="#" class="show-more-trigger">'. __('Show more') .'...</a>'. PHP_EOL .'<ul>'. PHP_EOL;
                     foreach( $options_more as $actual) {
-                        $moreOptions .= '<li>'.$actual."</li>".PHP_EOL;
+                        $moreOptions .= '<li>'.$actual . '</li>' . PHP_EOL;
                     }
                     $moreOptions .= '</ul>'. PHP_EOL .'</li>'.PHP_EOL;
 
@@ -298,7 +332,7 @@
                     $row['category'] = $aRow['s_category_name'];
                     $row['location'] = $this->get_row_location();
                     $row['date'] = osc_format_date($aRow['dt_pub_date'], osc_date_format() . ' ' . osc_time_format() );
-                    $row['expiration'] = ($aRow['dt_expiration'] != '9999-12-31 23:59:59') ? osc_format_date($aRow['dt_expiration'], osc_date_format() . ' ' . osc_time_format() ) : __('Never expires');
+                    $row['expiration'] = ( $aRow['dt_expiration'] !== '9999-12-31 23:59:59') ? osc_format_date( $aRow['dt_expiration'], osc_date_format() . ' ' . osc_time_format() ) : __( 'Never expires');
 
                     $row = osc_apply_filter('items_processing_row', $row, $aRow);
 
@@ -309,7 +343,12 @@
             }
         }
 
-        private function processDataReported($items)
+	    /**
+	     * @param $items
+	     *
+	     * @throws \Exception
+	     */
+	    private function processDataReported( $items )
         {
             if(!empty($items)) {
 
@@ -365,7 +404,7 @@
                     $row['exp'] = $aRow['i_num_expired'];
                     $row['off'] = $aRow['i_num_offensive'];
                     $row['date'] = osc_format_date($aRow['dt_pub_date'], osc_date_format() . ' ' . osc_time_format() );
-                    $row['expiration'] = ($aRow['dt_expiration'] != '9999-12-31 23:59:59') ? osc_format_date($aRow['dt_expiration'], osc_date_format() . ' ' . osc_time_format() ) : __('Never expires') ;
+                    $row['expiration'] = ( $aRow['dt_expiration'] !== '9999-12-31 23:59:59') ? osc_format_date( $aRow['dt_expiration'], osc_date_format() . ' ' . osc_time_format() ) : __( 'Never expires') ;
 
                     $row = osc_apply_filter('items_processing_reported_row', $row, $aRow);
 
@@ -376,7 +415,10 @@
             }
         }
 
-        private function getDBParams($_get)
+	    /**
+	     * @param $_get
+	     */
+	    private function getDBParams( $_get )
         {
 
             if(!isset($_get['iDisplayStart'])) {
@@ -397,67 +439,67 @@
             $no_user_email  = '';
             // get & set values
             foreach($_get as $k => $v) {
-                if($k == 'sSearch' && $v != '') {
+                if( $k === 'sSearch' && $v != '') {
                     $this->mSearch->addPattern($v);
                     $this->withFilters = true;
                 }
 
                 // filters
-                if($k == 'userId' && $v != '') {
+                if( $k === 'userId' && $v != '') {
                     $this->mSearch->fromUser($v);
                     $this->withFilters = true;
                     $withUserId = true;
                 }
-                if($k == 'itemId' && $v != '') {
+                if( $k === 'itemId' && $v != '') {
                     $this->mSearch->addItemId($v);
                     $this->withFilters = true;
                 }
-                if($k == 'countryId' && $v != '') {
+                if( $k === 'countryId' && $v != '') {
                     $this->mSearch->addCountry($v);
                     $this->withFilters = true;
                 }
-                if($k == 'regionId' && $v != '') {
+                if( $k === 'regionId' && $v != '') {
                     $this->mSearch->addRegion($v);
                     $this->withFilters = true;
                 }
-                if($k == 'cityId' && $v != '') {
+                if( $k === 'cityId' && $v != '') {
                     $this->mSearch->addCity($v);
                     $this->withFilters = true;
                 }
-                if($k == 'country' && $v != '') {
+                if( $k === 'country' && $v != '') {
                     $this->mSearch->addCountry($v);
                     $this->withFilters = true;
                 }
-                if($k == 'region' && $v != '') {
+                if( $k === 'region' && $v != '') {
                     $this->mSearch->addRegion($v);
                     $this->withFilters = true;
                 }
 
-                if($k == 'city' && $v != '') {
+                if( $k === 'city' && $v != '') {
                     $this->mSearch->addCity($v);
                     $this->withFilters = true;
                 }
-                if($k == 'catId' && $v != '') {
+                if( $k === 'catId' && $v != '') {
                     $this->mSearch->addCategory($v);
                     $this->withFilters = true;
                 }
-                if($k == 'b_premium' && $v != '') {
+                if( $k === 'b_premium' && $v != '') {
                     $this->mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_premium = '.$v);
                     $this->withFilters = true;
                 }
-                if($k == 'b_active' && $v != '') {
+                if( $k === 'b_active' && $v != '') {
                     $this->mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_active = '.$v);
                     $this->withFilters = true;
                 }
-                if($k == 'b_enabled' && $v != '') {
+                if( $k === 'b_enabled' && $v != '') {
                     $this->mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_enabled = '.$v);
                     $this->withFilters = true;
                 }
-                if($k == 'b_spam' && $v != '') {
+                if( $k === 'b_spam' && $v != '') {
                     $this->mSearch->addItemConditions(DB_TABLE_PREFIX.'t_item.b_spam = '.$v);
                     $this->withFilters = true;
                 }
-                if($k == 'user' && $v != '') {
+                if( $k === 'user' && $v != '') {
                     $no_user_email = $v;
                 }
             }
@@ -471,8 +513,8 @@
             // set start and limit using iPage param
             $start = ($this->iPage - 1) * $_get['iDisplayLength'];
 
-            $this->start = intval( $start );
-            $this->limit = intval( $_get['iDisplayLength'] );
+	        $this->start = (int) $start;
+	        $this->limit = (int) $_get[ 'iDisplayLength' ];
             $this->mSearch->limit($this->start, $this->limit);
 
             $direction = $_get['direction'];
@@ -485,7 +527,7 @@
             // column sort
             $sort       = $_get['sort'];
             $arraySortColumns = array('date'  => 'dt_pub_date', 'expiration'  => 'dt_expiration');
-            if(!key_exists($sort, $arraySortColumns)) {
+	        if ( ! array_key_exists( $sort , $arraySortColumns ) ) {
                 $sort       = 'dt_pub_date';
             } else {
                 $sort = $arraySortColumns[$sort];
@@ -496,17 +538,30 @@
 
         }
 
-        public function withFilters()
+	    /**
+	     * @return bool
+	     */
+	    public function withFilters()
         {
             return $this->withFilters;
         }
 
-        public function rawRows()
+	    /**
+	     * @return array
+	     */
+	    public function rawRows()
         {
             return $this->rawRows;
         }
 
-        public function row_class($class, $rawRow, $row)
+	    /**
+	     * @param $class
+	     * @param $rawRow
+	     * @param $row
+	     *
+	     * @return array
+	     */
+	    public function row_class( $class , $rawRow , $row )
         {
             View::newInstance()->_exportVariableToView('item', $rawRow);
             $status = $this->get_row_status();
@@ -599,4 +654,4 @@
         }
     }
 
-?>
+

@@ -16,14 +16,16 @@
  * limitations under the License.
  */
 
-    if(!defined('BCRYPT_COST')) { define('BCRYPT_COST', 15); };
-
     /**
     * Helper Security
     * @package Osclass
     * @subpackage Helpers
     * @author Osclass
     */
+
+	use OpensslCryptor\Cryptor;
+
+	if(!defined( 'BCRYPT_COST')) { define( 'BCRYPT_COST', 15); }
 
     /**
      * Creates a random password.
@@ -35,8 +37,9 @@
         shuffle($dict);
 
         $pass = '';
-        for($i = 0; $i < $length; $i++)
-            $pass .= $dict[rand(0, count($dict) - 1)];
+	    for ( $i = 0; $i < $length; $i ++ ) {
+		    $pass .= $dict[ mt_rand( 0 , count( $dict ) - 1 ) ];
+	    }
 
         return $pass;
     }
@@ -61,15 +64,14 @@
      */
     function osc_csrf_token_url() {
         list($name, $token) = osc_csrfguard_generate_token();
-        return "CSRFName=".$name."&CSRFToken=".$token;
+        return 'CSRFName=' . $name . '&CSRFToken=' . $token;
     }
 
     /**
-     * Check is CSRF token is valid, die in other case
+     * Check if CSRF token is valid, die in other case
      *
      * @since 3.1
      */
-
     function osc_csrf_check() {
         $error      = false;
         $str_error  = '';
@@ -85,17 +87,15 @@
             }
         }
 
-        if( defined('IS_AJAX') ) {
-            if($error && IS_AJAX === true ) {
-                echo json_encode(array(
-                    'error' => 1,
-                    'msg'   => $str_error
-                ));
-                exit;
-            }
+	    if ( defined( 'IS_AJAX' ) && $error && IS_AJAX === true ) {
+		    echo json_encode( array (
+			                      'error' => 1 ,
+			                      'msg'   => $str_error
+		                      ) );
+		    exit;
         }
 
-        // ¿ check if is ajax request ?
+        // check ajax request
         if($error) {
             if(OC_ADMIN) {
                 osc_add_flash_error_message($str_error, 'admin');
@@ -104,7 +104,7 @@
             }
 
             $url = osc_get_http_referer();
-            // be sure that drop session referer
+            // drop session referer
             Session::newInstance()->_dropReferer();
             if($url!='') {
                 osc_redirect_to($url);
@@ -119,7 +119,7 @@
     }
 
     /**
-     * Check is an email and IP are banned
+     * Check if an email and/or IP are banned
      *
      * @param string $email
      * @param string $ip
@@ -141,7 +141,7 @@
     }
 
     /**
-     * Check is an email and IP are banned
+     * Check if IP is banned
      *
      * @param string $ip
      * @param string $rules (optional, to savetime and resources)
@@ -152,11 +152,11 @@
         if($rules==null) {
             $rules = BanRule::newInstance()->listAll();
         }
-        $ip_blocks = explode(".", $ip);
+        $ip_blocks = explode( '.' , $ip);
         if(count($ip_blocks)==4) {
             foreach($rules as $rule) {
                 if($rule['s_ip']!='') {
-                    $blocks = explode(".", $rule['s_ip']);
+                    $blocks = explode( '.' , $rule['s_ip']);
                     if(count($blocks)==4) {
                         $matched = true;
                         for($k=0;$k<4;$k++) {
@@ -165,7 +165,7 @@
                                     $matched = false;
                                     break;
                                 }
-                            } else if($blocks[$k]!="*" && $blocks[$k]!=$ip_blocks[$k]) {
+                            } else if( $blocks[$k] !== '*' && $blocks[$k] != $ip_blocks[$k]) {
                                 $matched = false;
                                 break;
                             }
@@ -181,7 +181,7 @@
     }
 
     /**
-     * Check is an email and IP are banned
+     * Check if email is banned
      *
      * @param string $email
      * @param string $rules (optional, to savetime and resources)
@@ -194,9 +194,12 @@
         }
         $email = strtolower($email);
         foreach($rules as $rule) {
-            $rule = str_replace("*", ".*", str_replace(".", "\.", strtolower($rule['s_email'])));
+	        $rule = str_replace( array ( '*' , '|' ) , array (
+		        '.*' ,
+		        "\\"
+	        ) , str_replace( '.' , "\.", strtolower( $rule['s_email'])) );
             if($rule!='') {
-                if(substr($rule,0,1)=="!") {
+	            if ( $rule[ 0 ] === '!' ) {
                     $rule = '|^((?'.$rule.').*)$|';
                 } else {
                     $rule = '|^'.$rule.'$|';
@@ -210,7 +213,7 @@
     }
 
     /**
-     * Check is an username is blacklisted
+     * Check if username is blacklisted
      *
      * @param string $username
      * @since 3.1
@@ -221,7 +224,7 @@
         if(preg_replace('|(\d+)|', '', $username)=='') {
          return true;
         }
-        $blacklist = explode(",", osc_username_blacklist());
+        $blacklist = explode( ',' , osc_username_blacklist());
         foreach($blacklist as $bl) {
             if(stripos($username, $bl)!==false) {
                 return true;
@@ -230,68 +233,61 @@
         return false;
     }
 
-    /*
-     * Verify an user's password
-     *
-     * @param $password plain-text
-     * @hash bcrypt/sha1
-     * @since 3.3
-     * @return boolean
-     */
-    function osc_verify_password($password, $hash) {
-        if(version_compare(PHP_VERSION, '5.3.7')>=0) {
-            return password_verify($password, $hash)?true:(sha1($password)==$hash);
-        }
 
-        require_once LIB_PATH . 'Bcrypt.php';
-        if(CRYPT_BLOWFISH==1) {
-            $bcrypt = new Bcrypt(BCRYPT_COST);
-            return $bcrypt->verify($password, $hash)?true:(sha1($password)==$hash);
-        }
-        return (sha1($password)==$hash);
+	/**
+	 * Verify an user's password
+	 *
+	 * @param $password plain-text
+	 * @param $hash
+	 *
+	 * @return bool
+	 * @throws \Exception
+	 * @hash  bcrypt/sha1
+	 * @since 3.3
+	 */
+	function osc_verify_password( $password , $hash ) {
+
+            return password_verify($password, $hash)?true:(sha1($password)==$hash);
     }
 
-    /*
-     * Hash a password in available method (bcrypt/sha1)
-     *
-     * @param $password plain-text
-     * @since 3.3
-     * @return string hashed password
-     */
-    function osc_hash_password($password) {
-        if(version_compare(PHP_VERSION, '5.3.7')>=0) {
+
+	/**
+	 * Hash a password in available method (bcrypt/sha1)
+	 *
+	 * @param $password plain-text
+	 *
+	 * @return string hashed password
+	 * @throws \Exception
+	 * @since 3.3
+	 */
+	function osc_hash_password( $password ) {
+
             $options = array('cost' => BCRYPT_COST);
             return password_hash($password, PASSWORD_BCRYPT, $options);
-        }
-
-        require_once LIB_PATH . 'Bcrypt.php';
-        if(CRYPT_BLOWFISH==1) {
-            $bcrypt = new Bcrypt(BCRYPT_COST);
-            return $bcrypt->hash($password);
-        }
-        return sha1($password);
     }
 
-    function osc_encrypt_alert($alert) {
+
+	/**
+	 * @param $alert
+	 *
+	 * @return string
+	 */
+	function osc_encrypt_alert( $alert ) {
         $string = osc_genRandomPassword(32) . $alert;
         osc_set_alert_private_key(); // renew private key and
         osc_set_alert_public_key();  // public key
-        $key = hash("sha256", osc_get_alert_private_key(), true);
-        if(function_exists('mcrypt_module_open')) {
-            $cipher = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', MCRYPT_MODE_CBC, '');
-            $cipherText = '';
-            if (mcrypt_generic_init($cipher, $key, $key) != -1) {
-                $cipherText = mcrypt_generic($cipher, $string);
-                mcrypt_generic_deinit($cipher);
-            }
-            return $cipherText;
-        };
+        $key = hash( 'sha256' , osc_get_alert_private_key(), true);
 
+		if(function_exists('openssl_digest') && function_exists('openssl_encrypt') && function_exists('openssl_decrypt') && in_array('aes-256-ctr', openssl_get_cipher_methods(true)) && in_array('sha256', openssl_get_md_methods(true))) {
+            return Cryptor::Encrypt($string, $key, 0);
+        }
+
+        // COMPATIBILITY
         while (strlen($string) % 32 != 0) {
             $string .= "\0";
         }
-        require_once LIB_PATH . 'phpseclib/Crypt/Rijndael.php';
-        $cipher = new Crypt_Rijndael(CRYPT_RIJNDAEL_MODE_CBC);
+
+        $cipher = new phpseclib\Crypt\Rijndael();
         $cipher->disablePadding();
         $cipher->setBlockLength(256);
         $cipher->setKey($key);
@@ -299,19 +295,23 @@
         return $cipher->encrypt($string);
     }
 
-    function osc_decrypt_alert($string) {
-        $key = hash("sha256", osc_get_alert_private_key(), true);
-        if(function_exists('mcrypt_module_open')) {
-            $cipher = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', MCRYPT_MODE_CBC, '');
-            $cipherText = '';
-            if (mcrypt_generic_init($cipher, $key, $key) != -1) {
-                $cipherText = mdecrypt_generic($cipher, $string);
-                mcrypt_generic_deinit($cipher);
-            }
-            return trim(substr($cipherText, 32));
-        };
-        require_once LIB_PATH . 'phpseclib/Crypt/Rijndael.php';
-        $cipher = new Crypt_Rijndael(CRYPT_RIJNDAEL_MODE_CBC);
+
+    /**
+    * @param $string
+    *
+    * @return string
+    * @throws \Exception
+    */
+	function osc_decrypt_alert( $string ) {
+        $key = hash( 'sha256' , osc_get_alert_private_key(), true);
+
+		if(function_exists('openssl_digest') && function_exists('openssl_encrypt') && function_exists('openssl_decrypt') && in_array('aes-256-ctr', openssl_get_cipher_methods(true)) && in_array('sha256', openssl_get_md_methods(true))) {
+            return trim(substr(Cryptor::Decrypt($string, $key, 0), 32));
+        }
+
+        // COMPATIBILITY
+
+        $cipher = new phpseclib\Crypt\Rijndael();
         $cipher->disablePadding();
         $cipher->setBlockLength(256);
         $cipher->setKey($key);
@@ -325,7 +325,11 @@
         }
     }
 
-    function osc_get_alert_public_key() {
+
+	/**
+	 * @return string
+	 */
+	function osc_get_alert_public_key() {
         return Session::newInstance()->_get('alert_public_key');
     }
 
@@ -335,27 +339,33 @@
         }
     }
 
-    function osc_get_alert_private_key() {
+
+	/**
+	 * @return string
+	 */
+	function osc_get_alert_private_key() {
         return Session::newInstance()->_get('alert_private_key');
     }
 
-    function osc_random_string($length) {
+
+	/**
+	 * @param $length
+	 *
+	 * @return bool|string
+	 */
+	function osc_random_string( $length ) {
         $buffer = '';
         $buffer_valid = false;
-        if (function_exists('mcrypt_create_iv') && !defined('PHALANGER')) {
-            $buffer = mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
-            if ($buffer) {
-                $buffer_valid = true;
-            }
-        }
-        if (!$buffer_valid && function_exists('openssl_random_pseudo_bytes')) {
+
+        if (function_exists('openssl_random_pseudo_bytes')) {
             $buffer = openssl_random_pseudo_bytes($length);
             if ($buffer) {
                 $buffer_valid = true;
             }
         }
+
         if (!$buffer_valid && is_readable('/dev/urandom')) {
-            $f = fopen('/dev/urandom', 'r');
+	        $f    = fopen( '/dev/urandom' , 'rb' );
             $read = strlen($buffer);
             while ($read < $length) {
                 $buffer .= fread($f, $length - $read);
@@ -366,16 +376,18 @@
                 $buffer_valid = true;
             }
         }
+
         if (!$buffer_valid || strlen($buffer) < $length) {
             $bl = strlen($buffer);
             for ($i = 0; $i < $length; $i++) {
                 if ($i < $bl) {
-                    $buffer[$i] = $buffer[$i] ^ chr(mt_rand(0, 255));
+	                $buffer[ $i ] ^= chr( mt_rand( 0 , 255 ) );
                 } else {
                     $buffer .= chr(mt_rand(0, 255));
                 }
             }
         }
+
         if(!$buffer_valid) {
             $buffer = osc_genRandomPassword(2*$length);
         }

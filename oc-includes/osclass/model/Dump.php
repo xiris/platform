@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -35,7 +37,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \Dump
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -46,7 +51,7 @@
         /**
          * Set data
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
         }
@@ -56,7 +61,7 @@
          *
          * @return array
          */
-        function showTables()
+        public function showTables()
         {
             $res = $this->dao->query('SHOW TABLES;');
             if($res) {
@@ -73,11 +78,13 @@
          * @param string $table
          * @return bool
          */
-        function table_structure($path, $table)
+        public function table_structure($path, $table)
         {
-            if ( !is_writable($path) ) return false;
+	        if ( ! is_writable( $path ) ) {
+		        return false;
+	        }
 
-            $_str = "/* Table structure for table `" . $table . "` */\n";
+            $_str = '/* Table structure for table `' . $table . "` */\n";
 
             $sql = 'show create table `' . $table . '`;';
 
@@ -93,7 +100,7 @@
                 $_str .= "\n\n";
             }
 
-            $f = fopen($path, "a");
+	        $f = fopen( $path , 'ab' );
             fwrite($f, $_str);
             fclose($f);
 
@@ -103,24 +110,26 @@
         /**
          * Dump all table rows into path
          *
-         * @param type $path
-         * @param type $table
+         * @param string $path
+         * @param string $table
+         *
          * @return bool
          */
-        function table_data($path, $table)
+        public function table_data($path, $table)
         {
-            if ( !is_writable($path) ) return false;
+	        if ( ! is_writable( $path ) ) {
+		        return false;
+	        }
 
             $this->dao->select();
             $this->dao->from($table);
-            $res = $this->dao->get();
-            if($res) {
+            $res    = $this->dao->get();
+	        $result = array ();
+	        if ( $res ) {
                 $result = $res->result();
-            } else {
-                $result = array();
             }
 
-            $_str = '';
+	        $_str = '';
             if($res) {
                 $num_rows   = $res->numRows();
                 $num_fields = $res->numFields();
@@ -134,7 +143,7 @@
                     $i = 0;
 
                     while ($meta = $res->resultId->fetch_field()) {
-                        array_push($field_type, $meta->type);
+	                    $field_type[] = $meta->type;
                     }
 
                     $_str .= 'insert into `' . $table . '` values';
@@ -145,10 +154,10 @@
                         $this->_dump_table_category($result, $num_fields, $field_type, $fields, $index, $num_rows, $_str);
                     } else {
                         foreach($result as $row) {
-                            $_str .= "(";
+                            $_str .= '(';
                             for( $i = 0; $i < $num_fields; $i++ ) {
                                 $v = $row[$fields[$i]->name];
-                                if(is_null($v)) {
+	                            if ( null === $v ) {
                                     $_str .= 'null';
                                 } else {
                                     $this->_quotes($fields[$i]->type, $_str, $row[$fields[$i]->name]);
@@ -174,7 +183,7 @@
 
             $_str .= "\n";
 
-            $f = fopen($path, "a");
+	        $f = fopen( $path , 'ab' );
             fwrite($f, $_str);
             fclose($f);
 
@@ -184,20 +193,20 @@
         /**
          * Specific dump for t_category table
          *
-         * @param type $result
-         * @param type $num_fields
-         * @param type $field_type
-         * @param type $fields
-         * @param type $index
-         * @param type $num_rows
-         * @param type $_str
+         * @param $result
+         * @param $num_fields
+         * @param $field_type
+         * @param $fields
+         * @param $index
+         * @param $num_rows
+         * @param $_str
          */
         private function _dump_table_category($result, $num_fields, $field_type, $fields, $index, $num_rows, &$_str)
         {
             $short_rows = array();
             $unshort_rows = array();
             foreach($result as $row) {
-                if(($row['fk_i_parent_id']) == NULL) {
+                if( $row['fk_i_parent_id'] == NULL) {
                     $short_rows[] = $row;
                 } else {
                     $unshort_rows[$row['pk_i_id']] = $row;
@@ -216,10 +225,10 @@
             }
 
             foreach($short_rows as $row) {
-                $_str .= "(";
+                $_str .= '(';
                 for( $i = 0; $i < $num_fields; $i++ ) {
                     $v = $row[$fields[$i]->name];
-                    if(is_null($v)) {
+	                if ( null === $v ) {
                         $_str .= 'null';
                     } else {
                         $this->_quotes($fields[$i]->type, $_str, $v);
@@ -241,16 +250,17 @@
             }
         }
 
-        /**
-         * Add quotes if it's necessary
-         *
-         * data type =>  http://www.php.net/manual/es/mysqli-result.fetch-field.php#106064
-         *
-         * @param type $type
-         * @param type $_str
-         * @param type $value
-         */
-        private function _quotes($type, &$_str, $value)
+
+	    /**
+	     * Add quotes if it's necessary
+	     *
+	     * data =>  http://www.php.net/manual/es/mysqli-result.fetch-field.php#106064
+	     *
+	     * @param $type
+	     * @param $_str
+	     * @param $value
+	     */
+	    private function _quotes( $type , &$_str, $value)
         {
 //            * numeric *
 //            BIT: 16 - TINYINT: 1 - BOOL: 1 - SMALLINT: 2 - MEDIUMINT: 9
@@ -265,16 +275,15 @@
 
             $aNumeric = array(16, 1, 2, 9, 3, 8, 4, 5, 246 );
             $aDates   = array(10, 12, 7, 11, 13 );
-            $aString  = array(254, 253, 252 );
+            $aString  = array ( 254 , 253 , 252 );
 
-            if(in_array($type, $aNumeric) ) {
-                $_str .= $value;
-            } else if(in_array($type, $aDates) ) {
-                $_str .= '\'' . $this->dao->connId->real_escape_string($value) . '\'';
-            } else if(in_array($type, $aString) ) {
+		    if ( in_array( $type , $aNumeric , true ) ) {
+			    $_str .= $value;
+		    } else if ( in_array( $type , $aDates , true ) ) {
+                $_str .= '\'' . $this->dao->connId->real_escape_string( $value ) . '\'';
+		    } else if ( in_array( $type , $aString , true ) ) {
                 $_str .= '\'' . $this->dao->connId->real_escape_string($value) . '\'';
             }
         }
     }
     /* file end: ./oc-includes/osclass/model/Dump.php */
-?>

@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,20 +18,23 @@
  * limitations under the License.
  */
 
-    class CWebMain extends BaseModel
+	/**
+	 * Class CWebMain
+	 */
+	class CWebMain extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             osc_run_hook( 'init_main' );
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
             switch($this->action) {
                 case('logout'):         // unset only the required parameters in Session
-                                        osc_run_hook("logout");
+                                        osc_run_hook( 'logout' );
 
                                         Session::newInstance()->_drop('userId');
                                         Session::newInstance()->_drop('userName');
@@ -47,14 +52,19 @@
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
             Session::newInstance()->_clearVariables();
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 
     /* file end: ./main.php */
-?>

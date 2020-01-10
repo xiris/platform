@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,15 +18,24 @@
  * limitations under the License.
  */
 
-    class PageForm extends Form {
+	/**
+	 * Class PageForm
+	 */
+	class PageForm extends Form {
 
-        static public function primary_input_hidden($page = null) {
+		/**
+		 * @param null $page
+		 */
+		public static function primary_input_hidden( $page = null ) {
             if(isset($page['pk_i_id'])) {
-                parent::generic_input_hidden("id", $page["pk_i_id"]);
+                parent::generic_input_hidden( 'id' , $page[ 'pk_i_id' ]);
             }
         }
 
-        static public function internal_name_input_text($page = null) {
+		/**
+		 * @param null $page
+		 */
+		public static function internal_name_input_text( $page = null ) {
             $internal_name = '';
             if( is_array($page) && isset($page['s_internal_name']) ) {
                 $internal_name = $page['s_internal_name'];
@@ -32,22 +43,31 @@
             if( Session::newInstance()->_getForm('s_internal_name') != '' ) {
                 $internal_name = Session::newInstance()->_getForm('s_internal_name');
             }
-            parent::generic_input_text('s_internal_name', $internal_name, null, (isset($page['b_indelible']) && $page['b_indelible'] == 1) ? true : false);
+			parent::generic_input_text( 's_internal_name' , $internal_name , null , ( isset( $page[ 'b_indelible' ] ) && $page[ 'b_indelible' ] == 1 ) );
         }
-        
-        static public function link_checkbox($page = null) {
+
+		/**
+		 * @param null $page
+		 */
+		public static function link_checkbox( $page = null ) {
             $checked = true;
             if( is_array($page) && isset($page['b_link']) && $page['b_link']==0 ) {
                 $checked = false;
             }
 
-            parent::generic_input_checkbox('b_link', "1", $checked);
+            parent::generic_input_checkbox( 'b_link', '1' , $checked);
         }
 
-        static public function multilanguage_name_description($locales, $page = null) {
+		/**
+		 * @param      $locales
+		 * @param null $page
+		 */
+		public static function multilanguage_name_description( $locales , $page = null ) {
             $num_locales = count($locales);
-            if($num_locales > 1) echo '<div class="tabber">';
-            $aFieldsDescription = Session::newInstance()->_getForm("aFieldsDescription");
+	        if ( $num_locales > 1 ) {
+		        echo '<div class="tabber">';
+	        }
+            $aFieldsDescription = Session::newInstance()->_getForm( 'aFieldsDescription' );
             foreach($locales as $locale) {
                 if($num_locales > 1) {
                     echo '<div class="tabbertab">';
@@ -89,4 +109,4 @@
         }
     }
 
-?>
+

@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -41,7 +43,10 @@
          */
         private $cachedAdmin;
 
-        public static function newInstance()
+	    /**
+	     * @return \Admin
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -52,7 +57,7 @@
         /**
          * Set data from t_admin table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_admin');
@@ -67,13 +72,21 @@
             }
         }
 
-        public function findByPrimaryKey($id, $locale = null)
+	    /**
+	     * @param string $id
+	     * @param null   $locale
+	     *
+	     * @return mixed|string
+	     */
+	    public function findByPrimaryKey( $id , $locale = null )
         {
-            if ($id == '') return '';
+	        if ( $id == '' ) {
+		        return '';
+	        }
             if (isset($this->cachedAdmin[$id])) {
                 return $this->cachedAdmin[$id];
             }
-            $this->cachedAdmin[$id] = parent::findByPrimaryKey($id, $locale);
+	        $this->cachedAdmin[ $id ] = parent::findByPrimaryKey( $id );
             return $this->cachedAdmin[$id];
         }
 
@@ -83,10 +96,12 @@
          *
          * @access public
          * @since unknown
+         *
          * @param string $email
-         * @return array
+         *
+         * @return array|bool
          */
-        function findByEmail($email)
+        public function findByEmail($email)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -106,10 +121,12 @@
          *
          * @access public
          * @since unknown
+         *
          * @param string $username
-         * @return array
+         *
+         * @return array|bool
          */
-        function findByUsername($username)
+        public function findByUsername($username)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -129,17 +146,17 @@
          *
          * @access public
          * @since unknown
+         *
          * @param string $userName
          * @param string $password
-         * @return array
+         *
+         * @return array|bool
          */
-        function findByCredentials($userName, $password)
+        public function findByCredentials($userName, $password)
         {
-            $user = $this->findByUsername($userName);
-            if($user!==false && isset($user['s_password'])) {
-                if(osc_verify_password($password, $user['s_password'])) {
-                    return $user;
-                };
+            $user = $this->findByUsername( $userName );
+	        if ( $user !== false && isset( $user[ 's_password' ] ) && osc_verify_password( $password , $user[ 's_password' ] ) ) {
+		        return $user;
             }
             return false;
         }
@@ -150,11 +167,13 @@
          *
          * @access public
          * @since unknown
+         *
          * @param integer $id
-         * @param string $secret
-         * @return array
+         * @param string  $secret
+         *
+         * @return array|bool
          */
-        function findByIdSecret($id, $secret)
+        public function findByIdSecret($id, $secret)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -176,16 +195,18 @@
          *
          * @access public
          * @since unknown
+         *
          * @param integer $id
-         * @param string $password
-         * @return array
+         * @param string  $password
+         *
+         * @return array|bool
          */
-        function findByIdPassword($id, $password)
+        public function findByIdPassword($id, $password)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
             $conditions = array( 'pk_i_id'  => $id,
-                                 's_password' => $secret);
+                                 's_password' => $password);
             $this->dao->where($conditions);
             $result = $this->dao->get();
 
@@ -204,7 +225,7 @@
          * @param array $id
          * @return boolean
          */
-        function deleteBatch( $id )
+        public function deleteBatch( $id )
         {
             $this->dao->from( $this->getTableName() );
             $this->dao->whereIn( 'pk_i_id', $id );
@@ -213,4 +234,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/Admin.php */
-?>

@@ -29,8 +29,13 @@
         osc_current_web_theme_path('user-sidebar.php');
     }
     osc_add_filter('meta_title_filter','custom_meta_title');
-    function custom_meta_title($data){
-        return __('Change e-mail', 'bender');;
+	/**
+	 * @param $data
+	 *
+	 * @return string
+	 */
+	function custom_meta_title( $data ) {
+        return __('Change e-mail', 'bender');
     }
     osc_current_web_theme_path('header.php') ;
     $osc_user = osc_user();
@@ -56,7 +61,7 @@
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Update", 'bender');?></button>
+                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Update' , 'bender');?></button>
                 </div>
             </div>
         </form>
@@ -73,8 +78,8 @@
             },
             messages: {
                 new_email: {
-                    required: '<?php echo osc_esc_js(__("Email: this field is required", "bender")); ?>.',
-                    email: '<?php echo osc_esc_js(__("Invalid email address", "bender")); ?>.'
+                    required: '<?php echo osc_esc_js(__( 'Email: this field is required' , 'bender' )); ?>.',
+                    email: '<?php echo osc_esc_js(__( 'Invalid email address' , 'bender' )); ?>.'
                 }
             },
             errorLabelContainer: "#error_list",

@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -35,7 +37,10 @@
             $this->init();
         }
 
-        public static function newInstance()
+	    /**
+	     * @return \EmailVariables
+	     */
+	    public static function newInstance()
         {
             if(!self::$instance instanceof self) {
                 self::$instance = new self;
@@ -98,8 +103,8 @@
         /**
          * Add new email variable and description
          *
-         * @param type $key
-         * @param type $description 
+         * @param $key
+         * @param $description 
          */
         public function add($key, $description)
         {
@@ -109,18 +114,20 @@
         /**
          * Remove email variable from the array 
          * 
-         * @param type $key
+         * @param $key
          */
         public function remove( $key ) 
         {
             unset( $this->variables[$key] );
         }
-        
-        /**
-         *
-         * @param type $email 
-         */
-        function getVariables( $email )
+
+	    /**
+	     *
+	     * @param $email
+	     *
+	     * @return bool|mixed
+	     */
+        public function getVariables( $email )
         {
             $array = array();
             $variables = array(

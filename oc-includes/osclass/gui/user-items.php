@@ -31,7 +31,7 @@
 
     $listClass = '';
     $buttonClass = '';
-    if(Params::getParam('ShowAs') == 'gallery'){
+    if( Params::getParam('ShowAs') === 'gallery'){
         $listClass = 'listing-grid';
         $buttonClass = 'active';
     }
@@ -50,19 +50,30 @@
         </div>
     </div>
     <?php
-        View::newInstance()->_exportVariableToView("listClass",$listClass);
-        View::newInstance()->_exportVariableToView("listAdmin", true);
+        View::newInstance()->_exportVariableToView( 'listClass' , $listClass);
+        View::newInstance()->_exportVariableToView( 'listAdmin' , true);
         osc_current_web_theme_path('loop.php');
     ?>
     <div class="clear"></div>
     <?php
     if(osc_rewrite_enabled()){
-        $footerLinks = osc_search_footer_links();
-    ?>
+	    try {
+		    $footerLinks = osc_search_footer_links();
+	    } catch ( Exception $e ) {
+	    }
+	    ?>
         <ul class="footer-links">
             <?php foreach($footerLinks as $f) { View::newInstance()->_exportVariableToView('footer_link', $f); ?>
-                <?php if($f['total'] < 3) continue; ?>
-                <li><a href="<?php echo osc_footer_link_url(); ?>"><?php echo osc_footer_link_title(); ?></a></li>
+	            <?php if ( $f[ 'total' ] < 3 ) {
+		            continue;
+	            } ?>
+                <li><a href="<?php try {
+		                echo osc_footer_link_url();
+	                } catch ( Exception $e ) {
+	                } ?>"><?php try {
+			                echo osc_footer_link_title();
+		                } catch ( Exception $e ) {
+		                } ?></a></li>
             <?php } ?>
         </ul>
     <?php } ?>

@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,9 +18,12 @@
  * limitations under the License.
  */
 
-    class CWebUser extends WebSecBaseModel
+	/**
+	 * Class CWebUser
+	 */
+	class CWebUser extends WebSecBaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             if( !osc_users_enabled() ) {
@@ -29,7 +34,7 @@
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
             switch( $this->action ) {
                 case('dashboard'):      //dashboard...
@@ -41,26 +46,32 @@
                                         $this->doView('user-dashboard.php');
                 break;
                 case('profile'):        //profile...
-                                        $user = User::newInstance()->findByPrimaryKey( osc_logged_user_id() );
+                                        $aUser = User::newInstance()->findByPrimaryKey( osc_logged_user_id() );
                                         $aCountries = Country::newInstance()->listAll();
                                         $aRegions = array();
-                                        if( $user['fk_c_country_code'] != '' ) {
-                                            $aRegions = Region::newInstance()->findByCountry( $user['fk_c_country_code'] );
+                                        if( $aUser['fk_c_country_code'] != '' ) {
+                                            $aRegions = Region::newInstance()->findByCountry( $aUser['fk_c_country_code'] );
                                         } elseif( count($aCountries) > 0 ) {
                                             $aRegions = Region::newInstance()->findByCountry( $aCountries[0]['pk_c_code'] );
                                         }
                                         $aCities = array();
-                                        if( $user['fk_i_region_id'] != '' ) {
-                                            $aCities = City::newInstance()->findByRegion($user['fk_i_region_id']);
+                                        if( $aUser['fk_i_region_id'] != '' ) {
+                                            $aCities = City::newInstance()->findByRegion($aUser['fk_i_region_id']);
                                         } else if( count($aRegions) > 0 ) {
                                             $aCities = City::newInstance()->findByRegion($aRegions[0]['pk_i_id']);
                                         }
 
+                                        // user profile info description | user-profile.php @ frontend
+                                        $aLocale = $aUser['locale'];
+                                        foreach ($aLocale as $locale => $aInfo) {
+                                            $aUser['locale'][$locale]['s_info'] = osc_apply_filter('user_profile_info', $aInfo['s_info'], $aUser['pk_i_id'], $aInfo['fk_c_locale_code']);
+                                        }
+
                                         //calling the view...
+                                        $this->_exportVariableToView('user', $aUser);
                                         $this->_exportVariableToView('countries', $aCountries);
                                         $this->_exportVariableToView('regions', $aRegions);
                                         $this->_exportVariableToView('cities', $aCities);
-                                        $this->_exportVariableToView('user', $user);
                                         $this->_exportVariableToView('locales', OSCLocale::newInstance()->listAllEnabled() );
 
                                         $this->doView('user-profile.php');
@@ -80,7 +91,7 @@
                                         $this->redirectTo( osc_user_profile_url() );
                 break;
                 case('alerts'):         //alerts
-                                        $aAlerts = Alerts::newInstance()->findByUser( Session::newInstance()->_get('userId'), false );
+                                        $aAlerts = Alerts::newInstance()->findByUser( Session::newInstance()->_get('userId') );
                                         $user = User::newInstance()->findByPrimaryKey( Session::newInstance()->_get('userId'));
                                         foreach($aAlerts as $k => $a) {
                                             $array_conditions   = (array)json_decode($a['s_search']);
@@ -137,6 +148,7 @@
                                                 $this->doView('user-change_username.php');
                 break;
                 case('change_username_post'):   //change username
+                                                osc_csrf_check();
                                                 $username = osc_sanitize_username(Params::getParam('s_username'));
                                                 osc_run_hook('before_username_change', Session::newInstance()->_get('userId'), $username);
                                                 if($username!='') {
@@ -216,7 +228,7 @@
 
                     $result = 0;
                     if($email!='' && $secret!='') {
-                        $result = Alerts::newInstance()->activate($email, $secret );
+	                    $result = Alerts::newInstance()->activate( $email );
                     }
 
                     if( $result == 1 ) {
@@ -234,10 +246,8 @@
 
                     $alert = Alerts::newInstance()->findByPrimaryKey($id);
                     $result = 0;
-                    if(!empty($alert)) {
-                        if($email==$alert['s_email'] && $secret==$alert['s_secret']) {
-                            $result = Alerts::newInstance()->unsub($id);
-                        }
+	                if ( ! empty( $alert ) && $email == $alert[ 's_email' ] && $secret == $alert[ 's_secret' ] ) {
+		                $result = Alerts::newInstance()->unsub( $id );
                     }
 
                     if( $result == 1 ) {
@@ -253,11 +263,15 @@
                     $secret = Params::getParam('secret');
                     if(osc_is_web_user_logged_in()) {
                         $user = User::newInstance()->findByPrimaryKey(osc_logged_user_id());
+                        osc_run_hook('before_user_delete', $user);
                         View::newInstance()->_exportVariableToView('user', $user);
                         if(!empty($user) && osc_logged_user_id()==$id && $secret==$user['s_secret']) {
-                            User::newInstance()->deleteUser(osc_logged_user_id());
+	                        try {
+		                        User::newInstance()->deleteUser( osc_logged_user_id() );
+	                        } catch ( Exception $e ) {
+	                        }
 
-                            Session::newInstance()->_drop('userId');
+	                        Session::newInstance()->_drop('userId');
                             Session::newInstance()->_drop('userName');
                             Session::newInstance()->_drop('userEmail');
                             Session::newInstance()->_drop('userPhone');
@@ -266,14 +280,14 @@
                             Cookie::newInstance()->pop('oc_userSecret');
                             Cookie::newInstance()->set();
 
-                            osc_add_flash_ok_message(_m("Your account have been deleted"));
+                            osc_add_flash_ok_message(_m( 'Your account have been deleted' ));
                             $this->redirectTo( osc_base_url() );
                         } else {
-                            osc_add_flash_error_message(_m("Oops! you can not do that"));
+                            osc_add_flash_error_message(_m( 'Oops! you can not do that' ));
                             $this->redirectTo(osc_user_dashboard_url() );
                         }
                     } else {
-                        osc_add_flash_error_message(_m("Oops! you can not do that"));
+                        osc_add_flash_error_message(_m( 'Oops! you can not do that' ));
                         $this->redirectTo(osc_base_url() );
                     }
                 break;
@@ -281,14 +295,20 @@
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
             Session::newInstance()->_clearVariables();
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 
     /* file end: ./user.php */
-?>
+

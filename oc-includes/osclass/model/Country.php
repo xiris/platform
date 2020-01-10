@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -31,7 +33,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \Country
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -42,7 +47,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_country');
@@ -55,12 +60,12 @@
          *
          * @access public
          * @since unknown
-         * @param type $code
+         * @param $code
          * @return array
          */
         public function findByCode($code)
         {
-            $this->dao->select('*');
+            $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->where('pk_c_code', $code);
             $result = $this->dao->get();
@@ -76,12 +81,12 @@
          *
          * @access public
          * @since unknown
-         * @param type $name
+         * @param $name
          * @return array
          */
         public function findByName($name)
         {
-            $this->dao->select('*');
+            $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->where('s_name', $name);
             $result = $this->dao->get();
@@ -91,14 +96,13 @@
             return $result->row();
         }
 
-        /**
-         * List all the countries
-         *
-         * @access public
-         * @since unknown
-         * @param type $language
-         * @return array
-         */
+	    /**
+	     * List all the countries
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @return array
+	     */
         public function listAll() {
             $result = $this->dao->query(sprintf('SELECT * FROM %s ORDER BY s_name ASC', $this->getTableName()));
             if($result == false) {
@@ -107,12 +111,27 @@
             return $result->result();
         }
 
+		/**
+		 * List names of all the countries. Used for location import.
+		 *
+		 * @access public
+		 * @since  unknown
+		 * @return array
+		 */
+		public function listNames() {
+			$result = $this->dao->query(sprintf('SELECT s_name FROM %s ORDER BY s_name ASC', $this->getTableName()));
+			if($result == false) {
+				return array();
+			}
+			return array_column($result->result(), 's_name');
+		}
+
         /**
          * Function that work with the ajax file
          *
          * @access public
          * @since unknown
-         * @param type $query
+         * @param $query
          * @return array
          */
         public function ajax($query)
@@ -129,16 +148,19 @@
         }
 
 
-        /**
-         *  Delete a country with its regions, cities,..
-         *
-         *  @access public
-         *  @since 2.4
-         *  @param $pk
-         *  @return int number of failed deletions or 0 in case of none
-         */
-        function deleteByPrimaryKey($pk) {
-            $mRegions = Region::NewInstance();
+	    /**
+	     *  Delete a country with its regions, cities,..
+	     *
+	     * @access public
+	     * @since  2.4
+	     *
+	     * @param $pk
+	     *
+	     * @return int number of failed deletions or 0 in case of none
+	     * @throws \Exception
+	     */
+        public function deleteByPrimaryKey($pk) {
+            $mRegions = Region::newInstance();
             $aRegions = $mRegions->findByCountry($pk);
             $result = 0;
             foreach($aRegions as $region) {
@@ -158,12 +180,12 @@
          *
          * @access public
          * @since 3.2.1
-         * @param type $slug
+         * @param $slug
          * @return array
          */
         public function findBySlug($slug)
         {
-            $this->dao->select('*');
+            $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->where('s_slug', $slug);
             $result = $this->dao->get();
@@ -183,7 +205,7 @@
          */
         public function listByEmptySlug()
         {
-            $this->dao->select('*');
+            $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->where('s_slug', '');
             $result = $this->dao->get();
@@ -198,4 +220,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/Country.php */
-?>

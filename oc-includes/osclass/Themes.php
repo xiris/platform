@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,7 +18,10 @@
  * limitations under the License.
  */
 
-    abstract class Themes
+	/**
+	 * Class Themes
+	 */
+	abstract class Themes
     {
         private static $instance;
         protected $theme;
@@ -42,7 +47,10 @@
         abstract protected function setCurrentThemePath();
 
         /* PUBLIC */
-        public function setCurrentTheme($theme)
+		/**
+		 * @param $theme
+		 */
+		public function setCurrentTheme( $theme )
         {
             $this->theme = $theme;
             $this->setCurrentThemePath();
@@ -64,12 +72,18 @@
             return $this->theme_path;
         }
 
-        public function getCurrentThemeStyles()
+		/**
+		 * @return string
+		 */
+		public function getCurrentThemeStyles()
         {
             return $this->theme_url . 'css/';
         }
 
-        public function getCurrentThemeJs()
+		/**
+		 * @return string
+		 */
+		public function getCurrentThemeJs()
         {
             return $this->theme_url . 'js/';
         }
@@ -77,8 +91,8 @@
         /**
          * Add style to be loaded
          *
-         * @param type $id
-         * @param type $url
+         * @param $id
+         * @param $url
          * @deprecated deprecated since version 3.1
          */
         public function addStyle($id, $url)
@@ -89,7 +103,7 @@
         /**
          * Remove style to not be loaded
          *
-         * @param type $id
+         * @param $id
          * @deprecated deprecated since version 3.1
          */
         public function removeStyle($id)
@@ -115,14 +129,14 @@
         public function printStyles()
         {
             foreach($this->styles as $css) {
-                echo '<link href="'.$css.'" rel="stylesheet" type="text/css" />' . PHP_EOL;
+                echo '<link href="'.$css.'" rel="stylesheet"="text/css" />' . PHP_EOL;
             }
         }
 
         /**
          * Add script to queue
          *
-         * @param type $id
+         * @param $id
          * @deprecated deprecated since version 3.1
          */
         public function enqueueScript($id)
@@ -133,7 +147,7 @@
         /**
          * Remove script to not be loaded
          *
-         * @param type $id
+         * @param $id
          * @deprecated deprecated since version 3.1
          */
         public function removeScript($id)
@@ -144,9 +158,9 @@
         /**
          * Add script to be loaded
          *
-         * @param type $id
-         * @param type $url
-         * @param type $dependencies mixed, it could be an array or a string
+         * @param $id
+         * @param $url
+         * @param $dependencies mixed, it could be an array or a string
          * @deprecated deprecated since version 3.1
          */
         public function registerScript($id, $url, $dependencies = null)
@@ -161,7 +175,7 @@
         /**
          * Remove script to not be loaded
          *
-         * @param type $id
+         * @param $id
          * @deprecated deprecated since version 3.1
          */
         public function unregisterScript($id)
@@ -191,7 +205,7 @@
                 }
             }
             if(!empty($this->error)) {
-                echo sprintf(__('ERROR: Some scripts could not be loaded (%s)'), implode(", ", $this->error));
+                echo sprintf(__('ERROR: Some scripts could not be loaded (%s)'), implode( ', ' , $this->error));
             }
         }
 
@@ -219,14 +233,14 @@
         public function printScripts()
         {
             foreach($this->getScripts() as $script) {
-                echo '<script type="text/javascript" src="' . osc_apply_filter('theme_url', $script) . '"></script>' . PHP_EOL;
+                echo '<script="text/javascript" src="' . osc_apply_filter('theme_url', $script) . '"></script>' . PHP_EOL;
             }
         }
 
         /**
          * Algorithm to solve the dependencies of the scripts
          *
-         * @param type $node
+         * @param $node
          * @deprecated deprecated since version 3.1
          */
         private function solveDeps($node)

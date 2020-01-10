@@ -47,7 +47,7 @@
             <?php } ?>
             <?php if( osc_users_enabled() || ( !osc_users_enabled() && !osc_reg_user_post() )) { ?>
             <li class="publish">
-                <a href="<?php echo osc_item_post_url_in_category(); ?>"><?php _e("Publish your ad for free", 'bender');?></a>
+                <a href="<?php echo osc_item_post_url_in_category(); ?>"><?php _e( 'Publish your ad for free' , 'bender');?></a>
             </li>
             <?php } ?>
         </ul>
@@ -56,7 +56,10 @@
         osc_reset_static_pages();
         while( osc_has_static_pages() ) { ?>
             <li>
-                <a href="<?php echo osc_static_page_url(); ?>"><?php echo osc_static_page_title(); ?></a>
+                <a href="<?php try {
+	                echo osc_static_page_url();
+                } catch ( Exception $e ) {
+                } ?>"><?php echo osc_static_page_title(); ?></a>
             </li>
         <?php
         }
@@ -66,7 +69,7 @@
             </li>
         </ul>
         <?php if( (!defined('MULTISITE') || MULTISITE==0) && osc_get_preference('footer_link', 'bender') !== '0') {
-            echo '<div>' . sprintf(__('This website is proudly using the <a title="Osclass web" href="%s">classifieds scripts</a> software <strong>Osclass</strong>'), 'http://osclass.org/') . '</div>';
+            echo '<div>' . sprintf(__('This website is proudly using the <a title="Osclass web" href="%s">classifieds scripts</a> software <strong>Osclass</strong>'), 'https://github.com/navjottomer/osclass/') . '</div>';
         }
         ?>
         <?php if ( osc_count_web_enabled_locales() > 1) { ?>
@@ -74,7 +77,7 @@
             <strong><?php _e('Language:', 'bender'); ?></strong>
             <?php $i = 0;  ?>
             <?php while ( osc_has_web_enabled_locales() ) { ?>
-            <span><a id="<?php echo osc_locale_code(); ?>" href="<?php echo osc_change_language_url ( osc_locale_code() ); ?>"><?php echo osc_locale_name(); ?></a></span><?php if( $i == 0 ) { echo " &middot; "; } ?>
+            <span><a id="<?php echo osc_locale_code(); ?>" href="<?php echo osc_change_language_url ( osc_locale_code() ); ?>"><?php echo osc_locale_name(); ?></a></span><?php if( $i == 0 ) { echo ' &middot; '; } ?>
                 <?php $i++; ?>
             <?php } ?>
         <?php } ?>

@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,9 +18,12 @@
  * limitations under the License.
  */
 
-    class CWebRegister extends BaseModel
+	/**
+	 * Class CWebRegister
+	 */
+	class CWebRegister extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
 
@@ -38,7 +43,7 @@
             osc_run_hook( 'init_register' );
         }
 
-        function doModel()
+        public function doModel()
         {
             switch( $this->action ) {
                 case('register'):       //register user
@@ -73,7 +78,7 @@
                                             Params::setParam('action', 'login_post');
                                             Params::setParam('email', Params::getParam('s_email'));
                                             Params::setParam('password', Params::getParam('s_password', false, false));
-                                            require_once(osc_lib_path() . 'osclass/controller/login.php');
+                                            require_once osc_lib_path() . 'osclass/controller/login.php';
                                             $do = new CWebLogin();
                                             $do->doModel();
                                         } else {
@@ -82,7 +87,7 @@
                                         }
                 break;
                 case('validate'):       //validate account
-                                        $id          = intval( Params::getParam('id') );
+	                $id                              = (int) Params::getParam( 'id' );
                                         $code        = Params::getParam('code');
                                         $userManager = new User();
                                         $user        = $userManager->findByIdSecret($id, $code);
@@ -108,7 +113,7 @@
                                             Session::newInstance()->_set('userId', $user['pk_i_id']);
                                             Session::newInstance()->_set('userName', $user['s_name']);
                                             Session::newInstance()->_set('userEmail', $user['s_email']);
-                                            $phone = ($user['s_phone_mobile']) ? $user['s_phone_mobile'] : $user['s_phone_land'];
+	                                        $phone = $user[ 's_phone_mobile' ] ?: $user[ 's_phone_land' ];
                                             Session::newInstance()->_set('userPhone', $phone);
 
                                             osc_run_hook('hook_email_user_registration', $user);
@@ -123,7 +128,12 @@
             }
         }
 
-        function doView($file)
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
             osc_run_hook( 'before_html' );
             osc_current_web_theme_path( $file );
@@ -133,4 +143,3 @@
     }
 
     /* file end: ./register.php */
-?>

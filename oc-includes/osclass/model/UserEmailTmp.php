@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -23,11 +25,14 @@
     {
         /**
          *
-         * @var type
+         * @var
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \type|\UserEmailTmp
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_user_email_tmp');
@@ -50,8 +55,10 @@
          *
          * @access public
          * @since unknown
-         * @param type $userEmailTmp
-         * @return array
+         *
+         * @param $userEmailTmp
+         *
+         * @return array|bool
          */
         public function insertOrUpdate($userEmailTmp) {
 
@@ -64,4 +71,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/UserEmailTmp.php */
-?>

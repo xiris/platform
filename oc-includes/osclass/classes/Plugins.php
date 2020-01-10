@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,13 +18,19 @@
  * limitations under the License.
  */
 
-    class Plugins
+	/**
+	 * Class Plugins
+	 */
+	class Plugins
     {
         private static $hooks;
 
-        function __construct() {}
+        public function __construct() {}
 
-        static function runHook($hook)
+		/**
+		 * @param $hook
+		 */
+		public static function runHook( $hook )
         {
             $args = func_get_args();
             array_shift($args);
@@ -39,17 +47,21 @@
             }
         }
 
-        static function applyFilter($hook)
+		/**
+		 * @param $hook
+		 *
+		 * @return mixed|string
+		 */
+		public static function applyFilter( $hook )
         {
-            $args   = func_get_args();
-            $hook   = array_shift($args);
-            if(isset($args[0])) {
+            $args    = func_get_args();
+            $hook    = array_shift($args);
+	        $content = '';
+	        if ( isset( $args[ 0 ] ) ) {
                 $content = $args[0];
-            } else {
-                $content = '';
             }
 
-            if(isset(self::$hooks[$hook])) {
+	        if ( isset( self::$hooks[ $hook ] ) ) {
                 for($priority = 0;$priority<=10;$priority++) {
                     if(isset(self::$hooks[$hook][$priority]) && is_array(self::$hooks[$hook][$priority])) {
                         foreach(self::$hooks[$hook][$priority] as $fxName) {
@@ -64,7 +76,12 @@
             return $content;
         }
 
-        static function isInstalled($plugin)
+		/**
+		 * @param $plugin
+		 *
+		 * @return bool
+		 */
+		public static function isInstalled( $plugin )
         {
             if( in_array($plugin, self::listInstalled()) ) {
                 return true;
@@ -73,7 +90,12 @@
             return false;
         }
 
-        static function isEnabled($plugin)
+		/**
+		 * @param $plugin
+		 *
+		 * @return bool
+		 */
+		public static function isEnabled( $plugin )
         {
             if( in_array($plugin, self::listEnabled()) ) {
                 return true;
@@ -82,7 +104,12 @@
             return false;
         }
 
-        static function listAll($sort = true)
+		/**
+		 * @param bool $sort
+		 *
+		 * @return array
+		 */
+		public static function listAll( $sort = true )
         {
             $plugins = array();
             $pluginsPath = osc_plugins_path();
@@ -92,7 +119,7 @@
                     // This has to change in order to catch any .php file
                     $pluginPath = $pluginsPath . "$file/index.php";
                     if(file_exists($pluginPath)) {
-                        $plugins[] = $file."/index.php";
+                        $plugins[] = $file . '/index.php';
                     } else {
                         trigger_error(sprintf(__('Plugin %s is missing the index.php file %s'), $file, $pluginPath));
                     }
@@ -107,7 +134,7 @@
                 foreach($plugins as $p) {
                     $extended_list[$p] = self::getInfo($p);
                 }
-                uasort($extended_list, array("self", "strnatcmpCustom"));
+                uasort($extended_list, array( 'self' , 'strnatcmpCustom' ));
                 $plugins = array();
                 // Enabled
                 foreach($extended_list as $k => $v) {
@@ -132,11 +159,17 @@
             return $plugins;
         }
 
-        static function strnatcmpCustom($a, $b) {
+		/**
+		 * @param $a
+		 * @param $b
+		 *
+		 * @return int
+		 */
+		public static function strnatcmpCustom( $a , $b ) {
             return strnatcasecmp($a['plugin_name'], $b['plugin_name']);
         }
 
-        static function loadActive()
+        public static function loadActive()
         {
             $data['s_value'] = osc_active_plugins();
             $plugins_list = unserialize($data['s_value']);
@@ -151,7 +184,10 @@
             }
         }
 
-        static function listInstalled()
+		/**
+		 * @return array
+		 */
+		public static function listInstalled()
         {
             $p_array = array();
 
@@ -166,7 +202,10 @@
             return $p_array;
         }
 
-        static function listEnabled()
+		/**
+		 * @return array
+		 */
+		public static function listEnabled()
         {
             $p_array = array();
 
@@ -181,10 +220,15 @@
             return $p_array;
         }
 
-        static function findByUpdateURI($uri) {
-            $plugins = Plugins::listAll();
+		/**
+		 * @param $uri
+		 *
+		 * @return bool|mixed
+		 */
+		public static function findByUpdateURI( $uri ) {
+	        $plugins = self::listAll();
             foreach($plugins as $p) {
-                $info = Plugins::getInfo($p);
+	            $info = self::getInfo( $p );
                 if($info['plugin_update_uri']==$uri) {
                     return $p;
                 }
@@ -192,30 +236,45 @@
             return false;
         }
 
-        static function resource($path)
+		/**
+		 * @param $path
+		 *
+		 * @return bool|string
+		 */
+		public static function resource( $path )
         {
             $fullPath = osc_plugins_path() . $path;
             return file_exists($fullPath) ? $fullPath : false;
         }
 
-        static function register($path, $function)
+		/**
+		 * @param $path
+		 * @param $function
+		 */
+		public static function register( $path , $function )
         {
             $path = str_replace(osc_plugins_path(), '', $path);
+            $tmp = explode( 'oc-content/plugins/' , $path);
+            if(count($tmp)==2) {
+                $path = $tmp[1];
+            }
             self::addHook('install_' . $path, $function);
         }
 
-        static function install($path)
+		/**
+		 * @param $path
+		 *
+		 * @return array|bool
+		 */
+		public static function install( $path )
         {
-            osc_run_hook("before_plugin_install");
+            osc_run_hook( 'before_plugin_install' );
 
             $data['s_value'] = osc_installed_plugins();
             $plugins_list    = unserialize($data['s_value']);
 
-            if( is_array($plugins_list) ) {
-                // check if the plugin is already installed
-                if( in_array($path, $plugins_list) ) {
-                    return array('error_code' => 'error_installed');
-                }
+	        if ( is_array( $plugins_list ) && in_array( $path , $plugins_list ) ) {
+		        return array ( 'error_code' => 'error_installed' );
             }
 
             if( !file_exists(osc_plugins_path() . $path) ) {
@@ -223,7 +282,7 @@
             }
 
             try {
-                include_once( osc_plugins_path() . $path );
+                include_once osc_plugins_path() . $path;
                 
                 self::runHook('install_' . $path);
             } catch(Exception $e) {
@@ -242,14 +301,19 @@
                 return array('error_code' => 'error_output', 'output' => ob_get_clean());
             }
 
-            osc_run_hook("after_plugin_install");
+            osc_run_hook( 'after_plugin_install' );
 
             return true;
         }
 
-        static function uninstall($path)
+		/**
+		 * @param $path
+		 *
+		 * @return bool
+		 */
+		public static function uninstall( $path )
         {
-            osc_run_hook("before_plugin_uninstall");
+            osc_run_hook( 'before_plugin_uninstall' );
 
             $data['s_value'] = osc_installed_plugins();
             $plugins_list    = unserialize($data['s_value']);
@@ -259,7 +323,7 @@
                 return false;
             }
 
-            include_once( osc_plugins_path() . $path );
+            include_once osc_plugins_path() . $path;
 
             self::deactivate($path);
             /*if( !self::deactivate($path) ) {
@@ -279,24 +343,26 @@
             $plugin = self::getInfo($path);
             self::cleanCategoryFromPlugin($plugin['short_name']);
 
-            osc_run_hook("after_plugin_uninstall");
+            osc_run_hook( 'after_plugin_uninstall' );
 
             return true;
         }
 
-        static function activate($path)
+		/**
+		 * @param $path
+		 *
+		 * @return bool
+		 */
+		public static function activate( $path )
         {
-            osc_run_hook("before_plugin_activate");
+            osc_run_hook( 'before_plugin_activate' );
 
             $data = array();
             $data['s_value'] = osc_active_plugins();
             $plugins_list    = unserialize($data['s_value']);
 
-            if( is_array($plugins_list) ) {
-                // check if the plugin is already active
-                if( in_array($path, $plugins_list) ) {
-                    return false;
-                }
+	        if ( is_array( $plugins_list ) && in_array( $path , $plugins_list ) ) {
+		        return false;
             }
 
             $plugins_list[]  = $path;
@@ -306,14 +372,19 @@
 
             self::runHook($path . '_enable');
 
-            osc_run_hook("after_plugin_activate");
+            osc_run_hook( 'after_plugin_activate' );
 
             return true;
         }
 
-        static function deactivate($path)
+		/**
+		 * @param $path
+		 *
+		 * @return bool
+		 */
+		public static function deactivate( $path )
         {
-            osc_run_hook("before_plugin_deactivate");
+            osc_run_hook( 'before_plugin_deactivate' );
 
             $data['s_value'] = osc_active_plugins();
             $plugins_list = unserialize($data['s_value']);
@@ -338,17 +409,28 @@
 
             self::reload();
 
-            osc_run_hook("after_plugin_deactivate");
+            osc_run_hook( 'after_plugin_deactivate' );
 
             return true;
         }
 
-        static function isThisCategory($name, $id)
+		/**
+		 * @param $name
+		 * @param $id
+		 *
+		 * @return mixed
+		 */
+		public static function isThisCategory( $name , $id )
         {
             return PluginCategory::newInstance()->isThisCategory($name, $id);
         }
 
-        static function getInfo($plugin)
+		/**
+		 * @param $plugin
+		 *
+		 * @return array
+		 */
+		public static function getInfo( $plugin )
         {
             $s_info = file_get_contents(osc_plugins_path() . $plugin);
             $info   = array();
@@ -361,43 +443,43 @@
             if( preg_match('|Plugin URI:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['plugin_uri'] = trim($match[1]);
             } else {
-                $info['plugin_uri'] = "";
+                $info['plugin_uri'] = '';
             }
 
             if( preg_match('|Plugin update URI:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['plugin_update_uri'] = trim($match[1]);
             } else {
-                $info['plugin_update_uri'] = "";
+                $info['plugin_update_uri'] = '';
             }
 
             if( preg_match('|Support URI:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['support_uri'] = trim($match[1]);
             } else {
-                $info['support_uri'] = "";
+                $info['support_uri'] = '';
             }
 
             if( preg_match('|Description:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['description'] = trim($match[1]);
             } else {
-                $info['description'] = "";
+                $info['description'] = '';
             }
 
             if( preg_match('|Version:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['version'] = trim($match[1]);
             } else {
-                $info['version'] = "";
+                $info['version'] = '';
             }
 
             if( preg_match('|Author:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['author'] = trim($match[1]);
             } else {
-                $info['author'] = "";
+                $info['author'] = '';
             }
 
             if( preg_match('|Author URI:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
                 $info['author_uri'] = trim($match[1]);
             } else {
-                $info['author_uri'] = "";
+                $info['author_uri'] = '';
             }
 
             if( preg_match('|Short Name:([^\\r\\t\\n]*)|i', $s_info, $match) ) {
@@ -411,16 +493,24 @@
             return $info;
         }
 
-        static function checkUpdate($plugin) {
-            $info = Plugins::getInfo($plugin);
+		/**
+		 * @param $plugin
+		 *
+		 * @return bool
+		 */
+		public static function checkUpdate( $plugin ) {
+	        $info = self::getInfo( $plugin );
             return osc_check_plugin_update($info['plugin_update_uri'], $info['version']);
         }
 
 
-        static function configureView($path)
+		/**
+		 * @param $path
+		 */
+		public static function configureView( $path )
         {
             $plugin = str_replace(osc_plugins_path(), '', $path);
-            if(stripos($plugin, ".php")===FALSE) {
+            if( stripos( $plugin, '.php' ) === FALSE) {
                 $plugins_list = unserialize(osc_active_plugins());
                 if(is_array($plugins_list)) {
                     foreach($plugins_list as $p){
@@ -435,14 +525,21 @@
             osc_redirect_to(osc_plugin_configure_url($plugin));
         }
 
-        static function cleanCategoryFromPlugin($plugin)
+		/**
+		 * @param $plugin
+		 */
+		public static function cleanCategoryFromPlugin( $plugin )
         {
             $dao_pluginCategory = new PluginCategory();
             $dao_pluginCategory->delete(array('s_plugin_name' => $plugin));
             unset($dao_pluginCategory);
         }
 
-        static function addToCategoryPlugin($categories, $plugin)
+		/**
+		 * @param $categories
+		 * @param $plugin
+		 */
+		public static function addToCategoryPlugin( $categories , $plugin )
         {
             $dao_pluginCategory = new PluginCategory();
             $dao_category = new Category();
@@ -467,12 +564,17 @@
                     }
                 }
             }
-            unset($dao_pluginCategory);
-            unset($dao_category);
+	        unset( $dao_pluginCategory , $dao_category );
         }
 
         // Add a hook
-        static function addHook($hook, $function, $priority = 5)
+
+		/**
+		 * @param     $hook
+		 * @param     $function
+		 * @param int $priority
+		 */
+		public static function addHook( $hook , $function , $priority = 5 )
         {
             $hook         = preg_replace('|/+|', '/', str_replace('\\', '/', $hook));
             $plugin_path  = str_replace('\\', '/', osc_plugins_path());
@@ -493,7 +595,11 @@
             if(!$found_plugin) { self::$hooks[$hook][$priority][] = $function; }
         }
 
-        static function removeHook($hook, $function)
+		/**
+		 * @param $hook
+		 * @param $function
+		 */
+		public static function removeHook( $hook , $function )
         {
             for($priority = 0;$priority<=10;$priority++) {
                 if(isset(self::$hooks[$hook][$priority])) {
@@ -506,21 +612,21 @@
             }
         }
 
-        static function getActive()
+        public static function getActive()
         {
             return self::$hooks;
         }
 
-        static function reload()
+        public static function reload()
         {
             osc_reset_preferences();
             self::init();
         }
 
-        static function init()
+        public static function init()
         {
             self::loadActive();
         }
     }
 
-?>
+

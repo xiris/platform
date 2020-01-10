@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -54,7 +56,7 @@
         /**
          * Set data related to t_item_location table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_item_location');
@@ -79,4 +81,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/ItemLocation.php */
-?>

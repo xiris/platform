@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -29,8 +31,13 @@
         
         private $search;
         private $order_by;
-        
-        public function table($params)
+
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     */
+	    public function table( $params )
         {
             
             $this->addTableHeader();
@@ -53,10 +60,13 @@
             $this->addColumn('date', __('Date'));
 
             $dummy = &$this;
-            osc_run_hook("admin_alerts_table", $dummy);
+            osc_run_hook( 'admin_alerts_table' , $dummy);
         }
-        
-        private function processData($alerts)
+
+	    /**
+	     * @param $alerts
+	     */
+	    private function processData( $alerts )
         {
             if(!empty($alerts) && !empty($alerts['alerts'])) {
 
@@ -94,7 +104,7 @@
                     $pieces = array();
                     $conditions = osc_get_raw_search((array)json_decode($aRow['s_search'], true));
                     if(isset($conditions['sPattern']) && $conditions['sPattern']!='') {
-                        $pieces[] = sprintf(__("<b>Pattern:</b> %s"), $conditions['sPattern']);
+                        $pieces[] = sprintf( __( '<b>Pattern:</b> %s' ), $conditions['sPattern']);
                     }
                     if(isset($conditions['aCategories']) && !empty($conditions['aCategories'])) {
                         $l = min(count($conditions['aCategories']), 4);
@@ -103,13 +113,13 @@
                             $cat_array[] = $conditions['aCategories'][$c];
                         }
                         if(count($conditions['aCategories'])>$l) {
-                            $cat_array[] = '<a href="#" class="more-tooltip" categories="'.osc_esc_html(implode(", ", $conditions['aCategories'])).'" >'.__("...More").'</a>';
+                            $cat_array[] = '<a href="#" class="more-tooltip" categories="'.osc_esc_html(implode( ', ' , $conditions['aCategories'])) . '" >' . __( '...More' ) . '</a>';
                         }
 
-                        $pieces[] = sprintf(__("<b>Categories:</b> %s"), implode(", ", $cat_array));
+                        $pieces[] = sprintf( __( '<b>Categories:</b> %s' ), implode( ', ' , $cat_array));
                     }
 
-                    $row['alert'] = implode($pieces, ", ");
+                    $row['alert'] = implode( $pieces, ', ' );
                     // fourth row
                     $row['date'] = osc_format_date($aRow['dt_date']);
 
@@ -121,8 +131,11 @@
 
             }
         }
-                
-        private function getDBParams($_get)
+
+	    /**
+	     * @param $_get
+	     */
+	    private function getDBParams( $_get )
         {
             
             
@@ -150,26 +163,25 @@
             $this->order_by['column_name'] = 'dt_date';
             $this->order_by['type'] = 'DESC';
             foreach($_get as $k=>$v) {
-                if( $k == 'sSearch' ) {
+                if( $k === 'sSearch' ) {
                     $this->search = $v;
                 }
 
                 /* for sorting */
-                if( $k == 'iSortCol_0' ) {
+                if( $k === 'iSortCol_0' ) {
                     $this->order_by['column_name'] = $column_names[$v];
                 }
-                if( $k == 'sSortDir_0' ) {
+                if( $k === 'sSortDir_0' ) {
                     $this->order_by['type'] = $v;
                 }
             }
             // set start and limit using iPage param
             $start = ($this->iPage - 1) * $_get['iDisplayLength'];
-            
-            $this->start = intval( $start );
-            $this->limit = intval( $_get['iDisplayLength'] );
+
+	        $this->start = (int) $start;
+	        $this->limit = (int) $_get[ 'iDisplayLength' ];
 
         }
         
     }
 
-?>

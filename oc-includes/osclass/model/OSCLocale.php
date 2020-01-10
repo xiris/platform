@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -27,7 +29,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \OSCLocale|\type
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_locale');
@@ -63,16 +68,18 @@
             $this->setFields($array_fields);
         }
 
-        /**
-         * Return all locales enabled.
-         *
-         * @access public
-         * @since unknown
-         * @param boole $isBo
-         * @param boole $indexedByKk
-         * @return array
-         */
-        function listAllEnabled($isBo = false, $indexedByPk = false)
+	    /**
+	     * Return all locales enabled.
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param bool $isBo
+	     * @param bool $indexedByPk
+	     *
+	     * @return array
+	     */
+        public function listAllEnabled($isBo = false, $indexedByPk = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -92,13 +99,13 @@
 
             if ($indexedByPk) {
                 $aTmp = array();
-                for ($i = 0; $i < count($aResults); $i++) {
+	            for ( $i = 0 , $iMax = count( $aResults ); $i < $iMax; $i ++ ) {
                     $aTmp[(string)$aResults[$i][$this->getPrimaryKey()]] = $aResults[$i];
                 }
                 $aResults = $aTmp;
             }
 
-            return($aResults);
+            return $aResults;
         }
 
         /**
@@ -109,7 +116,7 @@
          * @param string $code
          * @return array
          */
-        function findByCode($code)
+        public function findByCode($code)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -145,4 +152,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/OSCLocale.php */
-?>

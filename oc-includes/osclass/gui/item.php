@@ -37,6 +37,9 @@
     }
 
     $location = array();
+    if( osc_item_address() !== '' ) {
+        $location[] = osc_item_address();
+    }
     if( osc_item_city_area() !== '' ) {
         $location[] = osc_item_city_area();
     }
@@ -116,7 +119,7 @@
             <?php if( !osc_item_is_expired () ) { ?>
             <?php if( !( ( osc_logged_user_id() == osc_item_user_id() ) && osc_logged_user_id() != 0 ) ) { ?>
                 <?php     if(osc_reg_user_can_contact() && osc_is_web_user_logged_in() || !osc_reg_user_can_contact() ) { ?>
-                    <a href="#contact" class="ui-button ui-button-middle ui-button-main resp-toogle"><?php _e('Contact seller', 'bender'); ?></a>
+                    <a href="#contact" class="ui-button ui-button-middle ui-button-main resp-toggle"><?php _e('Contact seller', 'bender'); ?></a>
                 <?php     } ?>
             <?php     } ?>
             <?php } ?>
@@ -140,14 +143,14 @@
         <div class="similar_ads">
             <h2><?php _e('Related listings', 'bender'); ?></h2>
             <?php
-            View::newInstance()->_exportVariableToView("listType", 'items');
+            View::newInstance()->_exportVariableToView( 'listType' , 'items');
             osc_current_web_theme_path('loop.php');
             ?>
             <div class="clear"></div>
         </div>
     <?php } ?>
     <?php if( osc_comments_enabled() ) { ?>
-        <?php if( osc_reg_user_post_comments () && osc_is_web_user_logged_in() || !osc_reg_user_post_comments() ) { ?>
+	    <?php if ( ( osc_reg_user_post_comments() && osc_is_web_user_logged_in() ) || ! osc_reg_user_post_comments() ) { ?>
         <div id="comments">
             <h2><?php _e('Comments', 'bender'); ?></h2>
             <ul id="comment_error_list"></ul>
@@ -156,7 +159,7 @@
                 <div class="comments_list">
                     <?php while ( osc_has_item_comments() ) { ?>
                         <div class="comment">
-                            <h3><strong><?php echo osc_comment_title(); ?></strong> <em><?php _e("by", 'bender'); ?> <?php echo osc_comment_author_name(); ?>:</em></h3>
+                            <h3><strong><?php echo osc_comment_title(); ?></strong> <em><?php _e( 'by' , 'bender'); ?> <?php echo osc_comment_author_name(); ?>:</em></h3>
                             <p><?php echo nl2br( osc_comment_body() ); ?> </p>
                             <?php if ( osc_comment_user_id() && (osc_comment_user_id() == osc_logged_user_id()) ) { ?>
                             <p>

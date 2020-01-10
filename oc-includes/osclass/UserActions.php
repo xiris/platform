@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,27 +18,37 @@
  * limitations under the License.
  */
 
-    Class UserActions
+	/**
+	 * Class UserActions
+	 */
+	Class UserActions
     {
-        var $is_admin;
-        var $manager;
+        public $is_admin;
+        public $manager;
 
-        function __construct($is_admin)
+		/**
+		 * UserActions constructor.
+		 *
+		 * @param $is_admin
+		 */
+		public function __construct( $is_admin )
         {
             $this->is_admin = $is_admin;
             $this->manager  = User::newInstance();
         }
 
         //add...
-        function add()
+
+		/**
+		 * @return int
+		 */
+		public function add()
         {
             $error = array();
             $flash_error = '';
-            if( (osc_recaptcha_private_key() != '') && !$this->is_admin ) {
-                if( !osc_check_recaptcha() ) {
-                    $flash_error .= _m('The reCAPTCHA was not entered correctly') . PHP_EOL;
-                    $error[] = 4;
-                }
+	        if ( ( osc_recaptcha_private_key() != '' ) && ! $this->is_admin && ! osc_check_recaptcha() ) {
+		        $flash_error .= _m( 'The reCAPTCHA was not entered correctly' ) . PHP_EOL;
+		        $error[]     = 4;
             }
 
             if( Params::getParam('s_password', false, false) == '' ) {
@@ -71,17 +83,23 @@
             if($input['s_username']!='') {
                 $username_taken = $this->manager->findByUsername($input['s_username']);
                 if( !$error && $username_taken != false ) {
-                    $flash_error .= _m("Username is already taken") . PHP_EOL;
+                    $flash_error .= _m( 'Username is already taken' ) . PHP_EOL;
                     $error[] = 8;
                 }
                 if(osc_is_username_blacklisted($input['s_username'])) {
-                    $flash_error .= _m("The specified username is not valid, it contains some invalid words") . PHP_EOL;
+                    $flash_error .= _m( 'The specified username is not valid, it contains some invalid words' ) . PHP_EOL;
                     $error[] = 9;
                 }
             }
 
             $flash_error = osc_apply_filter('user_add_flash_error', $flash_error);
             if($flash_error!='') {
+                Session::newInstance()->_setForm('user_s_name', $input['s_name']);
+                Session::newInstance()->_setForm('user_s_username', $input['s_username']);
+                Session::newInstance()->_setForm('user_s_email', $input['s_email']);
+                Session::newInstance()->_setForm('user_s_phone_land', $input['s_phone_land']);
+                Session::newInstance()->_setForm('user_s_phone_mobile', $input['s_phone_mobile']);
+
                 osc_run_hook('user_register_failed', $error);
                 return $flash_error;
             }
@@ -138,7 +156,13 @@
         }
 
         //edit...
-        function edit($userId)
+
+		/**
+		 * @param $userId
+		 *
+		 * @return int
+		 */
+		public function edit( $userId )
         {
 
             $input = $this->prepareData(false);
@@ -190,7 +214,7 @@
 
             if(!$this->is_admin) {
                 Session::newInstance()->_set('userName', $input['s_name']);
-                $phone = ($input['s_phone_mobile'])? $input['s_phone_mobile'] : $input['s_phone_land'];
+	            $phone = $input[ 's_phone_mobile' ] ?: $input[ 's_phone_land' ];
                 Session::newInstance()->_set('userPhone', $phone);
             }
 
@@ -204,13 +228,13 @@
 
             if ( $this->is_admin ) {
                 $iUpdated = 0;
-                if( (Params::getParam("b_enabled") != '') && (Params::getParam("b_enabled") == 1 ) ) {
+                if( ( Params::getParam( 'b_enabled' ) != '') && ( Params::getParam( 'b_enabled' ) == 1 ) ) {
                     $iUpdated += $this->manager->update( array('b_enabled' => 1), array('pk_i_id' => $userId) );
                 } else {
                     $iUpdated += $this->manager->update( array('b_enabled' => 0), array('pk_i_id' => $userId) );
                 }
 
-                if( (Params::getParam("b_active") != '') && (Params::getParam("b_active") == 1) ) {
+                if( ( Params::getParam( 'b_active' ) != '') && ( Params::getParam( 'b_active' ) == 1) ) {
                     $iUpdated += $this->manager->update( array('b_active' => 1), array('pk_i_id' => $userId) );
                 } else {
                     $iUpdated += $this->manager->update( array('b_active' => 0), array('pk_i_id' => $userId) );
@@ -224,15 +248,16 @@
             return 1;
         }
 
-        function recover_password()
+		/**
+		 * @return int
+		 */
+		public function recover_password()
         {
             $user = User::newInstance()->findByEmail( Params::getParam('s_email') );
             Session::newInstance()->_set( 'recover_time', time() );
 
-            if ( (osc_recaptcha_private_key() != '') ) {
-                if( !osc_check_recaptcha() ) {
-                    return 2; // BREAK THE PROCESS, THE RECAPTCHA IS WRONG
-                }
+	        if ( ( osc_recaptcha_private_key() != '' ) && Session::newInstance()->_get( 'recover_captcha_not_set' ) != 1 && ! osc_check_recaptcha() ) {
+		        return 2; // BREAK THE PROCESS, THE RECAPTCHA IS WRONG
             }
 
             if( !$user || ($user['b_enabled'] == 0) ) {
@@ -252,7 +277,12 @@
             return 0;
         }
 
-        function prepareData($is_add)
+		/**
+		 * @param $is_add
+		 *
+		 * @return array
+		 */
+		public function prepareData( $is_add )
         {
             $input = array();
 
@@ -283,11 +313,13 @@
             $input['s_phone_land']   = trim(Params::getParam('s_phone_land'));
             $input['s_phone_mobile'] = trim(Params::getParam('s_phone_mobile'));
 
-            if(strtolower(substr($input['s_website'], 0, 4))!=='http') {
+	        if ( 0 !== stripos( $input[ 's_website' ] , 'http' ) ) {
                 $input['s_website'] = 'http://'.$input['s_website'];
             }
             $input['s_website'] = osc_sanitize_url($input['s_website']);
-            if ( ! osc_validate_url($input['s_website'])) $input['s_website'] = '';
+	        if ( ! osc_validate_url( $input[ 's_website' ] ) ) {
+		        $input[ 's_website' ] = '';
+	        }
 
             //locations...
             $country = Country::newInstance()->findByCode( Params::getParam('countryId') );
@@ -299,7 +331,7 @@
                 $countryName = Params::getParam('country');
             }
 
-            if( intval( Params::getParam('regionId') ) ) {
+	        if ( (int) Params::getParam( 'regionId' ) ) {
                 $region = Region::newInstance()->findByPrimaryKey( Params::getParam('regionId') );
                 if( count($region) > 0 ) {
                     $regionId   = $region['pk_i_id'];
@@ -310,7 +342,7 @@
                 $regionName = Params::getParam('region');
             }
 
-            if( intval( Params::getParam('cityId') ) ) {
+	        if ( (int) Params::getParam( 'cityId' ) ) {
                 $city = City::newInstance()->findByPrimaryKey( Params::getParam('cityId') );
                 if( count($city) > 0 ) {
                     $cityId   = $city['pk_i_id'];
@@ -334,10 +366,16 @@
             $input['d_coord_long']   = (Params::getParam('d_coord_long') != '') ? Params::getParam('d_coord_long') : null;
             $input['b_company']      = (Params::getParam('b_company') != '' && Params::getParam('b_company') != 0) ? 1 : 0;
 
-            return($input);
+            return $input;
         }
 
-        public function activate($user_id)
+		/**
+		 * @param $user_id
+		 *
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public function activate( $user_id )
         {
             $user = $this->manager->findByPrimaryKey($user_id);
 
@@ -374,7 +412,13 @@
             return true;
         }
 
-        public function deactivate($user_id)
+		/**
+		 * @param $user_id
+		 *
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public function deactivate( $user_id )
         {
             $user = $this->manager->findByPrimaryKey($user_id);
 
@@ -398,7 +442,13 @@
             return true;
         }
 
-        public function enable($user_id)
+		/**
+		 * @param $user_id
+		 *
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public function enable( $user_id )
         {
             $user = $this->manager->findByPrimaryKey($user_id);
 
@@ -422,7 +472,13 @@
             return true;
         }
 
-        public function disable($user_id)
+		/**
+		 * @param $user_id
+		 *
+		 * @return bool
+		 * @throws \Exception
+		 */
+		public function disable( $user_id )
         {
             $user = $this->manager->findByPrimaryKey($user_id);
 
@@ -446,7 +502,12 @@
             return true;
         }
 
-        public function resend_activation($user_id)
+		/**
+		 * @param $user_id
+		 *
+		 * @return int
+		 */
+		public function resend_activation( $user_id )
         {
             $user = $this->manager->findByPrimaryKey($user_id);
             $input['s_secret'] = $user['s_secret'];
@@ -463,7 +524,12 @@
             return 0;
         }
 
-        public function bootstrap_login($user_id)
+		/**
+		 * @param $user_id
+		 *
+		 * @return int
+		 */
+		public function bootstrap_login( $user_id )
         {
             $user = User::newInstance()->findByPrimaryKey( $user_id );
 
@@ -483,11 +549,11 @@
             Session::newInstance()->_set('userId', $user['pk_i_id']);
             Session::newInstance()->_set('userName', $user['s_name']);
             Session::newInstance()->_set('userEmail', $user['s_email']);
-            $phone = ($user['s_phone_mobile']) ? $user['s_phone_mobile'] : $user['s_phone_land'];
+	        $phone = $user[ 's_phone_mobile' ] ?: $user[ 's_phone_land' ];
             Session::newInstance()->_set('userPhone', $phone);
 
             return 3;
         }
     }
 
-?>
+

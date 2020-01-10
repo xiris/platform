@@ -30,7 +30,7 @@
         <h1><?php _e('Access to your account', 'bender'); ?></h1>
     </div>
     <div class="resp-wrapper">
-        <form action="<?php echo osc_base_url(true); ?>" method="post" >
+        <form name="login" id="login" action="<?php echo osc_base_url(true); ?>" method="post" >
             <input type="hidden" name="page" value="login" />
             <input type="hidden" name="action" value="login_post" />
 
@@ -51,11 +51,11 @@
                     <?php UserForm::rememberme_login_checkbox();?> <label for="remember"><?php _e('Remember me', 'bender'); ?></label>
                 </div>
                 <div class="controls">
-                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Log in", 'bender');?></button>
+                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Log in' , 'bender');?></button>
                 </div>
             </div>
             <div class="actions">
-                <a href="<?php echo osc_register_account_url(); ?>"><?php _e("Register for a free account", 'bender'); ?></a><br /><a href="<?php echo osc_recover_user_password_url(); ?>"><?php _e("Forgot password?", 'bender'); ?></a>
+                <a href="<?php echo osc_register_account_url(); ?>"><?php _e( 'Register for a free account' , 'bender'); ?></a><br /><a href="<?php echo osc_recover_user_password_url(); ?>"><?php _e( 'Forgot password?' , 'bender'); ?></a>
             </div>
         </form>
     </div>

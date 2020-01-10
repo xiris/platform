@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -23,24 +25,24 @@
     {
         /**
          *
-         * @var type
+         * @var
          */
         private static $instance;
         /**
          *
-         * @var type
+         * @var
          */
         private $daoMetadata;
         /**
          *
-         * @var type
+         * @var
          */
         private $siteInfo;
 
-        /**
-         *
-         * @return type
-         */
+	    /**
+	     *
+	     * @return \SiteInfo
+	     */
         public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
@@ -76,29 +78,31 @@
             $this->siteInfo = $this->findByPrimaryKey($domain);
         }
 
-        /**
-         *
-         * @access public
-         * @since unknown
-         * @param type $key
-         * @return type
-         */
+	    /**
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param $key
+	     *
+	     * @return string
+	     */
         public function get($key)
         {
             if (!isset($this->siteInfo[$key])) {
                 return '';
             }
 
-            return ($this->siteInfo[$key]);
+            return $this->siteInfo[$key];
         }
 
-        /**
-         *
-         * @access public
-         * @since unknown
-         * @param type $value
-         * @return type
-         */
+	    /**
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param $value
+	     * @return array
+*/
         public function findByPrimaryKey($value)
         {
             $this->daoMetadata->select($this->getFields());
@@ -114,13 +118,13 @@
             return $result->row();
         }
 
-        /**
-         *
-         * @access public
-         * @since unknown
-         * @param type $table
-         * @return type
-         */
+	    /**
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param $table
+	     * @return string
+*/
         public function setTableName($table)
         {
             return $this->tableName = $table;
@@ -128,4 +132,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/SiteInfo.php */
-?>

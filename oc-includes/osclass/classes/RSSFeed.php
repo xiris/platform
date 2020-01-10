@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -30,19 +32,31 @@
             $this->items = array();
         }
 
-        public function setTitle($title) {
+	    /**
+	     * @param $title
+	     */
+	    public function setTitle( $title ) {
             $this->title = $title;
         }
 
-        public function setLink($link) {
+	    /**
+	     * @param $link
+	     */
+	    public function setLink( $link ) {
             $this->link = $link;
         }
 
-        public function setDescription($description) {
+	    /**
+	     * @param $description
+	     */
+	    public function setDescription( $description ) {
             $this->description = $description;
         }
 
-        public function addItem($item) {
+	    /**
+	     * @param $item
+	     */
+	    public function addItem( $item ) {
             $this->items[] = $item;
         }
 
@@ -67,11 +81,11 @@
                 echo $item['description'], ']]>';
                 echo '</description>', PHP_EOL;
 
-                echo '<country>', $item['country'], '</country>', PHP_EOL;
-                echo '<region>', $item['region'], '</region>', PHP_EOL;
-                echo '<city>', $item['city'], '</city>', PHP_EOL;
-                echo '<cityArea>', $item['city_area'], '</cityArea>', PHP_EOL;
-                echo '<category>', $item['category'], '</category>', PHP_EOL;
+                echo '<country><![CDATA[', $item['country'], ']]></country>', PHP_EOL;
+                echo '<region><![CDATA[', $item['region'], ']]></region>', PHP_EOL;
+                echo '<city><![CDATA[', $item['city'], ']]></city>', PHP_EOL;
+                echo '<cityArea><![CDATA[', $item['city_area'], ']]></cityArea>', PHP_EOL;
+                echo '<category><![CDATA[', $item['category'], ']]></category>', PHP_EOL;
 
                 echo '<pubDate>', date('r',strtotime($item['dt_pub_date'])) , '</pubDate>', PHP_EOL;
                 
@@ -81,4 +95,3 @@
             echo '</rss>', PHP_EOL;
         }
     }
-?>

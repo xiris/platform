@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -73,7 +75,7 @@
          * @return bool
          * @todo OJO query('update ....') cambiar a ->update()
          */
-        function increase($column, $itemId)
+        public function increase($column, $itemId)
         {
 
             //('INSERT INTO %s (fk_i_item_id, dt_date, %3$s) VALUES (%d, \'%4$s\',1) ON DUPLICATE KEY UPDATE %3$s = %3$s + 1', $this->getTableName(), $id, $column, date('Y-m-d H:i:s'));
@@ -101,7 +103,7 @@
          * @param int $itemId Item id
          * @return bool
          */
-        function emptyRow($itemId)
+        public function emptyRow($itemId)
         {
             return $this->insert( array(
                 'fk_i_item_id' => $itemId,
@@ -117,7 +119,7 @@
          * @param int $itemId Item id
          * @return int
          */
-        function getViews($itemId)
+        public function getViews($itemId)
         {
             $this->dao->select('SUM(i_num_views) AS i_num_views');
             $this->dao->from($this->getTableName());
@@ -131,15 +133,14 @@
             }
         }
 
-        /**
-         * Return number of views of an item
-         *
-         * @access public
-         * @since 2.3.3
-         * @param int $itemId Item id
-         * @return int
-         */
-        function getAllViews()
+	    /**
+	     * Return number of views of an item
+	     *
+	     * @access public
+	     * @since  2.3.3
+	     * @return int
+	     */
+        public function getAllViews()
         {
             $this->dao->select('SUM(i_num_views) AS i_num_views');
             $this->dao->from($this->getTableName());
@@ -154,4 +155,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/ItemStats.php */
-?>

@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,9 +18,12 @@
  * limitations under the License.
  */
 
-    class CWebCustom extends BaseModel
+	/**
+	 * Class CWebCustom
+	 */
+	class CWebCustom extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             //specific things for this class
@@ -26,7 +31,7 @@
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
             $user_menu = false;
             if(Params::existParam('route')) {
@@ -50,7 +55,7 @@
             }
 
             // check if the file exists
-            if( !file_exists(osc_plugins_path() . $file) && !file_exists(osc_themes_path() . osc_theme() . "/plugins/" . $file) ) {
+            if( !file_exists(osc_plugins_path() . $file) && !file_exists(osc_themes_path() . osc_theme() . '/plugins/' . $file) ) {
                 $this->do404();
                 return;
             }
@@ -71,14 +76,19 @@
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
             Session::newInstance()->_clearVariables();
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 
     /* file end: ./custom.php */
-?>

@@ -40,14 +40,14 @@
      * @return array
      */
     function osc_locale() {
-        if (View::newInstance()->_exists('locales')) {
+	    $locale = null;
+	    if ( View::newInstance()->_exists( 'locales' ) ) {
             $locale = View::newInstance()->_current('locales');
         } elseif (View::newInstance()->_exists('locale')) {
             $locale = View::newInstance()->_get('locale');
-        } else {
-            $locale = null;
         }
-        return($locale);
+
+	    return $locale;
     }
 
     /**
@@ -58,7 +58,7 @@
     function osc_get_locales() {
         if (!View::newInstance()->_exists('locales')) {
             $locale = OSCLocale::newInstance()->listAllEnabled();
-            View::newInstance()->_exportVariableToView("locales", $locale);
+            View::newInstance()->_exportVariableToView( 'locales' , $locale);
         } else {
             $locale = View::newInstance()->_get('locales');
         }
@@ -95,11 +95,12 @@
         return osc_priv_count_locales();
     }
 
-    /**
-     * Iterator for enabled locales for website
-     *
-     * @return array
-     */
+
+	/**
+	 * Iterator for enabled locales for website
+	 *
+	 * @return bool
+	 */
     function osc_has_web_enabled_locales() {
         if ( !View::newInstance()->_exists('locales') ) {
             View::newInstance()->_exportVariableToView('locales', OSCLocale::newInstance()->listAllEnabled() );
@@ -114,7 +115,7 @@
      * @return string
      */
     function osc_locale_code() {
-        return osc_locale_field("pk_c_code");
+        return osc_locale_field( 'pk_c_code' );
     }
 
     /**
@@ -123,7 +124,7 @@
      * @return string
      */
     function osc_locale_name() {
-        return osc_locale_field("s_name");
+        return osc_locale_field( 's_name' );
     }
 
     /**
@@ -202,13 +203,16 @@
         return $cLocale['i_num_dec'];
     }
 
-    /**
-     * Gets list of enabled locales
-     *
-     * @return array
-     */
+
+	/**
+	 * Gets list of enabled locales
+	 *
+	 * @param bool $indexed_by_pk
+	 *
+	 * @return array
+	 */
     function osc_all_enabled_locales_for_admin($indexed_by_pk = false) {
-        return ( OSCLocale::newInstance()->listAllEnabled(true, $indexed_by_pk));
+        return OSCLocale::newInstance()->listAllEnabled( true, $indexed_by_pk);
     }
 
     /**
@@ -253,4 +257,3 @@
 
         return osc_admin_language();
     }
-?>

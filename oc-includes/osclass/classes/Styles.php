@@ -7,11 +7,14 @@
  */
 class Styles {
 
-    var $styles = array();
+    public $styles = array();
 
     private static $instance;
 
-    public static function newInstance()
+	/**
+	 * @return \Styles
+	 */
+	public static function newInstance()
     {
         if(!self::$instance instanceof self) {
             self::$instance = new self;
@@ -27,8 +30,8 @@ class Styles {
     /**
      * Add style to be loaded
      *
-     * @param type $id
-     * @param type $url
+     * @param $id
+     * @param $url
      */
     public function addStyle($id, $url)
     {
@@ -38,7 +41,7 @@ class Styles {
     /**
      * Remove style to not be loaded
      *
-     * @param type $id
+     * @param $id
      */
     public function removeStyle($id)
     {

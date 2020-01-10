@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -23,7 +25,7 @@
      */
     class SecBaseModel extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct ();
 
@@ -36,22 +38,29 @@
         }
 
         //granting methods
-        function setGranting($grant)
+
+	    /**
+	     * @param $grant
+	     */
+	    public function setGranting( $grant )
         {
             $this->grant = $grant;
         }
 
         //destroying current session
-        function logout()
+        public function logout()
         {
             //destroying session
             Session::newInstance()->session_destroy();
         }
 
-        function doModel() {}
+        public function doModel() {}
 
-        function doView($file) {}
+	    /**
+	     * @param $file
+	     */
+	    public function doView( $file ) {
+	    }
     }
 
     /* file end: ./oc-includes/osclass/core/SecBaseModel.php */
-?>

@@ -116,7 +116,10 @@
 
                                         // post execution to recover the password
                                         $admin = Admin::newInstance()->findByEmail( Params::getParam('email') );
-                                        if( $admin ) {
+                                        if(!isset($admin['pk_i_id'])) {
+                                            $admin = Admin::newInstance()->findByUsername(Params::getParam('email'));
+                                        }
+                                        if( isset($admin['pk_i_id']) ) {
                                             if( (osc_recaptcha_private_key() != '') ) {
                                                 if( !osc_check_recaptcha() ) {
                                                     osc_add_flash_error_message( _m('The reCAPTCHA code is wrong'), 'admin');
@@ -182,7 +185,7 @@
         function doView($file)
         {
             $login_admin_title = osc_apply_filter('login_admin_title', 'Osclass');
-            $login_admin_url   = osc_apply_filter('login_admin_url', 'http://osclass.org/');
+            $login_admin_url   = osc_apply_filter('login_admin_url', 'https://github.com/navjottomer/osclass/');
             $login_admin_image = osc_apply_filter('login_admin_image', osc_admin_base_url() . 'images/osclass-logo.gif');
 
             View::newInstance()->_exportVariableToView('login_admin_title', $login_admin_title);

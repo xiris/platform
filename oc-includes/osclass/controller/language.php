@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,21 +18,24 @@
  * limitations under the License.
  */
 
-    class CWebLanguage extends BaseModel
+	/**
+	 * Class CWebLanguage
+	 */
+	class CWebLanguage extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             osc_run_hook( 'init_language' );
         }
 
         // business layer...
-        function doModel()
+        public function doModel()
         {
             $locale = Params::getParam('locale');
 
             if(preg_match('/.{2}_.{2}/', $locale)) {
-                Session::newinstance()->_set('userLocale', $locale);
+                Session::newInstance()->_set( 'userLocale', $locale);
             }
 
             $redirect_url = '';
@@ -44,8 +49,14 @@
         }
 
         // hopefully generic...
-        function doView($file) { }
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file ) {
+		}
     }
 
     /* file end: ./language.php */
-?>

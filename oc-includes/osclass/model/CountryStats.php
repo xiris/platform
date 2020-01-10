@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -57,7 +59,7 @@
          * @access public
          * @since 2.4
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_country_stats');
@@ -83,14 +85,16 @@
             return $this->dao->query($sql);
         }
 
-        /**
-         * Increase number of country items, given a Country code
-         *
-         * @access public
-         * @since 2.4
-         * @param int $countrycode Country code
-         * @return int number of affected rows, id error occurred return false
-         */
+	    /**
+	     * Increase number of country items, given a Country code
+	     *
+	     * @access public
+	     * @since  2.4
+	     *
+	     * @param $countryCode
+	     *
+	     * @return int number of affected rows, id error occurred return false
+	     */
         public function decreaseNumItems($countryCode)
         {
             $lenght = strlen($countryCode);
@@ -116,18 +120,20 @@
             return false;
         }
 
-        /**
-         * Set i_num_items, given a country code
-         *
-         * @access public
-         * @since 2.4
-         * @param type $countryCode
-         * @param type $numItems
-         * @return type
-         */
+	    /**
+	     * Set i_num_items, given a country code
+	     *
+	     * @access public
+	     * @since  2.4
+	     *
+	     * @param string $countryCode
+	     * @param int    $numItems
+	     *
+	     * @return mixed
+	     */
         public function setNumItems($countryCode, $numItems)
         {
-            return $this->dao->query("INSERT INTO ".$this->getTableName()." (fk_c_country_code, i_num_items) VALUES ('$countryCode', $numItems) ON DUPLICATE KEY UPDATE i_num_items = ".$numItems);
+            return $this->dao->query( 'INSERT INTO ' . $this->getTableName() . " (fk_c_country_code, i_num_items) VALUES ('$countryCode', $numItems) ON DUPLICATE KEY UPDATE i_num_items = " . $numItems);
         }
 
         /**
@@ -156,7 +162,7 @@
          * @param string $order
          * @return array
          */
-        public function listCountries($zero = ">", $order = "country_name ASC")
+        public function listCountries($zero = '>' , $order = 'country_name ASC' )
         {
             $this->dao->select($this->getTableName().'.fk_c_country_code as country_code, '.$this->getTableName().'.i_num_items as items, '.DB_TABLE_PREFIX.'t_country.s_name as country_name, '.DB_TABLE_PREFIX.'t_country.s_slug as country_slug');
             $this->dao->from($this->getTableName() );
@@ -176,10 +182,12 @@
          * Calculate the total items that belong to countryCode
          * @access public
          * @since 2.4
-         * @param type $countryCode
+         *
+         * @param string $countryCode
+         *
          * @return int total items
          */
-        function calculateNumItems($countryCode)
+        public function calculateNumItems($countryCode)
         {
             $sql  = 'SELECT count(*) as total FROM '.DB_TABLE_PREFIX.'t_item_location, '.DB_TABLE_PREFIX.'t_item, '.DB_TABLE_PREFIX.'t_category ';
             $sql .= 'WHERE '.DB_TABLE_PREFIX.'t_item_location.fk_c_country_code = \''.$countryCode.'\' AND ';
@@ -204,4 +212,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/CountryStats.php */
-?>

@@ -66,13 +66,15 @@
                 foreach($aSubmenu as $aSub) {
                     $credential_sub = isset($aSub[4])?$aSub[4]:$aSub[3];
 
-                    if(!$is_moderator || ($is_moderator && $credential_sub == 'moderator')) { // show
+                    if(!$is_moderator || ($is_moderator && $credential_sub === 'moderator')) { // show
 
                         $url_submenu   = $aSub[1];
-                        $url_submenu   = str_replace(osc_admin_base_url(true).'?', '', $url_submenu);
-                        $url_submenu   = str_replace(osc_admin_base_url(), '', $url_submenu);
+	                    $url_submenu   = str_replace( array (
+		                                                  osc_admin_base_url( true ) . '?' ,
+		                                                  osc_admin_base_url()
+	                                                  ) , '' , $url_submenu );
 
-                        if( strpos($actual_url, $url_submenu, 0) === 0 && $priority<=2  && $url_submenu != '') {
+                        if( strpos($actual_url, $url_submenu) === 0 && $priority<=2  && $url_submenu != '') {
 
                             if( $urlLenght<strlen($url_submenu) ) {
                                 $urlLenght = strlen($url_submenu);
@@ -91,8 +93,10 @@
 
             // --- menu section
             $url_menu   = $value[1];
-            $url_menu   = str_replace(osc_admin_base_url(true).'?', '', $url_menu);
-            $url_menu   = str_replace(osc_admin_base_url(), '', $url_menu);
+	        $url_menu   = str_replace( array (
+		                                   osc_admin_base_url( true ) . '?' ,
+		                                   osc_admin_base_url()
+	                                   ) , '' , $url_menu );
 
             if(@strpos($actual_url, $url_menu) === 0  && $priority<=2 && $url_menu != '') {
                 if( $urlLenght<strlen($url_menu) ) {
@@ -114,20 +118,20 @@
         $value = array();
         foreach($aMenu as $key => $value) {
 
-            $sSubmenu   = "";
+            $sSubmenu   = '';
             $credential = $value[3];
-            if(!$is_moderator || $is_moderator && $credential == 'moderator') { // show
+	        if ( ! $is_moderator || ( $is_moderator && $credential == 'moderator' ) ) { // show
 
                 $class      = '';
                 if( array_key_exists('sub', $value) ) {
                     // submenu
                     $aSubmenu = $value['sub'];
                     if($aSubmenu) {
-                        $sSubmenu .= "<ul>".PHP_EOL;
+                        $sSubmenu .= '<ul>' . PHP_EOL;
                         foreach($aSubmenu as $aSub) {
                             $credential_sub = isset($aSub[4])?$aSub[4]:$aSub[3];
-                            if(!$is_moderator || $is_moderator && $credential_sub == 'moderator') { // show
-                                if(substr($aSub[1], 0, 8)=="divider_") {
+	                        if ( ! $is_moderator || ( $is_moderator && $credential_sub == 'moderator' ) ) { // show
+                                if( substr($aSub[1], 0, 8) == 'divider_' ) {
                                     $sSubmenu .= '<li class="submenu-divide">'.$aSub[0].'</li>'.PHP_EOL;
                                 } else {
                                     $sSubmenu .= '<li><a id="'.$aSub[2].'" href="'.$aSub[1].'">'.$aSub[0].'</a></li>'.PHP_EOL;
@@ -140,7 +144,7 @@
                         }
 
                         $sSubmenu .= '<li class="arrow"></li>'.PHP_EOL;
-                        $sSubmenu .= "</ul>".PHP_EOL;
+                        $sSubmenu .= '</ul>' . PHP_EOL;
                     }
                 }
 
@@ -176,12 +180,17 @@
         echo $sMenu;
     }
 
-    /**
-     * Add menu entry
-     *
-     * @param type $array
-     * @param type $id_menu
-     */
+
+	/**
+	 * Add menu entry
+	 *
+	 * @param        $menu_title
+	 * @param        $url
+	 * @param        $menu_id
+	 * @param string $capability
+	 * @param null   $icon_url
+	 * @param null   $position
+	 */
     function osc_add_admin_menu_page( $menu_title, $url, $menu_id, $capability = 'administrator', $icon_url = null, $position = null )
     {
         AdminMenu::newInstance()->add_menu($menu_title, $url, $menu_id, $capability, $icon_url = null, $position);
@@ -195,132 +204,202 @@
         AdminMenu::newInstance()->clear_menu();
     }
 
-    /**
-     * Remove menu section with id $id_menu
-     * @param type $id_menu
-     */
+
+	/**
+	 * Remove menu section with id $id_menu
+	 *
+	 * @param $menu_id
+	 */
     function osc_remove_admin_menu_page($menu_id)
     {
         AdminMenu::newInstance()->remove_menu( $menu_id );
     }
 
-    /**
-     * Add submenu under menu id $id_menu, with $array information
-     * @param type $array
-     * @param type $id_menu
-     */
+
+	/**
+	 * Add submenu under menu id $id_menu, with $array information
+	 *
+	 * @param        $menu_id
+	 * @param        $submenu_title
+	 * @param        $url
+	 * @param        $submenu_id
+	 * @param string $capability
+	 */
     function osc_add_admin_submenu_page( $menu_id, $submenu_title, $url, $submenu_id, $capability = 'administrator')
     {
         AdminMenu::newInstance()->add_submenu( $menu_id, $submenu_title, $url, $submenu_id, $capability);
     }
 
-    /**
-     * Remove submenu with id $id_submenu under menu id $id_menu
-     *
-     * @param type $id_menu
-     * @param type $id_submenu
-     */
+
+	/**
+	 * Remove submenu with id $id_submenu under menu id $id_menu
+	 *
+	 * @param $menu_id
+	 * @param $submenu_id
+	 */
     function osc_remove_admin_submenu_page( $menu_id, $submenu_id )
     {
         AdminMenu::newInstance()->remove_submenu( $menu_id, $submenu_id );
     }
 
-    /**
-     * Add submenu divider under menu id $id_menu, with $array information
-     * @param type $array
-     * @param type $id_menu
-     * @since 3.1
-     */
+
+	/**
+	 * Add submenu divider under menu id $id_menu, with $array information
+	 * @param      $menu_id
+	 * @param      $submenu_title
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @since 3.1
+	 */
     function osc_add_admin_submenu_divider( $menu_id, $submenu_title, $submenu_id, $capability = null)
     {
         AdminMenu::newInstance()->add_submenu_divider( $menu_id, $submenu_title, $submenu_id, $capability);
     }
 
-    /**
-     * Remove submenu divider with id $id_submenu under menu id $id_menu
-     *
-     * @param type $id_menu
-     * @param type $id_submenu
-     * @since 3.1
-     */
+
+	/**
+	 * Remove submenu divider with id $id_submenu under menu id $id_menu
+	 *
+	 * @param $menu_id
+	 * @param $submenu_id
+	 * @since 3.1
+	 */
     function osc_remove_admin_submenu_divider( $menu_id, $submenu_id )
     {
         AdminMenu::newInstance()->remove_submenu_divider( $menu_id, $submenu_id );
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_items( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_items( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_categories( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_categories( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_pages( $submenu_title, $url, $submenu_id, $capability = null, $icon_url= null)
     {
         AdminMenu::newInstance()->add_menu_pages( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_appearance( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_appearance( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_plugins( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_plugins( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_settings( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_settings( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_tools( $submenu_title, $url, $submenu_id,$capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_tools( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_users( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_users( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    /**
-     * Add submenu into items menu page
-     */
+
+	/**
+	 * Add submenu into items menu page
+	 * @param      $submenu_title
+	 * @param      $url
+	 * @param      $submenu_id
+	 * @param null $capability
+	 * @param null $icon_url
+	 */
     function osc_admin_menu_stats( $submenu_title, $url, $submenu_id, $capability = null, $icon_url = null )
     {
         AdminMenu::newInstance()->add_menu_stats( $submenu_title, $url, $submenu_id, $capability, $icon_url);
     }
 
-    function osc_current_menu() {
+
+	/**
+	 * @return string
+	 */
+	function osc_current_menu() {
         $menu_id            = '';
         $current_menu       = 'dash';
         $something_selected = false;
@@ -338,16 +417,15 @@
         foreach($aMenu as $key => $value) {
             $aMenu_actions = array();
             $url = $value[1];
-            $url = str_replace(osc_admin_base_url(true) , '', $url );
-            $url = str_replace(osc_admin_base_url()     , '', $url );
+	        $url = str_replace( array ( osc_admin_base_url( true ) , osc_admin_base_url() ) , '' , $url );
 
-            array_push($aMenu_actions, $url);
+	        $aMenu_actions[] = $url;
             if( array_key_exists('sub', $value) ) {
                 $aSubmenu = $value['sub'];
                 if($aSubmenu) {
                     foreach($aSubmenu as $aSub) {
-                        $url = str_replace(osc_admin_base_url(true), '', $aSub[1] );
-                        array_push($aMenu_actions, $url);
+	                    $url             = str_replace( osc_admin_base_url( true ) , '' , $aSub[ 1 ] );
+	                    $aMenu_actions[] = $url;
                     }
                 }
             }
@@ -358,24 +436,24 @@
             }
         }
 
-        if($something_selected)
-            return $menu_id;
+	    if ( $something_selected ) {
+		    return $menu_id;
+	    }
 
         // try again without action
         $url_actual = preg_replace('/(&action=.+)/', '', $url_actual);
         foreach($aMenu as $key => $value) {
             $aMenu_actions = array();
             $url = $value[1];
-            $url = str_replace(osc_admin_base_url(true) , '', $url );
-            $url = str_replace(osc_admin_base_url()     , '', $url );
+	        $url = str_replace( array ( osc_admin_base_url( true ) , osc_admin_base_url() ) , '' , $url );
 
-            array_push($aMenu_actions, $url);
+	        $aMenu_actions[] = $url;
             if( array_key_exists('sub', $value) ) {
                 $aSubmenu = $value['sub'];
                 if($aSubmenu) {
                     foreach($aSubmenu as $aSub) {
-                        $url = str_replace(osc_admin_base_url(true), '', $aSub[1] );
-                        array_push($aMenu_actions, $url);
+	                    $url             = str_replace( osc_admin_base_url( true ) , '' , $aSub[ 1 ] );
+	                    $aMenu_actions[] = $url;
                     }
                 }
             }
@@ -387,4 +465,4 @@
 
         return $menu_id;
     }
-?>
+

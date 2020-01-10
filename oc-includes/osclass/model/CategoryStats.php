@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -54,7 +56,7 @@
         /**
          * Set data related to t_category_stats table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_category_stats');
@@ -62,14 +64,17 @@
             $this->setFields( array('fk_i_category_id', 'i_num_items') );
         }
 
-        /**
-         * Increase number of category items, given a category id
-         *
-         * @access public
-         * @since unknown
-         * @param int $categoryId Category id
-         * @return int number of affected rows, id error occurred return false
-         */
+	    /**
+	     * Increase number of category items, given a category id
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param int $categoryId Category id
+	     *
+	     * @return int number of affected rows, id error occurred return false
+	     * @throws \Exception
+	     */
         public function increaseNumItems($categoryId)
         {
             if(!is_numeric($categoryId)) {
@@ -91,14 +96,17 @@
             return $return;
         }
 
-        /**
-         * Increase number of category items, given a category id
-         *
-         * @access public
-         * @since unknown
-         * @param int $categoryId Category id
-         * @return int number of affected rows, id error occurred return false
-         */
+	    /**
+	     * Increase number of category items, given a category id
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param int $categoryId Category id
+	     *
+	     * @return int number of affected rows, id error occurred return false
+	     * @throws \Exception
+	     */
         public function decreaseNumItems($categoryId)
         {
             $this->dao->select( 'i_num_items' );
@@ -144,9 +152,15 @@
             return $return;
         }
 
-        public function setNumItems($categoryID, $numItems)
+	    /**
+	     * @param $categoryID
+	     * @param $numItems
+	     *
+	     * @return mixed
+	     */
+	    public function setNumItems( $categoryID , $numItems )
         {
-            return $this->dao->query("INSERT INTO ".$this->getTableName()." (fk_i_category_id, i_num_items) VALUES ($categoryID, $numItems) ON DUPLICATE KEY UPDATE i_num_items = ".$numItems);
+            return $this->dao->query( 'INSERT INTO ' . $this->getTableName() . " (fk_i_category_id, i_num_items) VALUES ($categoryID, $numItems) ON DUPLICATE KEY UPDATE i_num_items = " . $numItems);
         }
 
         /**
@@ -167,7 +181,7 @@
          *
          * @access public
          * @since unknown
-         * @param type $categoryId Category id
+         * @param $categoryId Category id
          * @return int number of items into category
          */
         public function countItemsFromCategory($categoryId)
@@ -177,48 +191,57 @@
             $this->dao->where('fk_i_category_id', $categoryId);
             $result = $this->dao->get();
             $data = $result->row();
-            if($data==null) { return 0; } else { return $data['i_num_items']; };
+            if($data==null) { return 0; } else { return $data['i_num_items']; }
         }
 
-        /**
-         * Get number of items
-         *
-         * @access public
-         * @since unknown
-         * @staticvar string $numItemsMap
-         * @param array $cat category array
-         * @return int
-         */
+	    /**
+	     * Get number of items
+	     *
+	     * @access    public
+	     * @since     unknown
+	     * @staticvar string $numItemsMap
+	     *
+	     * @param array $cat category array
+	     *
+	     * @return int
+	     * @throws \Exception
+	     */
         public function getNumItems($cat)
         {
             static $numItemsMap = null;
-            if(is_null($numItemsMap)) {
+	        if ( null === $numItemsMap ) {
                 $numItemsMap = $this->toNumItemsMap();
             }
-            if(isset($numItemsMap['parent'][$cat['pk_i_id']]))
-                return $numItemsMap['parent'][$cat['pk_i_id']]['numItems'];
-            else if (isset($numItemsMap['subcategories'][$cat['pk_i_id']]))
-                return $numItemsMap['subcategories'][$cat['pk_i_id']]['numItems'];
-            else
-                return 0;
+	        if ( isset( $numItemsMap[ 'parent' ][ $cat[ 'pk_i_id' ] ] ) ) {
+		        return $numItemsMap[ 'parent' ][ $cat[ 'pk_i_id' ] ][ 'numItems' ];
+	        } else if ( isset( $numItemsMap[ 'subcategories' ][ $cat[ 'pk_i_id' ] ] ) ) {
+		        return $numItemsMap[ 'subcategories' ][ $cat[ 'pk_i_id' ] ][ 'numItems' ];
+	        } else {
+		        return 0;
+	        }
         }
-        /**
-         *
-         * @access public
-         * @since unknown
-         * @return array
-         */
+
+	    /**
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @return array
+	     * @throws \Exception
+*/
         public function toNumItemsMap()
         {
             $map = array();
             $all = $this->listAll();
 
-            if( empty($all) ) return array();
+	        if ( empty( $all ) ) {
+		        return array ();
+	        }
 
             $roots = Category::newInstance()->findRootCategories();
 
-            foreach($all as $a)
-                $map[$a['fk_i_category_id']] = $a['i_num_items'];
+	        foreach ( $all as $a ) {
+		        $map[ $a[ 'fk_i_category_id' ] ] = $a[ 'i_num_items' ];
+	        }
 
             $new_map = array();
             foreach($roots as $root ){
@@ -237,4 +260,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/CategoryStats.php */
-?>

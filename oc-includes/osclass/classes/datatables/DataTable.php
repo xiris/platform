@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -44,9 +46,11 @@
         }
 
 
-        /**
-         * FUNCTIONS THAT SHOULD BE REDECLARED IN SUB-CLASSES
-         */
+	    /**
+	     * FUNCTIONS THAT SHOULD BE REDECLARED IN SUB-CLASSES
+	     *
+	     * @param null $results
+	     */
         public function setResults($results = null) {
             if(is_array($results)) {
                 $this->start = 0;
@@ -81,31 +85,41 @@
          */
 
 
-        /**
-         * Add a colum
-         * @param type $id
-         * @param type $text
-         * @param type $priority
-         */
+	    /**
+	     * Add a colum
+	     *
+	     * @param $id
+	     * @param $text
+	     * @param int  $priority
+	     */
         public function addColumn($id, $text, $priority = 5)
         {
             $this->removeColumn($id);
             $this->aColumns[$priority][$id] = $text;
         }
 
-        public function removeColumn($id)
+	    /**
+	     * @param $id
+	     */
+	    public function removeColumn($id)
         {
             for($priority=1;$priority<=10;$priority++) {
                 unset($this->aColumns[$priority][$id]);
             }
         }
 
-        protected function addRow($aRow)
+	    /**
+	     * @param $aRow
+	     */
+	    protected function addRow($aRow)
         {
             $this->aRows[] = $aRow;
         }
 
-        public function sortedColumns()
+	    /**
+	     * @return array
+	     */
+	    public function sortedColumns()
         {
             $columns_ordered = array();
             for($priority=1;$priority<=10;$priority++) {
@@ -118,14 +132,18 @@
             return $columns_ordered;
         }
 
-        public function sortedRows()
+	    /**
+	     * @return array
+	     */
+	    public function sortedRows()
         {
             $rows = array();
-            $columns = $this->sortedColumns();
-            if(count($this->aRows)===0) {
+            $aRows = (array) $this->aRows;
+            $columns = (array) $this->sortedColumns();
+            if(count($aRows)===0) {
                 return $rows;
             }
-            foreach($this->aRows as $row) {
+            foreach($aRows as $row) {
                 $aux_row = array();
                 foreach($columns as $k => $v) {
                     if(isset($row[$k])) {
@@ -139,7 +157,10 @@
             return $rows;
         }
 
-        public function getData()
+	    /**
+	     * @return array
+	     */
+	    public function getData()
         {
             return array(
                     'aColumns'              => $this->sortedColumns()
@@ -151,7 +172,10 @@
             );
         }
 
-        public function rawRows()
+	    /**
+	     * @return array
+	     */
+	    public function rawRows()
         {
             return $this->rawRows;
         }
@@ -160,4 +184,3 @@
 
     }
 
-?>

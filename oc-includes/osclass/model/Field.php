@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -54,7 +56,7 @@
         /**
          * Set data related to t_meta_fields table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_meta_fields');
@@ -109,19 +111,22 @@
             return $result->result();
         }
 
-        /**
-         * Find a field by its name
-         *
-         * @access public
-         * @since unknown
-         * @param string $ids
-         * @return array Fields' id
-         */
+	    /**
+	     * Find a field by its name
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param mixed $ids
+	     *
+	     * @return array Fields' id
+	     * @throws \Exception
+	     */
         public function findIDSearchableByCategories($ids)
         {
-            if(!is_array($ids)) { $ids = array($ids); };
-            $this->dao->select('f.pk_i_id');
-            $this->dao->from($this->getTableName()." f, ".DB_TABLE_PREFIX."t_meta_categories c");
+            if(!is_array($ids)) { $ids = array($ids); }
+	        $this->dao->select('f.pk_i_id');
+            $this->dao->from( $this->getTableName() . ' f, ' . DB_TABLE_PREFIX . 't_meta_categories c' );
             $where = array();
             $mCat = Category::newInstance();
             foreach($ids as $id) {
@@ -149,25 +154,29 @@
             }
 
             $tmp = array();
-            foreach($result->result() as $t) { $tmp[] = $t['pk_i_id']; };
-            return $tmp;
+            foreach($result->result() as $t) { $tmp[] = $t['pk_i_id']; }
+
+	        return $tmp;
         }
 
-        /**
-         * Find fields from a category and an item
-         *
-         * @access public
-         * @since unknown
-         * @param string $id
-         * @return array Field information. If there's no information, return an empty array.
-         */
+	    /**
+	     * Find fields from a category and an item
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param $catId
+	     * @param $itemId
+	     *
+	     * @return array Field information. If there's no information, return an empty array.
+	     */
         public function findByCategoryItem($catId, $itemId)
         {
             if( !is_numeric($catId) || (!is_numeric($itemId) && $itemId != null) ) {
                 return array();
             }
 
-            $result = $this->dao->query(sprintf("SELECT query.*, im.s_value as s_value, im.fk_i_item_id FROM (SELECT mf.* FROM %st_meta_fields mf, %st_meta_categories mc WHERE mc.fk_i_category_id = %d AND mf.pk_i_id = mc.fk_i_field_id) as query LEFT JOIN %st_item_meta im ON im.fk_i_field_id = query.pk_i_id AND im.fk_i_item_id = %d group by pk_i_id", DB_TABLE_PREFIX, DB_TABLE_PREFIX, $catId, DB_TABLE_PREFIX, $itemId));
+            $result = $this->dao->query(sprintf( 'SELECT query.*, im.s_value as s_value, im.fk_i_item_id FROM (SELECT mf.* FROM %st_meta_fields mf, %st_meta_categories mc WHERE mc.fk_i_category_id = %d AND mf.pk_i_id = mc.fk_i_field_id) as query LEFT JOIN %st_item_meta im ON im.fk_i_field_id = query.pk_i_id AND im.fk_i_item_id = %d group by pk_i_id' , DB_TABLE_PREFIX, DB_TABLE_PREFIX, $catId, DB_TABLE_PREFIX, $itemId));
 
             if( $result == false ) {
                 return array();
@@ -222,11 +231,15 @@
             return $result->row();
         }
 
-        /**
-         * Return an array with from and to date values
-         * given a meta field id
-         *
-         */
+	    /**
+	     * Return an array with from and to date values
+	     * given a meta field id
+	     *
+	     * @param $item_id
+	     * @param $field_id
+	     *
+	     * @return array
+	     */
         public function getDateIntervalByPrimaryKey($item_id, $field_id)
         {
             $this->dao->select();
@@ -276,18 +289,21 @@
             return $cats;
         }
 
-        /**
-         * Insert a new field
-         *
-         * @access public
-         * @since unknown
-         * @param string $name
-         * @param string $type
-         * @param string $slug
-         * @param bool $required
-         * @param array $options
-         * @param array $categories
-         */
+	    /**
+	     * Insert a new field
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param string $name
+	     * @param string $type
+	     * @param string $slug
+	     * @param bool   $required
+	     * @param array  $options
+	     * @param array  $categories
+	     *
+	     * @return bool
+	     */
         public function insertField($name, $type, $slug, $required, $options, $categories = null) {
             if($slug=='') {
                 $slug = preg_replace('|([-]+)|', '-', preg_replace('|[^a-z0-9_-]|', '-', strtolower($name)));
@@ -299,15 +315,15 @@
                     break;
                 } else {
                     $slug_k++;
-                    $slug = $slug_tmp."_".$slug_k;
+                    $slug = $slug_tmp . '_' . $slug_k;
                 }
             }
-            $this->dao->insert($this->getTableName(), array("s_name" => $name, "e_type" =>$type, "b_required" => $required, "s_slug" => $slug, 's_options' => $options));
+            $this->dao->insert($this->getTableName(), array( 's_name' => $name, 'e_type' =>$type, 'b_required' => $required, 's_slug' => $slug, 's_options' => $options));
             $id = $this->dao->insertedId();
             $return = true;
             foreach($categories as $c) {
                 $result = $this->dao->insert(sprintf('%st_meta_categories', DB_TABLE_PREFIX), array('fk_i_category_id' => $c, 'fk_i_field_id' =>$id));
-                if(!$result) { $return = false; };
+                if(!$result) { $return = false; }
             }
             return $return;
         }
@@ -384,4 +400,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/Field.php */
-?>

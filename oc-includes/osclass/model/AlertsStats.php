@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -70,7 +72,7 @@
          * @param string $date
          * @return bool
          */
-        function increase($date)
+        public function increase($date)
         {
             // check the date it's ok
             if( !preg_match('|^[0-9]{4}-[0-9]{2}-[0-9]{2}$|', $date) ) {
@@ -95,4 +97,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/AlertsStats.php */
-?>

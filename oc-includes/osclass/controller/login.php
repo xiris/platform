@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,9 +18,12 @@
  * limitations under the License.
  */
 
-    class CWebLogin extends BaseModel
+	/**
+	 * Class CWebLogin
+	 */
+	class CWebLogin extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             if( !osc_users_enabled() ) {
@@ -29,7 +34,7 @@
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
             switch( $this->action ) {
                 case('login_post'):     //post execution for the login
@@ -104,8 +109,8 @@
                                             if(strpos($url_redirect,'oc-admin')!==false) {
                                                 $url_redirect = osc_user_dashboard_url();
                                             } else {
-                                                $request_uri = urldecode(preg_replace('@^' . osc_base_url() . '@', "", $url_redirect));
-                                                $tmp_ar = explode("?", $request_uri);
+                                                $request_uri = urldecode(preg_replace('@^' . osc_base_url() . '@', '' , $url_redirect));
+                                                $tmp_ar = explode( '?' , $request_uri);
                                                 $request_uri = $tmp_ar[0];
                                                 $rules = Rewrite::newInstance()->listRules();
                                                 foreach($rules as $match => $uri) {
@@ -113,7 +118,7 @@
                                                         $request_uri = preg_replace('#'.$match.'#', $uri, $request_uri);
                                                         if(preg_match('|([&?]{1})page=([^&]*)|', '&'.$request_uri.'&', $match)) {
 															$page_redirect = $match[2];
-															if($page_redirect=='' || $page_redirect=='login') {
+															if($page_redirect=='' || $page_redirect === 'login') {
 																$url_redirect = osc_user_dashboard_url();
 															}
 														}
@@ -159,7 +164,7 @@
 												$url_redirect = osc_user_dashboard_url();
 											}
 
-											osc_run_hook("after_login", $user, $url_redirect);
+											osc_run_hook( 'after_login' , $user, $url_redirect);
 
 											$this->redirectTo( osc_apply_filter('correct_login_url_redirect', $url_redirect) );
 
@@ -203,7 +208,7 @@
                                         require_once LIB_PATH . 'osclass/UserActions.php';
 
                                         // e-mail is incorrect
-                                        if( !preg_match('|^[a-z0-9\.\_\+\-]+@[a-z0-9\.\-]+\.[a-z]{2,3}$|i', Params::getParam('s_email')) ) {
+                                        if( !osc_validate_email(Params::getParam('s_email')) ) {
                                             osc_add_flash_error_message( _m('Invalid email address') );
                                             $this->redirectTo( osc_recover_user_password_url() );
                                         }
@@ -273,13 +278,19 @@
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 
     /* file end: ./login.php */
-?>
+

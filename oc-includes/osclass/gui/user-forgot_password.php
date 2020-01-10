@@ -30,7 +30,7 @@
         <h1><?php _e('Recover your password', 'bender'); ?></h1>
     </div>
     <div class="resp-wrapper">
-        <form action="<?php echo osc_base_url(true); ?>" method="post" >
+        <form name="reset_password" id="reset_password" action="<?php echo osc_base_url(true); ?>" method="post" >
             <input type="hidden" name="page" value="login" />
             <input type="hidden" name="action" value="forgot_post" />
             <input type="hidden" name="userId" value="<?php echo osc_esc_html(Params::getParam('userId')); ?>" />
@@ -49,7 +49,7 @@
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Change password", 'bender');?></button>
+                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Change password' , 'bender');?></button>
                 </div>
             </div>
         </form>

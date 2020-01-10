@@ -6,12 +6,12 @@
  */
 class Dependencies {
 
-    var $registered   = array();
-    var $queue        = array();
+    public $registered   = array();
+    public $queue        = array();
 
-    var $resolved     = array();
-    var $unresolved   = array();
-    var $error        = array();
+    public $resolved     = array();
+    public $unresolved   = array();
+    public $error        = array();
 
     public function __construct()
     {
@@ -22,9 +22,9 @@ class Dependencies {
     /**
      * Register url to be loaded
      *
-     * @param type $id
-     * @param type $url
-     * @param type $dependencies mixed, it could be an array or a string
+     * @param $id
+     * @param $url
+     * @param $dependencies mixed, it could be an array or a string
      */
     public function register($id, $url, $dependencies) {
         if($id!='' && $url!='') {
@@ -39,7 +39,7 @@ class Dependencies {
     /**
      * Remove url to not be loaded
      *
-     * @param type $id
+     * @param $id
      */
     public function unregister($id)
     {
@@ -68,14 +68,14 @@ class Dependencies {
             }
         }
         if(!empty($this->error)) {
-            echo sprintf(__('ERROR: Some dependencies could not be loaded (%s)'), implode(", ", $this->error));
+            echo sprintf(__('ERROR: Some dependencies could not be loaded (%s)'), implode( ', ' , $this->error));
         }
     }
 
     /**
      * Algorithm to solve the dependencies of the scripts
      *
-     * @param type $node
+     * @param $node
      */
     private function solveDeps($node)
     {

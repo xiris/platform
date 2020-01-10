@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -27,7 +29,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \Alerts|\type
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_alerts');
@@ -57,16 +62,19 @@
             $this->setFields($array_fields);
         }
 
-        /**
-         * Searches for user alerts, given an user id.
-         * If user id not exist return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $userId
-         * @return array
-         */
-        function findByUser($userId, $unsub = false)
+	    /**
+	     * Searches for user alerts, given an user id.
+	     * If user id not exist return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param string $userId
+	     * @param bool   $unsub
+	     *
+	     * @return array
+	     */
+        public function findByUser($userId, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -82,16 +90,19 @@
             return $result->result();
         }
 
-        /**
-         * Searches for user alerts, given an user id.
-         * If user id not exist return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $email
-         * @return array
-         */
-        function findByEmail($email, $unsub = false)
+	    /**
+	     * Searches for user alerts, given an user id.
+	     * If user id not exist return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param string $email
+	     * @param bool   $unsub
+	     *
+	     * @return array
+	     */
+        public function findByEmail($email, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -107,16 +118,18 @@
             return $result->result();
         }
 
-        /**
-         * Searches for alerts, given a type.
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $type
-         * @return array
-         */
-        function findByType($type, $active = false, $unsub = false)
+	    /**
+	     * Searches for alerts, given a type.
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param string $type
+	     * @param bool   $active
+	     * @param bool   $unsub
+	     * @return array
+*/
+        public function findByType($type, $active = false, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -135,17 +148,18 @@
             return $result->result();
         }
 
-        /**
-         * Searches for alerts, given a type group by s_search.
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $type
-         * @param bool $active
-         * @return array
-         */
-        function findByTypeGroup($type, $active = FALSE, $unsub = false)
+	    /**
+	     * Searches for alerts, given a type group by s_search.
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param string $type
+	     * @param bool   $active
+	     * @param bool   $unsub
+	     * @return array
+*/
+        public function findByTypeGroup($type, $active = FALSE, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -165,19 +179,20 @@
             return $result->result();
         }
 
-        /**
-         * Searches for alerts, given an user and a s_search.
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $search
-         * @param string $user
-         * @return array
-         *
-         * WARNIGN doble where!
-         */
-        function findBySearchAndUser($search, $user, $unsub = false)
+	    /**
+	     * Searches for alerts, given an user and a s_search.
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param string $search
+	     * @param string $user
+	     * @param bool   $unsub
+	     * @return array
+	     *
+	     * WARNIGN doble where!
+*/
+        public function findBySearchAndUser($search, $user, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -194,19 +209,20 @@
             return $result->result();
         }
 
-        /**
-         * Searches for alerts, given a type group and a s_search.
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $search
-         * @param string $type
-         * @return array
-         *
-         * WARNIGN doble where!
-         */
-        function findBySearchAndType($search, $type, $unsub = false)
+	    /**
+	     * Searches for alerts, given a type group and a s_search.
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param string $search
+	     * @param string $type
+	     * @param bool   $unsub
+	     * @return array
+	     *
+	     * WARNIGN doble where!
+*/
+        public function findBySearchAndType($search, $type, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -224,18 +240,20 @@
         }
 
         // a.s_email, a.fk_i_user_id @TODO
-        /**
-         * Searches for users, given a type group and a s_search.
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $search
-         * @param string $type
-         * @param bool $active
-         * @return array
-         */
-        function findUsersBySearchAndType($search, $type, $active = FALSE, $unsub = false)
+
+	    /**
+	     * Searches for users, given a type group and a s_search.
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param string $search
+	     * @param string $type
+	     * @param bool   $active
+	     * @param bool   $unsub
+	     * @return array
+*/
+        public function findUsersBySearchAndType($search, $type, $active = FALSE, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -256,17 +274,18 @@
             return $result->result();
         }
 
-        /**
-         * Searches for alerts, given a type group and an user id
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param int $userId
-         * @param string $type
-         * @return array
-         */
-        function findByUserByType($userId, $type, $unsub = false)
+	    /**
+	     * Searches for alerts, given a type group and an user id
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param int    $userId
+	     * @param string $type
+	     * @param bool   $unsub
+	     * @return array
+*/
+        public function findByUserByType($userId, $type, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -284,17 +303,18 @@
             return $result->result();
         }
 
-        /**
-         * Searches for alerts, given a type group and an email
-         * If type don't match return empty array.
-         *
-         * @access public
-         * @since unknown
-         * @param string $email
-         * @param string $type
-         * @return array
-         */
-        function findByEmailByType($email, $type, $unsub = false)
+	    /**
+	     * Searches for alerts, given a type group and an email
+	     * If type don't match return empty array.
+	     *
+	     * @access public
+	     * @since  unknown
+	     * @param string $email
+	     * @param string $type
+	     * @param bool   $unsub
+	     * @return array
+*/
+        public function findByEmailByType($email, $type, $unsub = false)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -324,7 +344,7 @@
          * @param string $type
          * @return bool on success
          */
-        function createAlert($userid, $email, $alert, $secret, $type = 'DAILY')
+        public function createAlert($userid, $email, $alert, $secret, $type = 'DAILY')
         {
             $results = 0;
             $this->dao->select();
@@ -362,7 +382,7 @@
          * @param string $id
          * @return mixed false on fail, int of num. of affected rows
          */
-        function activate($id)
+        public function activate($id)
         {
             return $this->dao->update($this->getTableName(), array('b_active' => 1), array('pk_i_id' => $id));
         }
@@ -375,7 +395,7 @@
          * @param string $id
          * @return mixed false on fail, int of num. of affected rows
          */
-        function deactivate($id)
+        public function deactivate($id)
         {
             return $this->dao->update($this->getTableName(), array('b_active' => 0), array('pk_i_id' => $id));
         }
@@ -388,24 +408,24 @@
          * @param string $id
          * @return mixed false on fail, int of num. of affected rows
          */
-        function unsub($id)
+        public function unsub($id)
         {
-            return $this->dao->update($this->getTableName(), array('dt_unsub_date' => date("Y-m-d H:i:s")), array('pk_i_id' => $id));
+            return $this->dao->update( $this->getTableName(), array('dt_unsub_date' => date( 'Y-m-d H:i:s' )), array( 'pk_i_id' => $id ) );
         }
 
 
-        /**
-         * Search alerts
-         *
-         * @access public
-         * @since 3.1
-         * @param string $start
-         * @param string $limit
-         * @param string $order_by_column_name
-         * @param string $order_by_type
-         * @param string $search
-         * @return array
-         */
+	    /**
+	     * Search alerts
+	     *
+	     * @access public
+	     * @since  3.1
+	     * @param int    $start
+	     * @param int    $end
+	     * @param string $order_column
+	     * @param string $order_direction
+	     * @param string $name
+	     * @return array
+*/
         public function search($start = 0, $end = 10, $order_column = 'dt_date', $order_direction = 'DESC', $name = '')
         {
             // SET data, so we always return a valid object
@@ -451,4 +471,4 @@
     }
 
     /* file end: ./oc-includes/osclass/model/Alerts.php */
-?>
+

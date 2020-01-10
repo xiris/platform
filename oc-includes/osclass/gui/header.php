@@ -53,11 +53,11 @@
                 <li><a id="login_open" href="<?php echo osc_user_login_url(); ?>"><?php _e('Login', 'bender') ; ?></a></li>
                 <?php if(osc_user_registration_enabled()) { ?>
                     <li><a href="<?php echo osc_register_account_url() ; ?>"><?php _e('Register for a free account', 'bender'); ?></a></li>
-                <?php }; ?>
+                <?php } ?>
             <?php } ?>
             <?php } ?>
             <?php if( osc_users_enabled() || ( !osc_users_enabled() && !osc_reg_user_post() )) { ?>
-            <li class="publish"><a href="<?php echo osc_item_post_url_in_category() ; ?>"><?php _e("Publish your ad for free", 'bender');?></a></li>
+            <li class="publish"><a href="<?php echo osc_item_post_url_in_category() ; ?>"><?php _e( 'Publish your ad for free' , 'bender');?></a></li>
             <?php } ?>
         </ul>
 
@@ -69,18 +69,24 @@
             <div class="cell">
                 <input type="text" name="sPattern" id="query" class="input-text" value="" placeholder="<?php echo osc_esc_html(__(osc_get_preference('keyword_placeholder', 'bender'), 'bender')); ?>" />
             </div>
-            <?php  if ( osc_count_categories() ) { ?>
-                <div class="cell selector">
-                    <?php osc_categories_select('sCategory', null, __('Select a category', 'bender')) ; ?>
-                </div>
-                <div class="cell reset-padding">
-            <?php  } else { ?>
+            <?php try{
+	            if ( osc_count_categories() ) { ?>
+            <div class="cell selector">
+		        <?php try {
+			        osc_categories_select( 'sCategory' , null , __( 'Select a category' , 'bender' ) );
+		        } catch ( Exception $e ) {
+		        } ?>
+            </div>
+            <div class="cell reset-padding">
+		        <?php } else { ?>
                 <div class="cell">
-            <?php  } ?>
-                <button class="ui-button ui-button-big js-submit"><?php _e("Search", 'bender');?></button>
+			        <?php }
+				        } catch ( Exception $e ) {
+			        } ?>
+                <button class="ui-button ui-button-big js-submit"><?php _e( 'Search' , 'bender');?></button>
             </div>
         </div>
-        <div id="message-seach"></div>
+        <div id="message-search"></div>
     </form>
     <?php } ?>
 </div>

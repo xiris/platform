@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -28,9 +30,14 @@
     {
 
         private $order_by;
-        
-        
-        public function table($params)
+
+
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     */
+	    public function table( $params )
         {
             
             $this->addTableHeader();
@@ -54,10 +61,13 @@
             $this->addColumn('email', __('E-mail rule'));
 
             $dummy = &$this;
-            osc_run_hook("admin_rules_table", $dummy);
+            osc_run_hook( 'admin_rules_table' , $dummy);
         }
-        
-        private function processData($rules)
+
+	    /**
+	     * @param $rules
+	     */
+	    private function processData( $rules )
         {
             if(!empty($rules)) {
 
@@ -75,7 +85,7 @@
                     // more actions
                     $moreOptions = '<li class="show-more">'.PHP_EOL.'<a href="#" class="show-more-trigger">'. __('Show more') .'...</a>'. PHP_EOL .'<ul>'. PHP_EOL;
                     foreach( $options_more as $actual ) { 
-                        $moreOptions .= '<li>'.$actual."</li>".PHP_EOL;
+                        $moreOptions .= '<li>'.$actual . '</li>' . PHP_EOL;
                     }
                     $moreOptions .= '</ul>'. PHP_EOL .'</li>'.PHP_EOL;
 
@@ -103,8 +113,11 @@
 
             }
         }
-                
-        private function getDBParams($_get)
+
+	    /**
+	     * @param $_get
+	     */
+	    private function getDBParams( $_get )
         {
             
             if( !isset($_get['iDisplayStart']) ) {
@@ -121,31 +134,30 @@
             $this->order_by['column_name'] = 'pk_i_id';
             $this->order_by['type'] = 'DESC';
             foreach($_get as $k=>$v) {
-                if( $k == 'user') {
+                if( $k === 'user') {
                     $this->search = $v;
                 }
-                if( $k == 'userId' && $v != '') {
+                if( $k === 'userId' && $v != '') {
                     $this->withUserId = true;
                     $this->userId = $v;
                 }
 
                 /* for sorting */
-                if( $k == 'iSortCol_0' ) {
+                if( $k === 'iSortCol_0' ) {
                     $this->order_by['column_name'] = $this->column_names[$v];
                 }
-                if( $k == 'sSortDir_0' ) {
+                if( $k === 'sSortDir_0' ) {
                     $this->order_by['type'] = $v;
                 }
             }
             // set start and limit using iPage param
             $start = ($this->iPage - 1) * $_get['iDisplayLength'];
-            
-            $this->start = intval( $start );
-            $this->limit = intval( $_get['iDisplayLength'] );
+
+	        $this->start = (int) $start;
+	        $this->limit = (int) $_get[ 'iDisplayLength' ];
 
             
         }
         
     }
 
-?>

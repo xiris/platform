@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -33,18 +35,25 @@
 
         public function __construct()
         {
+            parent::__construct();
             osc_add_filter('datatable_comment_class', array(&$this, 'row_class'));
         }
 
-        public function table($params)
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     * @throws \Exception
+	     */
+	    public function table( $params )
         {
 
             $this->addTableHeader();
             $this->getDBParams($params);
 
             $comments = ItemComment::newInstance()->search($this->resourceID, $this->start, $this->limit,
-                    ( $this->order_by['column_name'] ? $this->order_by['column_name'] : 'pk_i_id' ),
-                    ( $this->order_by['type'] ? $this->order_by['type'] : 'desc' ),
+	            ( $this->order_by[ 'column_name' ] ?: 'pk_i_id' ) ,
+	            ( $this->order_by[ 'type' ] ?: 'desc' ) ,
                     $this->showAll);
             $this->processData($comments);
 
@@ -75,10 +84,15 @@
             $this->addColumn('date', __('Date'));
 
             $dummy = &$this;
-            osc_run_hook("admin_comments_table", $dummy);
+            osc_run_hook( 'admin_comments_table' , $dummy);
         }
 
-        private function processData($comments)
+	    /**
+	     * @param $comments
+	     *
+	     * @throws \Exception
+	     */
+	    private function processData( $comments )
         {
             if(!empty($comments)) {
 
@@ -107,7 +121,7 @@
                     // more actions
                     $moreOptions = '<li class="show-more">'.PHP_EOL.'<a href="#" class="show-more-trigger">'. __('Show more') .'...</a>'. PHP_EOL .'<ul>'. PHP_EOL;
                     foreach( $options_more as $actual ) {
-                        $moreOptions .= '<li>'.$actual."</li>".PHP_EOL;
+                        $moreOptions .= '<li>'.$actual . '</li>' . PHP_EOL;
                     }
                     $moreOptions .= '</ul>'. PHP_EOL .'</li>'.PHP_EOL;
 
@@ -142,55 +156,67 @@
             }
         }
 
-        private function getDBParams($_get)
+	    /**
+	     * @param $_get
+	     */
+	    private function getDBParams( $_get )
         {
 
             $this->order_by['column_name'] = 'c.dt_pub_date';
             $this->order_by['type'] = 'desc';
 
-            $this->showAll   = Params::getParam('showAll')=='off'?false:true;
+	        $this->showAll = Params::getParam( 'showAll' ) != 'off';
 
             foreach($_get as $k => $v) {
-                if( ( $k == 'resourceId' ) && !empty($v) ) {
-                    $this->resourceID = intval($v);
+                if( ( $k === 'resourceId' ) && !empty($v) ) {
+	                $this->resourceID = (int) $v;
                 }
-                if( $k == 'iDisplayStart' ) {
-                    $this->start = intval($v);
+                if( $k === 'iDisplayStart' ) {
+	                $this->start = (int) $v;
                 }
-                if( $k == 'iDisplayLength' ) {
-                    $this->limit = intval($v);
+                if( $k === 'iDisplayLength' ) {
+	                $this->limit = (int) $v;
                 }
             }
 
             // set start and limit using iPage param
             $start = ((int)Params::getParam('iPage')-1) * $_get['iDisplayLength'];
 
-            $this->start = intval( $start );
-            $this->limit = intval( $_get['iDisplayLength'] );
+	        $this->start = (int) $start;
+	        $this->limit = (int) $_get[ 'iDisplayLength' ];
 
         }
 
-        public function row_class($class, $rawRow, $row)
+	    /**
+	     * @param $class
+	     * @param $rawRow
+	     * @param $row
+	     *
+	     * @return array
+	     */
+	    public function row_class( $class , $rawRow , $row )
         {
             $status = $this->get_row_status($rawRow);
             $class[] = $status['class'];
             return $class;
         }
 
-        /**
-         * Get the status of the row. There are three status:
-         *     - blocked
-         *     - inactive
-         *     - active
-         *
-         * @since 3.3
-         *
-         * @return array Array with the class and text of the status of the listing in this row. Example:
-         *     array(
-         *         'class' => '',
-         *         'text'  => ''
-         *     )
-         */
+	    /**
+	     * Get the status of the row. There are three status:
+	     *     - blocked
+	     *     - inactive
+	     *     - active
+	     *
+	     * @since 3.3
+	     *
+	     * @param $user
+	     *
+	     * @return array Array with the class and text of the status of the listing in this row. Example:
+	     *     array(
+	     *         'class' => '',
+	     *         'text'  => ''
+	     *     )
+	     */
         private function get_row_status($user)
         {
 
@@ -216,4 +242,4 @@
 
     }
 
-?>
+

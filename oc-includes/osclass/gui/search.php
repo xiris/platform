@@ -29,7 +29,7 @@
     bender_add_body_class('search');
     $listClass = '';
     $buttonClass = '';
-    if(osc_search_show_as() == 'gallery'){
+    if( osc_search_show_as() === 'gallery'){
           $listClass = 'listing-grid';
           $buttonClass = 'active';
     }
@@ -65,7 +65,10 @@
      <div class="list-header">
         <div class="resp-wrapper">
             <?php osc_run_hook('search_ads_listing_top'); ?>
-            <h1><?php echo search_title(); ?></h1>
+            <h1><?php try {
+		            echo search_title();
+	            } catch ( Exception $e ) {
+	            } ?></h1>
 
             <?php if(osc_count_items() == 0) { ?>
                 <p class="empty" ><?php printf(__('There are no results matching "%s"', 'bender'), osc_search_pattern()) ; ?></p>
@@ -75,10 +78,16 @@
                 printf(__('%1$d - %2$d of %3$d listings', 'bender'), $search_number['from'], $search_number['to'], $search_number['of']);
             ?></span>
             <div class="actions">
-              <a href="#" data-bclass-toggle="display-filters" class="resp-toogle show-filters-btn"><?php _e('Show filters','bender'); ?></a>
+              <a href="#" data-bclass-toggle="display-filters" class="resp-toggle show-filters-btn"><?php _e('Show filters','bender'); ?></a>
               <span class="doublebutton <?php echo $buttonClass; ?>">
-                   <a href="<?php echo osc_esc_html(osc_update_search_url(array('sShowAs'=> 'list'))); ?>" class="list-button" data-class-toggle="listing-grid" data-destination="#listing-card-list"><span><?php _e('List','bender'); ?></span></a>
-                   <a href="<?php echo osc_esc_html(osc_update_search_url(array('sShowAs'=> 'gallery'))); ?>" class="grid-button" data-class-toggle="listing-grid" data-destination="#listing-card-list"><span><?php _e('Grid','bender'); ?></span></a>
+                   <a href="<?php try {
+	                   echo osc_esc_html( osc_update_search_url( array ( 'sShowAs' => 'list' ) ) );
+                   } catch ( Exception $e ) {
+                   } ?>" class="list-button" data-class-toggle="listing-grid" data-destination="#listing-card-list"><span><?php _e( 'List', 'bender'); ?></span></a>
+                   <a href="<?php try {
+	                   echo osc_esc_html( osc_update_search_url( array ( 'sShowAs' => 'gallery' ) ) );
+                   } catch ( Exception $e ) {
+                   } ?>" class="grid-button" data-class-toggle="listing-grid" data-destination="#listing-card-list"><span><?php _e( 'Grid', 'bender'); ?></span></a>
               </span>
             <!--     START sort by       -->
             <span class="see_by">
@@ -87,7 +96,7 @@
               $orders = osc_list_orders();
               $current = '';
               foreach($orders as $label => $params) {
-                  $orderType = ($params['iOrderType'] == 'asc') ? '0' : '1';
+                  $orderType = ( $params['iOrderType'] === 'asc') ? '0' : '1';
                   if(osc_search_order() == $params['sOrder'] && osc_search_order_type() == $orderType) {
                       $current = $label;
                   }
@@ -98,11 +107,17 @@
               <ul>
                   <?php
                   foreach($orders as $label => $params) {
-                      $orderType = ($params['iOrderType'] == 'asc') ? '0' : '1'; ?>
+                      $orderType = ( $params['iOrderType'] === 'asc') ? '0' : '1'; ?>
                       <?php if(osc_search_order() == $params['sOrder'] && osc_search_order_type() == $orderType) { ?>
-                          <li><a class="current" href="<?php echo osc_esc_html(osc_update_search_url($params)); ?>"><?php echo $label; ?></a></li>
+                          <li><a class="current" href="<?php try {
+		                          echo osc_esc_html( osc_update_search_url( $params ) );
+	                          } catch ( Exception $e ) {
+	                          } ?>"><?php echo $label; ?></a></li>
                       <?php } else { ?>
-                          <li><a href="<?php echo osc_esc_html(osc_update_search_url($params)); ?>"><?php echo $label; ?></a></li>
+                          <li><a href="<?php try {
+		                          echo osc_esc_html( osc_update_search_url( $params ) );
+	                          } catch ( Exception $e ) {
+	                          } ?>"><?php echo $label; ?></a></li>
                       <?php } ?>
                       <?php $i++; ?>
                   <?php } ?>
@@ -119,38 +134,52 @@
             osc_get_premiums();
             if(osc_count_premiums() > 0) {
             echo '<h5>'.__('Premium listings','bender').'</h5>';
-            View::newInstance()->_exportVariableToView("listType", 'premiums');
-            View::newInstance()->_exportVariableToView("listClass",$listClass.' premium-list');
+            View::newInstance()->_exportVariableToView( 'listType' , 'premiums');
+            View::newInstance()->_exportVariableToView( 'listClass' , $listClass . ' premium-list');
             osc_current_web_theme_path('loop.php');
             echo '<div style="clear:both;"></div><br/>';
             }
         ?>
      <?php if(osc_count_items() > 0) {
         echo '<h5>'.__('Listings','bender').'</h5>';
-        View::newInstance()->_exportVariableToView("listType", 'items');
-        View::newInstance()->_exportVariableToView("listClass",$listClass);
+        View::newInstance()->_exportVariableToView( 'listType' , 'items');
+        View::newInstance()->_exportVariableToView( 'listClass' , $listClass);
         osc_current_web_theme_path('loop.php');
     ?>
 
      <div class="clear"></div>
       <?php
       if(osc_rewrite_enabled()){
-      $footerLinks = osc_search_footer_links();
-      if(count($footerLinks)>0) {
+	      try {
+		      $footerLinks = osc_search_footer_links();
+	      } catch ( Exception $e ) {
+	      }
+	      if(count($footerLinks)>0) {
       ?>
       <div id="related-searches">
         <h5><?php _e('Other searches that may interest you','bender'); ?></h5>
         <ul class="footer-links">
           <?php foreach($footerLinks as $f) { View::newInstance()->_exportVariableToView('footer_link', $f); ?>
-          <?php if($f['total'] < 3) continue; ?>
-            <li><a href="<?php echo osc_footer_link_url(); ?>"><?php echo osc_footer_link_title(); ?></a></li>
+	          <?php if ( $f[ 'total' ] < 3 ) {
+		          continue;
+	          } ?>
+            <li><a href="<?php try {
+		            echo osc_footer_link_url();
+	            } catch ( Exception $e ) {
+	            } ?>"><?php try {
+			            echo osc_footer_link_title();
+		            } catch ( Exception $e ) {
+		            } ?></a></li>
           <?php } ?>
         </ul>
       </div>
       <?php }
       } ?>
      <div class="paginate" >
-          <?php echo osc_search_pagination(); ?>
+          <?php try {
+	          echo osc_search_pagination();
+          } catch ( Exception $e ) {
+          } ?>
      </div>
      <?php } ?>
 <?php osc_current_web_theme_path('footer.php') ; ?>

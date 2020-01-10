@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -21,7 +23,7 @@
     $i_now = strtotime($d_now);
     $i_now_truncated = strtotime(date('Y-m-d H:i:00'));
     if ( ! defined('CLI')) {
-        define('CLI', (PHP_SAPI==='cli'));
+        define( 'CLI', PHP_SAPI === 'cli' );
     }
 
     // Hourly crons
@@ -39,8 +41,8 @@
             
             // Run cron AFTER updating the next execution time to avoid double run of cron
             $purge = osc_purge_latest_searches();
-            if( $purge == 'hour' ) {
-                LatestSearches::newInstance()->purgeDate( date('Y-m-d H:i:s', ( time() - 3600) ) );
+            if( $purge === 'hour' ) {
+                LatestSearches::newInstance()->purgeDate( date( 'Y-m-d H:i:s', time() - 3600 ) );
             } else if( !in_array($purge, array('forever', 'day', 'week')) ) {
                 LatestSearches::newInstance()->purgeNumber($purge);
             }
@@ -55,19 +57,14 @@
                 }
             }
 
-            $qqfiles = glob(osc_content_path().'uploads/temp/qqfile_*');
-            if(is_array($qqfiles)) {
-                foreach($qqfiles as $qqfile) {
-                    if((time()-filectime($qqfile))>(2*3600)) {
-                        @unlink($qqfile);
-                    }
-                }
-            }
-            $auto_qqfiles = glob(osc_content_path().'uploads/temp/auto_qqfile_*');
-            if(is_array($auto_qqfiles)) {
-                foreach($auto_qqfiles as $auto_qqfile) {
-                    if((time()-filectime($auto_qqfile))>(2*3600)) {
-                        @unlink($auto_qqfile);
+            $qqprefixes = array('qqfile_*', 'auto_qqfile_*');
+            foreach ($qqprefixes as $qqprefix) {
+                $qqfiles = glob(osc_content_path().'uploads/temp/'.$qqprefix);
+                if(is_array($qqfiles)) {
+                    foreach($qqfiles as $qqfile) {
+                        if((time()-filemtime($qqfile))>(2*3600)) {
+                            @unlink($qqfile);
+                        }
                     }
                 }
             }
@@ -88,14 +85,14 @@
                 array('e_type'      => 'DAILY'));
 
 
-            osc_do_auto_upgrade();
+            //osc_do_auto_upgrade();
 
             osc_runAlert('DAILY', $cron['d_last_exec']);
 
             // Run cron AFTER updating the next execution time to avoid double run of cron
             $purge = osc_purge_latest_searches();
-            if( $purge == 'day' ) {
-                LatestSearches::newInstance()->purgeDate( date('Y-m-d H:i:s', ( time() - (24 * 3600) ) ) );
+            if( $purge === 'day' ) {
+                LatestSearches::newInstance()->purgeDate( date( 'Y-m-d H:i:s', time() - ( 24 * 3600) ) );
             }
             osc_update_cat_stats();
 
@@ -127,8 +124,8 @@
             
             // Run cron AFTER updating the next execution time to avoid double run of cron
             $purge = osc_purge_latest_searches();
-            if( $purge == 'week' ) {
-                LatestSearches::newInstance()->purgeDate( date('Y-m-d H:i:s', ( time() - (7 * 24 * 3600) ) ) );
+            if( $purge === 'week' ) {
+                LatestSearches::newInstance()->purgeDate( date( 'Y-m-d H:i:s', time() - ( 7 * 24 * 3600) ) );
             }
             osc_run_hook('cron_weekly');
         }

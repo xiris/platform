@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if (! defined('ABS_PATH')) {
+    exit('ABS_PATH is not loaded. Direct access is not allowed.');
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,189 +18,286 @@
  * limitations under the License.
  */
 
-    class Session {
+    /**
+     * Class Session
+     */
+    class Session
+    {
         //attributes
         private $session;
         private static $instance;
 
-        public static function newInstance() {
-            if(!self::$instance instanceof self) {
+        /**
+         * @return \Session
+         */
+        public static function newInstance()
+        {
+            if (!self::$instance instanceof self) {
                 self::$instance = new self;
             }
             return self::$instance;
         }
 
-        public function __construct() {}
-
-        function session_start() {
+        public function session_start()
+        {
             $currentCookieParams = session_get_cookie_params();
-            if ( defined('COOKIE_DOMAIN') ) {
-                $currentCookieParams["domain"] = COOKIE_DOMAIN;
+            if (defined('COOKIE_DOMAIN')) {
+                $currentCookieParams[ 'domain' ] = COOKIE_DOMAIN;
+            }
+            if ( isset($_SERVER['HTTPS']) ) {
+                $currentCookieParams["secure"] = true;
             }
             session_set_cookie_params(
-                $currentCookieParams["lifetime"],
-                $currentCookieParams["path"],
-                $currentCookieParams["domain"],
-                $currentCookieParams["secure"],
+                $currentCookieParams[ 'lifetime' ],
+                $currentCookieParams[ 'path' ],
+                $currentCookieParams[ 'domain' ],
+                $currentCookieParams[ 'secure' ],
                 true
             );
 
-            session_name('osclass');
-            session_start();
+            if (!isset($_SESSION)) {
+                session_name('osclass');
+                if (!$this->_session_start()) {
+                    session_id(uniqid('', true));
+                    session_start();
+                    session_regenerate_id();
+                }
+            }
 
             $this->session = $_SESSION;
             if ($this->_get('messages') == '') {
-                $this->_set( 'messages', array() );
+                $this->_set('messages', array());
             }
-            if( $this->_get('keepForm') == '' ){
-                $this->_set( 'keepForm', array() );
+            if ($this->_get('keepForm') == '') {
+                $this->_set('keepForm', array());
             }
-            if( $this->_get('form') == '' ){
-                $this->_set( 'form', array() );
+            if ($this->_get('form') == '') {
+                $this->_set('form', array());
             }
         }
 
-        function session_destroy() {
+        /**
+         * @return bool
+         */
+        public function _session_start()
+        {
+            $sn = session_name();
+            if (isset($_COOKIE[$sn])) {
+                $sessid = $_COOKIE[$sn];
+            } elseif (isset($_GET[$sn])) {
+                $sessid = $_GET[$sn];
+            } else {
+                return session_start();
+            }
+
+            if (!preg_match('/^[a-zA-Z0-9,\-]{22,40}$/', $sessid)) {
+                return false;
+            }
+            return session_start();
+        }
+
+        public function session_destroy()
+        {
             session_destroy();
         }
 
-        function _set($key, $value) {
+        /**
+         * @param $key
+         * @param $value
+         */
+        public function _set($key, $value)
+        {
             $_SESSION[$key] = $value;
             $this->session[$key] = $value;
         }
 
-        function _get($key) {
+        /**
+         * @param $key
+         *
+         * @return mixed
+         */
+        public function _get($key)
+        {
             if (!isset($this->session[$key])) {
                 return '';
             }
 
-            return ($this->session[$key]);
+            return $this->session[$key];
         }
 
-        function _drop($key) {
-            unset($_SESSION[$key]);
-            unset($this->session[$key]);
-
+        /**
+         * @param $key
+         */
+        public function _drop($key)
+        {
+            unset($_SESSION[ $key ] , $this->session[ $key ]);
         }
 
-        function _setReferer($value) {
+        /**
+         * @param $value
+         */
+        public function _setReferer($value)
+        {
             $_SESSION['osc_http_referer'] = $value;
             $this->session['osc_http_referer'] = $value;
             $_SESSION['osc_http_referer_state'] = 0;
             $this->session['osc_http_referer_state'] = 0;
         }
 
-        function _getReferer() {
-            if(isset($this->session['osc_http_referer'])) {
-                return ($this->session['osc_http_referer']);
-            } else {
-                return '';
+        /**
+         * @return string
+         */
+        public function _getReferer()
+        {
+            if (isset($this->session['osc_http_referer'])) {
+                return $this->session['osc_http_referer'];
             }
+
+            return '';
         }
 
-        function _dropReferer() {
-            unset($_SESSION['osc_http_referer']);
-            unset($this->session['osc_http_referer']);
-            unset($_SESSION['osc_http_referer_state']);
-            unset($this->session['osc_http_referer_state']);
+        public function _dropReferer()
+        {
+            unset($_SESSION[ 'osc_http_referer' ] , $this->session[ 'osc_http_referer' ] , $_SESSION[ 'osc_http_referer_state' ] , $this->session[ 'osc_http_referer_state' ]);
         }
 
-        function _view() {
+        public function _view()
+        {
             print_r($this->session);
         }
 
-        function _setMessage($key, $value, $type) {
+        /**
+         * @param $key
+         * @param $value
+         * @param $type
+         */
+        public function _setMessage($key, $value, $type)
+        {
             $messages = $this->_get('messages');
-            $messages[$key][] = array('msg' => str_replace(PHP_EOL, "<br />", $value), 'type' => $type);
+            $messages[$key][] = array( 'msg' => str_replace(PHP_EOL, '<br />', $value), 'type' => $type);
             $this->_set('messages', $messages);
         }
 
-        function _getMessage($key) {
+        /**
+         * @param $key
+         *
+         * @return string|array
+         */
+        public function _getMessage($key)
+        {
             $messages = $this->_get('messages');
-            if ( isset($messages[$key]) ) {
-                return ( $messages[$key] );
-            } else {
-                return ( '' );
+            if (isset($messages[$key])) {
+                return $messages[$key];
             }
+
+            return '';
         }
 
-        function _dropMessage($key) {
+        /**
+         * @param $key
+         */
+        public function _dropMessage($key)
+        {
             $messages = $this->_get('messages');
             unset($messages[$key]);
             $this->_set('messages', $messages);
         }
 
-        function _keepForm($key) {
+        /**
+         * @param $key
+         */
+        public function _keepForm($key)
+        {
             $aKeep = $this->_get('keepForm');
             $aKeep[$key] = 1;
-            $this->_set('keepForm',$aKeep);
+            $this->_set('keepForm', $aKeep);
         }
 
-        function _dropKeepForm($key = '') {
+        /**
+         * @param string $key
+         */
+        public function _dropKeepForm($key = '')
+        {
             $aKeep = $this->_get('keepForm');
-            if($key!='') {
-                unset( $aKeep[$key] );
+            if ($key!='') {
+                unset($aKeep[$key]);
                 $this->_set('keepForm', $aKeep);
             } else {
                 $this->_set('keepForm', array());
             }
         }
 
-        function _setForm($key, $value) {
+        /**
+         * @param $key
+         * @param $value
+         */
+        public function _setForm($key, $value)
+        {
             $form = $this->_get('form');
             $form[$key] = $value;
             $this->_set('form', $form);
         }
 
-        function _getForm($key = '') {
+        /**
+         * @param string $key
+         *
+         * @return string|array
+         */
+        public function _getForm($key = '')
+        {
             $form = $this->_get('form');
-            if($key!='') {
-                if ( isset($form[$key]) ) {
-                    return ( $form[$key] );
-                } else {
-                    return ( '' );
+            if ($key!='') {
+                if (isset($form[$key])) {
+                    return $form[$key];
                 }
-            } else {
-                return $form;
+
+                return '';
             }
+
+            return $form;
         }
 
-        function _getKeepForm() {
+        /**
+         * @return string|array
+         */
+        public function _getKeepForm()
+        {
             return $this->_get('keepForm');
         }
 
-        function _viewMessage() {
+        public function _viewMessage()
+        {
             print_r($this->session['messages']);
         }
 
-        function _viewForm() {
+        public function _viewForm()
+        {
             print_r($_SESSION['form']);
         }
 
-        function _viewKeep() {
+        public function _viewKeep()
+        {
             print_r($_SESSION['keepForm']);
         }
 
-        function  _clearVariables() {
+        public function _clearVariables()
+        {
             $form = $this->_get('form');
             $aKeep = $this->_get('keepForm');
-            if( is_array($form) ) {
-                foreach($form as $key => $value) {
-                    if( !isset($aKeep[$key]) ) {
-                        unset($_SESSION['form'][$key]);
-                        unset($this->session['form'][$key]);
+            if (is_array($form)) {
+                foreach ($form as $key => $value) {
+                    if (!isset($aKeep[$key])) {
+                        unset($_SESSION[ 'form' ][ $key ] , $this->session[ 'form' ][ $key ]);
                     }
                 }
             }
 
-            if(isset($this->session['osc_http_referer_state'])) {
+            if (isset($this->session['osc_http_referer_state'])) {
                 $this->session['osc_http_referer_state']++;
                 $_SESSION['osc_http_referer_state']++;
-                if((int)($this->session['osc_http_referer_state'])>=2) {
+                if ((int) $this->session['osc_http_referer_state'] >= 2) {
                     $this->_dropReferer();
                 }
             }
         }
     }
-
-?>

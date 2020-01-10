@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -27,7 +29,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \LatestSearches|\type
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_latest_searches');
@@ -54,10 +59,12 @@
          *
          * @access public
          * @since unknown
+         *
          * @param int $limit
-         * @return array
+         *
+         * @return array|bool
          */
-        function getSearches($limit = 20)
+        public function getSearches($limit = 20)
         {
             $this->dao->select('d_date, s_search, COUNT(s_search) as i_total');
             $this->dao->from($this->getTableName());
@@ -78,14 +85,16 @@
          *
          * @access public
          * @since unknown
+         *
          * @param int $time
-         * @return array
+         *
+         * @return array|bool
          */
-        function getSearchesByDate($time = null)
+        public function getSearchesByDate($time = null)
         {
-            if($time==null) { $time = time() - (7*24*3600); };
+            if($time==null) { $time = time() - (7*24*3600); }
 
-            $this->dao->select('d_date, s_search, COUNT(s_search) as i_total');
+	        $this->dao->select('d_date, s_search, COUNT(s_search) as i_total');
             $this->dao->from($this->getTableName());
             $this->dao->where('d_date', date('Y-m-d H:i:s', $time));
             $this->dao->groupBy('s_search');
@@ -108,7 +117,7 @@
          * @param string $date
          * @return bool
          */
-        function purgeDate($date = null)
+        public function purgeDate($date = null)
         {
             if($date == null) {
                 return false;
@@ -153,4 +162,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/LatestSearches.php */
-?>

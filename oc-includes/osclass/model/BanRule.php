@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -27,7 +29,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \BanRule|\type
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_ban_rule');
@@ -52,18 +57,21 @@
             $this->setFields($array_fields);
         }
 
-        /**
-         * Return list of ban rules
-         *
-         * @access public
-         * @since 3.1
-         * @param int $start
-         * @param int $end
-         * @param string $order_column
-         * @param string $order_direction
-         * @parma string $name
-         * @return array
-         */
+	    /**
+	     * Return list of ban rules
+	     *
+	     * @access public
+	     * @since  3.1
+	     *
+	     * @param int    $start
+	     * @param int    $end
+	     * @param string $order_column
+	     * @param string $order_direction
+	     * @param string $name
+	     *
+	     * @return array
+	     * @parma  string $name
+	     */
         public function search($start = 0, $end = 10, $order_column = 'pk_i_id', $order_direction = 'DESC', $name = '')
         {
             // SET data, so we always return a valid object
@@ -110,7 +118,7 @@
          */
         public function countRules()
         {
-            $this->dao->select("COUNT(*) as i_total");
+            $this->dao->select( 'COUNT(*) as i_total' );
             $this->dao->from($this->getTableName());
 
             $result = $this->dao->get();
@@ -125,4 +133,3 @@
 
     }
 
-?>

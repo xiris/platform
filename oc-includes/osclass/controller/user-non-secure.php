@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,9 +18,12 @@
  * limitations under the License.
  */
 
-    class CWebUserNonSecure extends BaseModel
+	/**
+	 * Class CWebUserNonSecure
+	 */
+	class CWebUserNonSecure extends BaseModel
     {
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             if( !osc_users_enabled() && ($this->action != 'activate_alert' && $this->action != 'unsub_alert') ) {
@@ -29,7 +34,7 @@
         }
 
         //Business Layer...
-        function doModel()
+        public function doModel()
         {
             switch( $this->action ) {
                 case 'change_email_confirm':    //change email confirm
@@ -38,6 +43,7 @@
                                                     $user = $userManager->findByPrimaryKey( Params::getParam('userId') );
 
                                                     if( $user['s_pass_code'] == Params::getParam('code') && $user['b_enabled']==1) {
+                                                        $userOldEmail = $user['s_email'];
                                                         $userEmailTmp = UserEmailTmp::newInstance()->findByPrimaryKey( Params::getParam('userId') );
                                                         $code = osc_genRandomPassword(50);
                                                         $userManager->update(
@@ -49,6 +55,9 @@
                                                         Alerts::newInstance()->update(array('s_email' => $userEmailTmp['s_new_email']), array('fk_i_user_id' => $userEmailTmp['fk_i_user_id']));
                                                         Session::newInstance()->_set('userEmail', $userEmailTmp['s_new_email']);
                                                         UserEmailTmp::newInstance()->delete(array('s_new_email' => $userEmailTmp['s_new_email']));
+                                                        
+                                                        osc_run_hook('change_email_confirm', Params::getParam('userId'), $userOldEmail, $userEmailTmp['s_new_email']);
+                                                        
                                                         osc_add_flash_ok_message( _m('Your email has been changed successfully'));
                                                         $this->redirectTo( osc_user_profile_url() );
                                                     } else {
@@ -67,14 +76,12 @@
 
                     $alert = Alerts::newInstance()->findByPrimaryKey($id);
                     $result = 0;
-                    if(!empty($alert)) {
-                        if($email==$alert['s_email'] && $secret==$alert['s_secret']) {
-                            $user = User::newInstance()->findByEmail($alert['s_email']);
-                            if(isset($user['pk_i_id'])) {
-                                Alerts::newInstance()->update(array('fk_i_user_id' => $user['pk_i_id']), array('pk_i_id' => $id));
-                            }
-                            $result = Alerts::newInstance()->activate($id);
-                        }
+	                if ( ! empty( $alert ) && $email == $alert[ 's_email' ] && $secret == $alert[ 's_secret' ] ) {
+		                $user = User::newInstance()->findByEmail( $alert[ 's_email' ] );
+		                if ( isset( $user[ 'pk_i_id' ] ) ) {
+			                Alerts::newInstance()->update( array ( 'fk_i_user_id' => $user[ 'pk_i_id' ] ) , array ( 'pk_i_id' => $id ) );
+		                }
+		                $result = Alerts::newInstance()->activate( $id );
                     }
 
                     if( $result == 1 ) {
@@ -92,10 +99,8 @@
 
                     $alert  = Alerts::newInstance()->findByPrimaryKey($id);
                     $result = 0;
-                    if(!empty($alert)) {
-                        if($email==$alert['s_email'] && $secret==$alert['s_secret']) {
-                            $result = Alerts::newInstance()->unsub($id);
-                        }
+	                if ( ! empty( $alert ) && $email == $alert[ 's_email' ] && $secret == $alert[ 's_secret' ] ) {
+		                $result = Alerts::newInstance()->unsub( $id );
                     }
 
                     if( $result == 1 ) {
@@ -119,15 +124,15 @@
                     }
 
                     $itemsPerPage = Params::getParam('itemsPerPage');
-                    if(is_numeric($itemsPerPage) && intval($itemsPerPage)>0) {
-                        $itemsPerPage = intval($itemsPerPage);
+	                if ( is_numeric( $itemsPerPage ) && (int) $itemsPerPage > 0 ) {
+		                $itemsPerPage = (int) $itemsPerPage;
                     } else {
                         $itemsPerPage = 10;
                     }
 
                     $page = Params::getParam('iPage');
-                    if(is_numeric($page) && intval($page)>0) {
-                        $page = intval($page)-1;
+	                if ( is_numeric( $page ) && (int) $page > 0 ) {
+		                $page = (int) $page - 1;
                     } else {
                         $page = 0;
                     }
@@ -155,13 +160,13 @@
                 case 'contact_post':
                     $user = User::newInstance()->findByPrimaryKey( Params::getParam('id') );
                     View::newInstance()->_exportVariableToView('user', $user);
-                    if ((osc_recaptcha_private_key() != '')) {
+                    if ( osc_recaptcha_private_key() != '' ) {
                         if(!osc_check_recaptcha()) {
                             osc_add_flash_error_message( _m('The Recaptcha code is wrong'));
-                            Session::newInstance()->_setForm("yourEmail",   Params::getParam('yourEmail'));
-                            Session::newInstance()->_setForm("yourName",    Params::getParam('yourName'));
-                            Session::newInstance()->_setForm("phoneNumber", Params::getParam('phoneNumber'));
-                            Session::newInstance()->_setForm("message_body",Params::getParam('message'));
+                            Session::newInstance()->_setForm( 'yourEmail' , Params::getParam( 'yourEmail'));
+                            Session::newInstance()->_setForm( 'yourName' , Params::getParam( 'yourName'));
+                            Session::newInstance()->_setForm( 'phoneNumber' , Params::getParam( 'phoneNumber'));
+                            Session::newInstance()->_setForm( 'message_body' , Params::getParam( 'message'));
                             $this->redirectTo( osc_user_public_profile_url( ) );
                             return false; // BREAK THE PROCESS, THE RECAPTCHA IS WRONG
                         }
@@ -186,14 +191,20 @@
         }
 
         //hopefully generic...
-        function doView($file)
+
+		/**
+		 * @param $file
+		 *
+		 * @return mixed|void
+		 */
+		public function doView( $file )
         {
-            osc_run_hook("before_html");
+            osc_run_hook( 'before_html' );
             osc_current_web_theme_path($file);
             Session::newInstance()->_clearVariables();
-            osc_run_hook("after_html");
+            osc_run_hook( 'after_html' );
         }
     }
 
     /* file end: ./user-non-secure.php */
-?>
+

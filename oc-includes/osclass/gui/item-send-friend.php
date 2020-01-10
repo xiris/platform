@@ -41,13 +41,13 @@
                             <input type="hidden" name="yourEmail" value="<?php echo osc_logged_user_email();?>" />
             <?php } else { ?>
             <div class="control-group">
-                <label class="control-label" for="yourName"><?php _e("Your name",'bender'); ?></label>
+                <label class="control-label" for="yourName"><?php _e( 'Your name' , 'bender'); ?></label>
                 <div class="controls ">
                     <?php SendFriendForm::your_name(); ?>
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label" for="yourEmail"><?php _e("Your e-mail",'bender'); ?></label>
+                <label class="control-label" for="yourEmail"><?php _e( 'Your e-mail' , 'bender'); ?></label>
                 <div class="controls ">
                     <?php SendFriendForm::your_email(); ?>
                 </div>
@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label for="friendEmail"><?php _e("Your friend's e-mail address", 'bender'); ?></label> </label>
+                <label for="friendEmail"><?php _e( "Your friend's e-mail address" , 'bender' ); ?></label>
                 <div class="controls">
                     <?php SendFriendForm::friend_email(); ?>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="controls">
                     <?php osc_run_hook('contact_form'); ?>
                     <?php osc_show_recaptcha(); ?>
-                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Send", 'bender');?></button>
+                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Send' , 'bender');?></button>
                     <?php osc_run_hook('admin_contact_form'); ?>
                 </div>
             </div>

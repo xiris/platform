@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -16,7 +18,10 @@
  * limitations under the License.
  */
 
-    class Rewrite
+	/**
+	 * Class Rewrite
+	 */
+	class Rewrite
     {
         private static $instance;
         private $rules;
@@ -42,7 +47,10 @@
             $this->rules = $this->getRules();
         }
 
-        public static function newInstance()
+		/**
+		 * @return \Rewrite
+		 */
+		public static function newInstance()
         {
             if(!self::$instance instanceof self) {
                 self::$instance = new self;
@@ -52,7 +60,10 @@
 
         public function getTableName() {}
 
-        public function getRules()
+		/**
+		 * @return array
+		 */
+		public function getRules()
         {
             return osc_unserialize(osc_rewrite_rules());
         }
@@ -62,12 +73,18 @@
             osc_set_preference('rewrite_rules', osc_serialize($this->rules));
         }
 
-        public function listRules()
+		/**
+		 * @return array
+		 */
+		public function listRules()
         {
             return $this->rules;
         }
 
-        public function addRules($rules)
+		/**
+		 * @param $rules
+		 */
+		public function addRules( $rules )
         {
             if(is_array($rules)) {
                 foreach($rules as $rule) {
@@ -78,18 +95,30 @@
             }
         }
 
-        public function addRule($regexp, $uri)
+		/**
+		 * @param $regexp
+		 * @param $uri
+		 */
+		public function addRule( $regexp , $uri )
         {
             $regexp = trim($regexp);
             $uri = trim($uri);
-            if($regexp!='' && $uri!='') {
-                if(!in_array($regexp, $this->rules)) {
-                    $this->rules[$regexp] = $uri;
-                }
+	        if ( $regexp != '' && $uri != '' && ! in_array( $regexp , $this->rules ) ) {
+		        $this->rules[ $regexp ] = $uri;
             }
         }
 
-        public function addRoute($id, $regexp, $url, $file, $user_menu = false, $location = "custom", $section = "custom", $title = "Custom")
+		/**
+		 * @param        $id
+		 * @param        $regexp
+		 * @param        $url
+		 * @param        $file
+		 * @param bool   $user_menu
+		 * @param string $location
+		 * @param string $section
+		 * @param string $title
+		 */
+		public function addRoute( $id , $regexp , $url , $file , $user_menu = false , $location = 'custom' , $section = 'custom' , $title = 'Custom' )
         {
             $regexp = trim($regexp);
             $file = trim($file);
@@ -98,7 +127,10 @@
             }
         }
 
-        public function getRoutes()
+		/**
+		 * @return array
+		 */
+		public function getRoutes()
         {
             return $this->routes;
         }
@@ -108,9 +140,9 @@
             if(Params::existServerParam('REQUEST_URI')) {
                 if(preg_match('|[\?&]{1}http_referer=(.*)$|', urldecode(Params::getServerParam('REQUEST_URI', false, false)), $ref_match)) {
                     $this->http_referer = $ref_match[1];
-                    $_SERVER['REQUEST_URI'] = preg_replace('|[\?&]{1}http_referer=(.*)$|', "", urldecode(Params::getServerParam('REQUEST_URI', false, false)));
+                    $_SERVER['REQUEST_URI'] = preg_replace( '|[\?&]{1}http_referer=(.*)$|', '' , urldecode( Params::getServerParam( 'REQUEST_URI', false, false)));
                 }
-                $request_uri = preg_replace('@^' . REL_WEB_URL . '@', "", Params::getServerParam('REQUEST_URI', false, false));
+                $request_uri = preg_replace('@^' . REL_WEB_URL . '@', '' , Params::getServerParam( 'REQUEST_URI', false, false));
                 $this->raw_request_uri = $request_uri;
                 $route_used = false;
                 foreach($this->routes as $id => $route) {
@@ -140,14 +172,14 @@
                 }
                 if(!$route_used) {
                     if(osc_rewrite_enabled()) {
-                        $tmp_ar = explode("?", $request_uri);
+                        $tmp_ar = explode( '?' , $request_uri);
                         $request_uri = $tmp_ar[0];
 
                         // if try to access directly to a php file
                         if(preg_match('#^(.+?)\.php(.*)$#', $request_uri)) {
-                            $file = explode("?", $request_uri);
+                            $file = explode( '?' , $request_uri);
                             if(!file_exists(ABS_PATH . $file[0])) {
-                                Rewrite::newInstance()->set_location('error');
+	                            self::newInstance()->set_location( 'error' );
                                 header('HTTP/1.1 404 Not Found');
                                 osc_current_web_theme_path('404.php');
                                 exit;
@@ -162,27 +194,35 @@
                                 break;
                             }
                         }
+                        $this->extractParams($request_uri);
                     }
-                    $this->extractParams($request_uri);
                     $this->request_uri = $request_uri;
 
-                    if(Params::getParam('page')!='') { $this->location = Params::getParam('page'); };
-                    if(Params::getParam('action')!='') { $this->section = Params::getParam('action'); };
+                    if(Params::getParam('page')!='') { $this->location = Params::getParam('page'); }
+	                if(Params::getParam('action')!='') { $this->section = Params::getParam('action'); }
                 }
             }
         }
 
-        public function extractURL($uri = '')
+		/**
+		 * @param string $uri
+		 *
+		 * @return bool|string
+		 */
+		public function extractURL( $uri = '' )
         {
             $uri_array = explode('?', str_replace('index.php', '', $uri));
-            if(substr($uri_array[0], 0, 1)=="/") {
+	        if ( $uri_array[ 0 ][ 0 ] === '/' ) {
                 return substr($uri_array[0], 1);
             } else {
                 return $uri_array[0];
             }
         }
 
-        public function extractParams($uri = '')
+		/**
+		 * @param string $uri
+		 */
+		public function extractParams( $uri = '' )
         {
             $uri_array = explode('?', $uri);
             $length_i = count($uri_array);
@@ -194,7 +234,10 @@
             }
         }
 
-        public function removeRule($regexp)
+		/**
+		 * @param $regexp
+		 */
+		public function removeRule( $regexp )
         {
             unset($this->rules[$regexp]);
         }
@@ -205,37 +248,58 @@
             $this->rules = array();
         }
 
-        public function get_request_uri()
+		/**
+		 * @return string
+		 */
+		public function get_request_uri()
         {
             return $this->request_uri;
         }
 
-        public function get_raw_request_uri()
+		/**
+		 * @return string
+		 */
+		public function get_raw_request_uri()
         {
             return $this->raw_request_uri;
         }
 
-        public function set_location($location)
+		/**
+		 * @param $location
+		 */
+		public function set_location( $location )
         {
             $this->location = $location;
         }
 
-        public function get_location()
+		/**
+		 * @return string
+		 */
+		public function get_location()
         {
             return $this->location;
         }
 
-        public function get_section()
+		/**
+		 * @return string
+		 */
+		public function get_section()
         {
             return $this->section;
         }
 
-        public function get_title()
+		/**
+		 * @return string
+		 */
+		public function get_title()
         {
             return $this->title;
         }
 
-        public function get_http_referer()
+		/**
+		 * @return string
+		 */
+		public function get_http_referer()
         {
             return $this->http_referer;
         }

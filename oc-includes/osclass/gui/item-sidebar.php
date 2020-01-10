@@ -27,12 +27,12 @@
             <input type="hidden" name="action" value="mark" />
             <input type="hidden" name="page" value="item" />
             <select name="as" id="as" class="mark_as">
-                    <option><?php _e("Mark as...", 'bender'); ?></option>
-                    <option value="spam"><?php _e("Mark as spam", 'bender'); ?></option>
-                    <option value="badcat"><?php _e("Mark as misclassified", 'bender'); ?></option>
-                    <option value="repeated"><?php _e("Mark as duplicated", 'bender'); ?></option>
-                    <option value="expired"><?php _e("Mark as expired", 'bender'); ?></option>
-                    <option value="offensive"><?php _e("Mark as offensive", 'bender'); ?></option>
+                    <option><?php _e( 'Mark as...' , 'bender'); ?></option>
+                    <option value="spam"><?php _e( 'Mark as spam' , 'bender'); ?></option>
+                    <option value="badcat"><?php _e( 'Mark as misclassified' , 'bender'); ?></option>
+                    <option value="repeated"><?php _e( 'Mark as duplicated' , 'bender'); ?></option>
+                    <option value="expired"><?php _e( 'Mark as expired' , 'bender'); ?></option>
+                    <option value="offensive"><?php _e( 'Mark as offensive' , 'bender'); ?></option>
             </select>
         </form>
     <?php } ?>
@@ -46,7 +46,7 @@
     <?php } ?>
 
     <div id="contact" class="widget-box form-container form-vertical">
-        <h2><?php _e("Contact publisher", 'bender'); ?></h2>
+        <h2><?php _e( 'Contact publisher' , 'bender'); ?></h2>
         <?php if( osc_item_is_expired () ) { ?>
             <p>
                 <?php _e("The listing is expired. You can't contact the publisher.", 'bender'); ?>
@@ -57,7 +57,7 @@
             </p>
         <?php } else if( osc_reg_user_can_contact() && !osc_is_web_user_logged_in() ) { ?>
             <p>
-                <?php _e("You must log in or register a new account in order to contact the advertiser", 'bender'); ?>
+                <?php _e( 'You must log in or register a new account in order to contact the advertiser' , 'bender'); ?>
             </p>
             <p class="contact_button">
                 <strong><a href="<?php echo osc_user_login_url(); ?>"><?php _e('Login', 'bender'); ?></a></strong>
@@ -73,10 +73,10 @@
                 <p class="email"><?php printf(__('E-mail: %s', 'bender'), osc_item_contact_email()); ?></p>
             <?php } ?>
             <?php if ( osc_user_phone() != '' ) { ?>
-                <p class="phone"><?php printf(__("Phone: %s", 'bender'), osc_user_phone()); ?></p>
+                <p class="phone"><?php printf( __( 'Phone: %s' , 'bender'), osc_user_phone()); ?></p>
             <?php } ?>
             <ul id="error_list"></ul>
-            <form action="<?php echo osc_base_url(true); ?>" method="post" name="contact_form" id="contact_form" <?php if(osc_item_attachment()) { echo 'enctype="multipart/form-data"'; };?> >
+            <form action="<?php echo osc_base_url(true); ?>" method="post" name="contact_form" id="contact_form" <?php if(osc_item_attachment()) { echo 'enctype="multipart/form-data"'; } ?> >
                 <?php osc_prepare_user_info(); ?>
                  <input type="hidden" name="action" value="contact_post" />
                     <input type="hidden" name="page" value="item" />
@@ -104,31 +104,13 @@
                         <label class="control-label" for="attachment"><?php _e('Attachment', 'bender'); ?>:</label>
                         <div class="controls"><?php ContactForm::your_attachment(); ?></div>
                     </div>
-                <?php }; ?>
+                <?php } ?>
 
                 <div class="control-group">
                     <div class="controls">
-                        <?php osc_run_hook('item_contact_form', osc_item_id()); ?>
-                        <?php if( osc_recaptcha_public_key() ) { ?>
-                        <script type="text/javascript">
-                            var RecaptchaOptions = {
-                                theme : 'custom',
-                                custom_theme_widget: 'recaptcha_widget'
-                            };
-                        </script>
-                        <style type="text/css">
-                          div#recaptcha_widget, div#recaptcha_image > img { width:240px; margin-top: 5px; }
-                          div#recaptcha_image { margin-bottom: 15px; }
-                        </style>
-                        <div id="recaptcha_widget">
-                            <div id="recaptcha_image"><img /></div>
-                            <span class="recaptcha_only_if_image"><?php _e('Enter the words above','bender'); ?>:</span>
-                            <input type="text" id="recaptcha_response_field" name="recaptcha_response_field" />
-                            <div><a href="javascript:Recaptcha.showhelp()"><?php _e('Help', 'bender'); ?></a></div>
-                        </div>
-                        <?php } ?>
+                        <?php osc_run_hook('item_contact_form', osc_item_id()); ?> 
                         <?php osc_show_recaptcha(); ?>
-                        <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Send", 'bender');?></button>
+                        <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Send' , 'bender');?></button>
                     </div>
                 </div>
             </form>

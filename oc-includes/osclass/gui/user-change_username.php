@@ -30,8 +30,13 @@
         osc_current_web_theme_path('user-sidebar.php');
     }
     osc_add_filter('meta_title_filter','custom_meta_title');
-    function custom_meta_title($data){
-        return __('Change username', 'bender');;
+	/**
+	 * @param $data
+	 *
+	 * @return string
+	 */
+	function custom_meta_title( $data ) {
+        return __('Change username', 'bender');
     }
     osc_current_web_theme_path('header.php') ;
     $osc_user = osc_user();
@@ -47,7 +52,7 @@ $(document).ready(function() {
         },
         messages: {
             s_username: {
-                required: '<?php echo osc_esc_js(__("Username: this field is required", "bender")); ?>.'
+                required: '<?php echo osc_esc_js(__( 'Username: this field is required' , 'bender' )); ?>.'
             }
         },
         errorLabelContainer: "#error_list",
@@ -72,9 +77,9 @@ $(document).ready(function() {
                     function(data){
                         clearInterval(cInterval);
                         if(data.exists==0) {
-                            $("#available").text('<?php echo osc_esc_js(__("The username is available", "bender")); ?>');
+                            $("#available").text('<?php echo osc_esc_js(__( 'The username is available' , 'bender' )); ?>');
                         } else {
-                            $("#available").text('<?php echo osc_esc_js(__("The username is NOT available", "bender")); ?>');
+                            $("#available").text('<?php echo osc_esc_js(__( 'The username is NOT available' , 'bender' )); ?>');
                         }
                     }
                 );
@@ -99,7 +104,7 @@ $(document).ready(function() {
             </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Update", 'bender');?></button>
+                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Update' , 'bender');?></button>
                 </div>
             </div>
         </form>

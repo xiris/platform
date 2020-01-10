@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if (! defined('ABS_PATH')) {
+    exit('ABS_PATH is not loaded. Direct access is not allowed.');
+}
 
 /*
  * Copyright 2014 Osclass
@@ -45,7 +47,7 @@
         */
         public static function newInstance()
         {
-            if( !self::$instance instanceof self ) {
+            if (!self::$instance instanceof self) {
                 self::$instance = new self;
             }
             return self::$instance;
@@ -54,36 +56,52 @@
         /**
          * Set data related to t_locations_tmp table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_locations_tmp');
-            $this->setFields( array('id_location', 'e_type') );
+            $this->setFields(array('id_location', 'e_type'));
         }
 
-        function getLocations($max)
+        /**
+         * @param $max
+         *
+         * @return array
+         */
+        public function getLocations($max)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->limit($max);
             $rs = $this->dao->get();
 
-            if($rs === false) {
+            if ($rs === false) {
                 return array();
             }
             return $rs->result();
         }
 
-        function delete($where)
+        /**
+         * @param array $where
+         *
+         * @return mixed
+         */
+        public function delete($where)
         {
-            return $this->dao->delete($this->getTableName(), $where );
+            return $this->dao->delete($this->getTableName(), $where);
         }
 
-        function batchInsert($ids, $type) {
-            if(!empty($ids)) {
+        /**
+         * @param $ids
+         * @param $type
+         *
+         * @return bool|mixed
+         */
+        public function batchInsert($ids, $type)
+        {
+            if (!empty($ids)) {
                 return $this->dao->query(sprintf("INSERT INTO %s (id_location, e_type) VALUES (%s, '%s')", $this->getTableName(), implode(",'".$type."'),(", $ids), $type));
             }
             return false;
         }
-
     }

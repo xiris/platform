@@ -21,24 +21,26 @@
 
 /*
 Theme Name: bender
-Theme URI: http://osclass.org/
+Theme URI: https://github.com/navjottomer/osclass/
 Description: Bender theme
-Version: 3.1.4
+Version: 3.1.5
 Author: Osclass
-Author URI: http://osclass.org/
+Author URI: https://github.com/navjottomer/osclass/
 Widgets:  header, footer
 Theme update URI: bender
 */
 
-    function bender_theme_info() {
+	/**
+	 * @return array
+	 */
+	function bender_theme_info() {
         return array(
              'name'        => 'bender'
-            ,'version'     => '3.1.4'
+            ,'version'     => '3.1.5'
             ,'description' => 'Bender theme'
             ,'author_name' => 'Osclass'
-            ,'author_url'  => 'http://osclass.org'
+            ,'author_url'  => 'https://github.com/navjottomer/osclass'
             ,'locations'   => array()
         );
     }
 
-?>

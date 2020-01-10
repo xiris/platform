@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -56,7 +58,7 @@
          * @access public
          * @since 2.4
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_region_stats');
@@ -117,13 +119,15 @@
          *
          * @access public
          * @since 2.4
-         * @param type $regionID
-         * @param type $numItems
-         * @return type
+         *
+         * @param int $regionID
+         * @param int $numItems
+         *
+         * @return mixed
          */
         public function setNumItems($regionID, $numItems)
         {
-            $sql = "INSERT INTO ".$this->getTableName()." (fk_i_region_id, i_num_items) VALUES ($regionID, $numItems) ON DUPLICATE KEY UPDATE i_num_items = ".$numItems;
+            $sql = 'INSERT INTO ' . $this->getTableName() . " (fk_i_region_id, i_num_items) VALUES ($regionID, $numItems) ON DUPLICATE KEY UPDATE i_num_items = " . $numItems;
             return $this->dao->query($sql);
         }
 
@@ -138,23 +142,26 @@
 
         public function findByRegionId($regionId)
         {
-            return $this->findByPrimaryKey($regionId);
+            return $this->findByPrimaryKey($regionId );
         }
 
-        /**
-         * Return a list of regions and counter items.
-         * Can be filtered by country and num_items,
-         * and ordered by region_name or items counter.
-         * $order = 'region_name ASC' OR $oder = 'items DESC'
-         *
-         * @access public
-         * @since 2.4
-         * @param string $country
-         * @param string $zero
-         * @param string $order
-         * @return array
-         */
-        public function listRegions($country = '%%%%', $zero = ">", $order = "region_name ASC")
+	    /**
+	     * Return a list of regions and counter items.
+	     * Can be filtered by country and num_items,
+	     * and ordered by region_name or items counter.
+	     * $order = 'region_name ASC' OR $oder = 'items DESC'
+	     *
+	     * @access public
+	     * @since  2.4
+	     *
+	     * @param string $country
+	     * @param string $zero
+	     * @param string $order
+	     *
+	     * @return array
+	     * @throws \Exception
+	     */
+        public function listRegions($country = '%%%%', $zero = '>' , $order = 'region_name ASC' )
         {
             $key    = md5(osc_base_url().(string)$country.(string)$zero.(string)$order);
             $found  = null;
@@ -165,14 +172,14 @@
                 $this->dao->from( DB_TABLE_PREFIX.'t_region , '.$this->getTableName() );
                 $this->dao->where( $this->getTableName().'.fk_i_region_id = '.DB_TABLE_PREFIX.'t_region.pk_i_id' );
 
-                if( $order_split[0] == 'region_name' ) {
+                if( $order_split[0] === 'region_name' ) {
                     $this->dao->select('STRAIGHT_JOIN '.$this->getTableName().'.fk_i_region_id as region_id, '.$this->getTableName().'.i_num_items as items, '.DB_TABLE_PREFIX.'t_region.s_name as region_name, '.DB_TABLE_PREFIX.'t_region.s_slug as region_slug');
-                } else if( $order_split[0] == 'items') {
+                } else if( $order_split[0] === 'items') {
                     $this->dao->select($this->getTableName().'.fk_i_region_id as region_id, '.$this->getTableName().'.i_num_items as items, '.DB_TABLE_PREFIX.'t_region.s_name as region_name');
                 }
 
                 $this->dao->where('i_num_items '.$zero.' 0' );
-                if( $country != '%%%%') {
+                if( $country !== '%%%%') {
                     $this->dao->where(DB_TABLE_PREFIX.'t_region.fk_c_country_code = \''.$this->dao->connId->real_escape_string($country).'\' ');
                 }
                 $this->dao->orderBy($order);
@@ -194,10 +201,10 @@
         /**
          * Calculate the total items that belong to region
          *
-         * @param type $regionId
+         * @param $regionId
          * @return int total items
          */
-        function calculateNumItems($regionId)
+        public function calculateNumItems($regionId)
         {
             $sql  = 'SELECT count(*) as total FROM '.DB_TABLE_PREFIX.'t_item_location, '.DB_TABLE_PREFIX.'t_item, '.DB_TABLE_PREFIX.'t_category ';
             $sql .= 'WHERE '.DB_TABLE_PREFIX.'t_item_location.fk_i_region_id = '.$regionId.' AND ';
@@ -223,4 +230,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/RegionStats.php */
-?>

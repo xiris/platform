@@ -61,9 +61,10 @@
     /**
      * Add a filter
      *
-     * @param string $hook
-     * @param string $function
-     * @param int $priority
+     * @param string       $hook
+     * @param callable     $function
+     * @param int          $priority
+     *
      * @return void
      */
     function osc_add_filter($hook, $function, $priority = 5) {
@@ -103,12 +104,14 @@
         return Plugins::isThisCategory($name, $id);
     }
 
-    /**
-     * Returns plugin's information
-     *
-     * @param string $plugins
-     * @return array
-     */
+
+	/**
+	 * Returns plugin's information
+	 *
+	 * @param $plugin
+	 *
+	 * @return array
+	 */
     function osc_plugin_get_info($plugin) {
         return Plugins::getInfo($plugin);
     }
@@ -143,32 +146,36 @@
         return Plugins::getActive();
     }
 
-    /**
-     * Gets if a plugin is installed or not
-     *
-     * @param string $plugin
-     * @return void
-     */
+
+	/**
+	 * Gets if a plugin is installed or not
+	 *
+	 * @param string $plugin
+	 *
+	 * @return bool
+	 */
     function osc_plugin_is_installed($plugin) {
         return Plugins::isInstalled($plugin);
     }
 
-    /**
-     * Gets if a plugin is enabled or not
-     *
-     * @param string $plugin
-     * @return void
-     */
+
+	/**
+	 * Gets if a plugin is enabled or not
+	 *
+	 * @param string $plugin
+	 * @return bool
+	 */
     function osc_plugin_is_enabled($plugin) {
         return Plugins::isEnabled($plugin);
     }
 
-    /**
-     * Show the default configure view for plugins (attach them to categories)
-     *
-     * @param string $plugin
-     * @return boolean
-     */
+
+	/**
+	 * Show the default configure view for plugins (attach them to categories)
+	 *
+	 * @param string $plugin
+	 * @return void
+	 */
     function osc_plugin_configure_view($plugin) {
         return Plugins::configureView($plugin);
     }
@@ -260,7 +267,7 @@
         $file        = preg_replace('|/+|', '/', str_replace('\\', '/', $file));
         $plugin_path = str_replace('\\', '/', osc_plugins_path());
         $file        = str_replace($plugin_path, '', $file);
-        return (osc_base_url(true) . "?page=ajax&action=custom&ajaxfile=" . $file);
+        return ( osc_base_url(true) . '?page=ajax&action=custom&ajaxfile=' . $file);
     }
 
     /**
@@ -299,4 +306,4 @@
         osc_redirect_to(osc_admin_render_plugin_url($file));
     }
 
-?>
+

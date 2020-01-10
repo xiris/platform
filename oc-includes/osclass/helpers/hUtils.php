@@ -44,7 +44,7 @@ function osc_get_param($key) {
 
 /**
  * Generic function for view layer, return the $field of $item
- * with specific $locate
+ * with specific $locale
  *
  * @param array $item
  * @param string $field
@@ -106,35 +106,23 @@ function osc_show_widgets_by_description($description) {
  * @return void
  */
 function osc_show_recaptcha($section = '') {
-    if(osc_recaptcha_version()=="2") {
-        switch($section) {
-            case('recover_password'):
-                $time  = Session::newInstance()->_get('recover_time');
-                if((time()-$time)<=1200) {
-                    echo _osc_recaptcha_get_html(osc_recaptcha_public_key(), substr(osc_language(), 0, 2))."<br />";
-                }
-                break;
-
-            default:
-                echo _osc_recaptcha_get_html(osc_recaptcha_public_key(), substr(osc_language(), 0, 2))."<br />";
-                break;
-        }
-    } else {
-        if( osc_recaptcha_public_key() ) {
-            require_once osc_lib_path() . 'recaptchalib.php';
+    if( osc_recaptcha_public_key() ) {
             switch($section) {
                 case('recover_password'):
+                    Session::newInstance()->_set('recover_captcha_not_set',0);
                     $time  = Session::newInstance()->_get('recover_time');
                     if((time()-$time)<=1200) {
-                        echo recaptcha_get_html( osc_recaptcha_public_key(), null, osc_is_ssl() )."<br />";
+                        echo _osc_recaptcha_get_html(osc_recaptcha_public_key(), substr(osc_language(), 0, 2))."<br />";
+                    }
+                    else{
+                        Session::newInstance()->_set('recover_captcha_not_set',1);
                     }
                     break;
 
                 default:
-                    echo recaptcha_get_html( osc_recaptcha_public_key(), null, osc_is_ssl() );
+                    echo _osc_recaptcha_get_html(osc_recaptcha_public_key(), substr(osc_language(), 0, 2))."<br />";
                     break;
             }
-        }
     }
 }
 
@@ -173,7 +161,7 @@ function osc_format_date($date, $dateformat = null) {
 
 
 /**
- * Scapes letters and numbers of a string
+ * Escapes letters and numbers of a string
  *
  * @since 2.4
  * @param string $string
@@ -195,7 +183,7 @@ function osc_private_user_menu($options = null)
 {
     if($options == null) {
         $options = array();
-        $options[] = array('name' => __('Public Profile'), 'url' => osc_user_public_profile_url(), 'class' => 'opt_publicprofile');
+        $options[] = array('name' => __('Public Profile'), 'url' => osc_user_public_profile_url(osc_logged_user_id()), 'class' => 'opt_publicprofile');
         $options[] = array('name' => __('Dashboard'), 'url' => osc_user_dashboard_url(), 'class' => 'opt_dashboard');
         $options[] = array('name' => __('Manage your listings'), 'url' => osc_user_list_items_url(), 'class' => 'opt_items');
         $options[] = array('name' => __('Manage your alerts'), 'url' => osc_user_alerts_url(), 'class' => 'opt_alerts');
@@ -318,5 +306,23 @@ function osc_get_subdomain_params() {
     return $options;
 }
 
+/**
+ * Get URL of location files JSON.
+ *
+ * @return string
+ */
+function osc_get_locations_json_url() {
+    return 'https://raw.githubusercontent.com/navjottomer/Osclass-Extras/master/locations/list.json';
+}
 
+/**
+ * Get URL of location SQL.
+ *
+ * @param string $location
+ * @return string
+ */
+function osc_get_locations_sql_url($location) {
+    $location = rawurlencode($location);
+    return 'https://raw.githubusercontent.com/navjottomer/Osclass-Extras/master/locations/'.$location;
+}
 ?>

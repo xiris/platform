@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -29,7 +31,12 @@
         private $order_by;
         private $resourceID;
 
-        public function table($params)
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     */
+	    public function table( $params )
         {
             
             $this->addTableHeader();
@@ -52,22 +59,22 @@
         {
 
             $arg_date = '&sort=date';
-            if(Params::getParam('sort') == 'date') {
-                if(Params::getParam('direction') == 'desc') {
+            if( Params::getParam('sort') === 'date') {
+                if( Params::getParam('direction') === 'desc') {
                     $arg_date .= '&direction=asc';
-                };
+                }
             }
             $arg_item = '&sort=attached_to';
-            if(Params::getParam('sort') == 'attached_to') {
-                if(Params::getParam('direction') == 'desc') {
+            if( Params::getParam('sort') === 'attached_to') {
+                if( Params::getParam('direction') === 'desc') {
                     $arg_item .= '&direction=asc';
-                };
+                }
             }
 
             Rewrite::newInstance()->init();
             $page  = (int)Params::getParam('iPage');
-            if($page==0) { $page = 1; };
-            Params::setParam('iPage', $page);
+            if($page==0) { $page = 1; }
+	        Params::setParam('iPage', $page);
             $url_base = preg_replace('|&direction=([^&]*)|', '', preg_replace('|&sort=([^&]*)|', '', osc_base_url().Rewrite::newInstance()->get_raw_request_uri()));
 
             $this->addColumn('bulkactions', '<input id="check_all" type="checkbox" />');
@@ -77,10 +84,13 @@
             $this->addColumn('date', '<a href="'.osc_esc_html($url_base.$arg_date).'">'.__('Date').'</a>');
 
             $dummy = &$this;
-            osc_run_hook("admin_media_table", $dummy);
+            osc_run_hook( 'admin_media_table' , $dummy);
         }
-        
-        private function processData($media)
+
+	    /**
+	     * @param $media
+	     */
+	    private function processData( $media )
         {
             if(!empty($media)) {
             
@@ -101,22 +111,25 @@
 
             }
         }
-                
-        private function getDBParams($_get)
+
+	    /**
+	     * @param $_get
+	     */
+	    private function getDBParams( $_get )
         {
             
             foreach($_get as $k => $v) {
-                if( ( $k == 'resourceId' ) && !empty($v) ) {
-                    $this->resourceID = intval($v);
+                if( ( $k === 'resourceId' ) && !empty($v) ) {
+	                $this->resourceID = (int) $v;
                 }
-                if( $k == 'iDisplayStart' ) {
-                    $this->start = intval($v);
+                if( $k === 'iDisplayStart' ) {
+	                $this->start = (int) $v;
                 }
-                if( $k == 'iDisplayLength' ) {
-                    $this->limit = intval($v);
+                if( $k === 'iDisplayLength' ) {
+	                $this->limit = (int) $v;
                 }
-                if( $k == 'sEcho' ) {
-                    $this->sEcho = intval($v);
+                if( $k === 'sEcho' ) {
+	                $this->sEcho = (int) $v;
                 }
             }
 
@@ -131,7 +144,7 @@
             // column sort
             $sort       = $_get['sort'];
             $arraySortColumns = array('date' => 'r.pk_i_id', 'attached_to' => 'r.fk_i_item_id');
-            if(!key_exists($sort, $arraySortColumns)) {
+	        if ( ! array_key_exists( $sort , $arraySortColumns ) ) {
                 $this->order_by['column_name'] = 'r.pk_i_id';
             } else {
                 $this->order_by['column_name'] = $arraySortColumns[$sort];
@@ -140,12 +153,11 @@
             // set start and limit using iPage param
             $start = ((int)Params::getParam('iPage')-1) * $_get['iDisplayLength'];
 
-            $this->start = intval($start);
-            $this->limit = intval($_get['iDisplayLength']);
+	        $this->start = (int) $start;
+	        $this->limit = (int) $_get[ 'iDisplayLength' ];
 
             
         }
         
     }
 
-?>

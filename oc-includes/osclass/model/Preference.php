@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -23,7 +25,7 @@
     {
         /**
          *
-         * @var type
+         * @var
          */
         private static $instance;
         /**
@@ -32,7 +34,10 @@
          */
         private $pref;
 
-        public static function newInstance()
+	    /**
+	     * @return \Preference|\type
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -43,7 +48,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_preference');
@@ -52,15 +57,17 @@
             $this->toArray();
         }
 
-        /**
-         * Find a value by its name
-         *
-         * @access public
-         * @since unknown
-         * @param type $name
-         * @return type
-         */
-        function findValueByName($name)
+	    /**
+	     * Find a value by its name
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param $name
+	     *
+	     * @return bool
+	     */
+        public function findValueByName($name)
         {
             $this->dao->select('s_value');
             $this->dao->from($this->getTableName());
@@ -84,8 +91,10 @@
          *
          * @access public
          * @since unknown
+         *
          * @param string $name
-         * @return array
+         *
+         * @return array|bool
          */
         public function findBySection($name)
         {
@@ -142,7 +151,7 @@
          * @param string $section
          * @return string
          */
-        public function get($key, $section = "osclass")
+        public function get($key, $section = 'osclass' )
         {
             if (isset($this->pref[$section]) && isset($this->pref[$section][$key])) {
                 return $this->pref[$section][$key];
@@ -158,7 +167,7 @@
          * @param string $section
          * @return array
          */
-        public function getSection($section = "osclass")
+        public function getSection($section = 'osclass' )
         {
             if (isset($this->pref[$section]) && is_array($this->pref[$section])) {
                 return $this->pref[$section];
@@ -175,13 +184,13 @@
          * @param string$value
          * @param string $section
          */
-        public function set($key, $value, $section = "osclass")
+        public function set($key, $value, $section = 'osclass' )
         {
             $this->pref[$section][$key] = $value;
         }
 
         /**
-         * Replace preference value, given preference name, preference section and type value.
+         * Replace preference value, given preference name, preference section and value.
          *
          * @access public
          * @since unknown

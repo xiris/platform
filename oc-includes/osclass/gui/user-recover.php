@@ -30,7 +30,7 @@
         <h1><?php _e('Recover your password', 'bender'); ?></h1>
     </div>
     <div class="resp-wrapper">
-        <form action="<?php echo osc_base_url(true); ?>" method="post" >
+        <form name="recover_password" id="recover_password" action="<?php echo osc_base_url(true); ?>" method="post" >
         <input type="hidden" name="page" value="login" />
         <input type="hidden" name="action" value="recover_post" />
         <div class="control-group">
@@ -42,7 +42,7 @@
         </div>
             <div class="control-group">
                 <div class="controls">
-                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e("Send me a new password", 'bender');?></button>
+                    <button type="submit" class="ui-button ui-button-middle ui-button-main"><?php _e( 'Send me a new password' , 'bender');?></button>
                 </div>
             </div>
         </form>

@@ -26,7 +26,7 @@
             parent::__construct();
 
             //specific things for this class
-            $this->categoryManager = Category::newInstance();
+            $this->categoryManager = Category::newInstance( osc_current_admin_locale() );
         }
 
         //Business Layer...
@@ -58,6 +58,8 @@
                                             $this->categoryManager->updateOrder($cat['pk_i_id'],$order);
                                         }
                                         $this->categoryManager->updateOrder($categoryId,'0');
+
+                                        osc_run_hook('add_category', (int)($categoryId));
 
                                         $this->redirectTo(osc_admin_base_url(true).'?page=categories');
                 break;

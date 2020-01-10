@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -27,7 +29,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \type|\Widget
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_widget');
@@ -53,9 +58,9 @@
          * @param string $location
          * @return array
          */
-        function findByLocation($location)
+        public function findByLocation($location)
         {
-            $this->dao->select('*');
+            $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->where('s_location', $location);
             $result = $this->dao->get();
@@ -74,9 +79,9 @@
          * @param string $description
          * @return array
          */
-        function findByDescription($description)
+        public function findByDescription($description)
         {
-            $this->dao->select('*');
+            $this->dao->select();
             $this->dao->from($this->getTableName());
             $this->dao->where('s_description', $description);
             $result = $this->dao->get();
@@ -90,4 +95,4 @@
     }
 
     /* file end: ./oc-includes/osclass/model/Widget.php */
-?>
+

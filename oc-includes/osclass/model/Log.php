@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -27,7 +29,10 @@
          */
         private static $instance;
 
-        public static function newInstance()
+	    /**
+	     * @return \Log|\type
+	     */
+	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
                 self::$instance = new self;
@@ -38,7 +43,7 @@
         /**
          *
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_log');
@@ -55,21 +60,28 @@
             $this->setFields($array_fields);
         }
 
-        /**
-         * Insert a log row.
-         *
-         * @access public
-         * @since unknown
-         * @param string $section
-         * @param string $action
-         * @param integer $id
-         * @param string $data
-         * @param string $who
-         * @param integer $who_id
-         * @return boolean
-         */
+	    /**
+	     * Insert a log row.
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param string  $section
+	     * @param string  $action
+	     * @param integer $id
+	     * @param string  $data
+	     * @param string  $who
+	     * @param         $whoId
+	     *
+	     * @return boolean
+	     */
         public function insertLog($section, $action, $id, $data, $who, $whoId)
         {
+            if ( Params::getServerParam('REMOTE_ADDR') == '' ) {
+                // CRON.
+                $_SERVER['REMOTE_ADDR']= '127.0.0.1';
+            }
+
             $array_set = array(
                 'dt_date'       => date('Y-m-d H:i:s'),
                 's_section'     => $section,
@@ -85,4 +97,3 @@
     }
 
     /* file end: ./oc-includes/osclass/model/Log.php */
-?>

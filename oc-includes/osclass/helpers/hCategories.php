@@ -29,29 +29,31 @@
      * @return array
      */
     function osc_category() {
-        if (View::newInstance()->_exists('subcategories')) {
+	    $category = null;
+	    if ( View::newInstance()->_exists( 'subcategories' ) ) {
             $category = View::newInstance()->_current('subcategories');
         } elseif (View::newInstance()->_exists('categories')) {
             $category = View::newInstance()->_current('categories');
         } elseif (View::newInstance()->_exists('category')) {
             $category = View::newInstance()->_get('category');
-        } else {
-            $category = null;
         }
-        return($category);
+
+	    return $category;
     }
 
-    /**
-     * Low level function: Gets the list of categories as a tree
-     *
-     * <code>
-     * <?php
-     *  $c = osc_get_categories();
-     * ?>
-     * </code>
-     *
-     * @return <array>
-     */
+
+	/**
+	 * Low level function: Gets the list of categories as a tree
+	 *
+	 * <code>
+	 * <?php
+	 *  $c = osc_get_categories();
+	 * ?>
+	 * </code>
+	 *
+	 * @return mixed|string <array>
+	 * @throws \Exception
+	 */
     function osc_get_categories() {
        if ( !View::newInstance()->_exists('categories') ) {
            osc_export_categories(Category::newInstance()->toTree());
@@ -59,13 +61,17 @@
         return  View::newInstance()->_get('categories');
     }
 
-    /**
-     * Low level function: Gets the value of the category attribute
-     *
-     * @return <array>
-     */
+
+	/**
+	 * Low level function: Gets the value of the category attribute
+	 *
+	 * @param        $field
+	 * @param string $locale
+	 *
+	 * @return string <array>
+	 */
     function osc_category_field($field, $locale = '') {
-        return osc_field(osc_category(), $field, "");
+        return osc_field( osc_category(), $field, '' );
     }
 
     /**
@@ -86,11 +92,13 @@
         return View::newInstance()->_count('subcategories');
     }
 
-    /**
-     * Gets the total of categories. If categories are not loaded, this function will load them.
-     *
-     * @return int
-     */
+
+	/**
+	 * Gets the total of categories. If categories are not loaded, this function will load them.
+	 *
+	 * @return int
+	 * @throws \Exception
+	 */
     function osc_count_categories() {
         if ( !View::newInstance()->_exists('categories') ) {
             View::newInstance()->_exportVariableToView('categories', Category::newInstance()->toTree() );
@@ -98,11 +106,13 @@
         return osc_priv_count_categories();
     }
 
-    /**
-     * Let you know if there are more categories in the list. If categories are not loaded, this function will load them.
-     *
-     * @return boolean
-     */
+
+	/**
+	 * Let you know if there are more categories in the list. If categories are not loaded, this function will load them.
+	 *
+	 * @return boolean
+	 * @throws \Exception
+	 */
     function osc_has_categories() {
         if ( !View::newInstance()->_exists('categories') ) {
             View::newInstance()->_exportVariableToView('categories', Category::newInstance()->toTree() );
@@ -118,10 +128,18 @@
      */
     function osc_count_subcategories() {
         $category = View::newInstance()->_current('categories');
-        if ( $category == '' ) return -1;
-        if ( !isset($category['categories']) ) return 0;
-        if ( !is_array($category['categories']) ) return 0;
-        if ( count($category['categories']) == 0 ) return 0;
+	    if ( $category == '' ) {
+		    return - 1;
+	    }
+	    if ( ! isset( $category[ 'categories' ] ) ) {
+		    return 0;
+	    }
+	    if ( ! is_array( $category[ 'categories' ] ) ) {
+		    return 0;
+	    }
+	    if ( count( $category[ 'categories' ] ) == 0 ) {
+		    return 0;
+	    }
         if ( !View::newInstance()->_exists('subcategories') ) {
             View::newInstance()->_exportVariableToView('subcategories', $category['categories']);
         }
@@ -136,15 +154,21 @@
      */
     function osc_has_subcategories() {
         $category = View::newInstance()->_current('categories');
-        if ( $category == '' ) return -1;
-        if ( !isset($category['categories']) ) return false;
+	    if ( $category == '' ) {
+		    return - 1;
+	    }
+	    if ( ! isset( $category[ 'categories' ] ) ) {
+		    return false;
+	    }
 
         if ( !View::newInstance()->_exists('subcategories') ) {
             View::newInstance()->_exportVariableToView('subcategories', $category['categories']);
         }
         $ret = View::newInstance()->_next('subcategories');
         //we have to delete for next iteration
-        if (!$ret) View::newInstance()->_erase('subcategories');
+	    if ( ! $ret ) {
+		    View::newInstance()->_erase( 'subcategories' );
+	    }
         return $ret;
     }
 
@@ -154,9 +178,11 @@
      * @param string $locale
      * @return string
      */
-    function osc_category_name($locale = "") {
-        if ($locale == "") $locale = osc_current_user_locale();
-        return osc_category_field("s_name", $locale);
+    function osc_category_name($locale = '' ) {
+	    if ( $locale == '' ) {
+		    $locale = osc_current_user_locale();
+	    }
+        return osc_category_field( 's_name' , $locale);
     }
 
     /**
@@ -165,9 +191,11 @@
      * @param string $locale
      * @return string
      */
-    function osc_category_description($locale = "") {
-        if ($locale == "") $locale = osc_current_user_locale();
-        return osc_category_field("s_description", $locale);
+    function osc_category_description($locale = '' ) {
+	    if ( $locale == '' ) {
+		    $locale = osc_current_user_locale();
+	    }
+        return osc_category_field( 's_description' , $locale);
     }
 
     /**
@@ -176,9 +204,11 @@
      * @param string $locale
      * @return string
      */
-    function osc_category_id($locale = "") {
-        if ($locale == "") $locale = osc_current_user_locale();
-        return osc_category_field("pk_i_id", $locale);
+    function osc_category_id($locale = '' ) {
+	    if ( $locale == '' ) {
+		    $locale = osc_current_user_locale();
+	    }
+        return osc_category_field( 'pk_i_id' , $locale);
     }
 
     /**
@@ -187,9 +217,11 @@
      * @param string $locale
      * @return string
      */
-    function osc_category_slug($locale = "") {
-        if ($locale == "") $locale = osc_current_user_locale();
-        return osc_category_field("s_slug", $locale);
+    function osc_category_slug($locale = '' ) {
+	    if ( $locale == '' ) {
+		    $locale = osc_current_user_locale();
+	    }
+        return osc_category_field( 's_slug' , $locale);
     }
 
     /**
@@ -198,7 +230,7 @@
      * @return boolean
      */
     function osc_category_price_enabled() {
-        return (boolean)osc_category_field("b_price_enabled");
+        return (boolean)osc_category_field( 'b_price_enabled' );
     }
 
     /**
@@ -207,7 +239,7 @@
      * @return int
      */
     function osc_category_parent_id() {
-        return osc_category_field("fk_i_parent_id");
+        return osc_category_field( 'fk_i_parent_id' );
     }
 
     /**
@@ -216,7 +248,7 @@
      * @return int
      */
     function osc_category_total_items() {
-        return osc_category_field("i_num_items", "");
+        return osc_category_field( 'i_num_items' );
         //$category = osc_category();
         //return CategoryStats::newInstance()->getNumItems($category);
     }
@@ -230,35 +262,49 @@
         View::newInstance()->_reset('categories');
     }
 
-    /**
-     * Gets list of non-empty categories
-     *
-     * @return void
-     */
+
+	/**
+	 * Gets list of non-empty categories
+	 *
+	 * @return array
+	 * @throws \Exception
+	 */
     function osc_get_non_empty_categories() {
         $aCategories = Category::newInstance()->toTree(false);
         View::newInstance()->_exportVariableToView('categories', $aCategories );
         return  View::newInstance()->_get('categories');
     }
 
-    /**
-     * Prints category select
-     *
-     * @return void
-     */
+
+	/**
+	 * Prints category select
+	 *
+	 * @param string $name
+	 * @param null   $category
+	 * @param null   $default_str
+	 *
+	 * @return void
+	 * @throws \Exception
+	 */
     function osc_categories_select($name = 'sCategory', $category = null, $default_str = null) {
-        if($default_str == null) $default_str = __('Select a category');
+	    if ( $default_str == null ) {
+		    $default_str = __( 'Select a category' );
+	    }
         CategoryForm::category_select(Category::newInstance()->toTree(), $category, $default_str, $name);
     }
 
-    /**
-     * Get th category by id or slug
-     *
-     * @since 3.0
-     * @param $by two possibilities: slug or id
-     * @param $what the id or slug category we're looking for
-     * @return array
-     */
+
+	/**
+	 * Get th category by id or slug
+	 *
+	 * @since 3.0
+	 *
+	 * @param $by   //two possibilities: slug or id
+	 * @param $what //the id or slug category we're looking for
+	 *
+	 * @return array|bool
+	 * @throws \Exception
+	 */
     function osc_get_category($by, $what) {
         if( !in_array($by, array('slug', 'id')) ) {
             return false;
@@ -274,10 +320,18 @@
         }
     }
 
-    function osc_category_move_to_children() {
+
+	/**
+	 * @return bool|int
+	 */
+	function osc_category_move_to_children() {
         $category = View::newInstance()->_current('categories');
-        if ( $category == '' ) return -1;
-        if ( !isset($category['categories']) ) return false;
+	    if ( $category == '' ) {
+		    return - 1;
+	    }
+	    if ( ! isset( $category[ 'categories' ] ) ) {
+		    return false;
+	    }
 
         if(View::newInstance()->_exists('categoryTrail')) {
             $catTrail = View::newInstance()->_get('categoryTrail');
@@ -288,14 +342,23 @@
         View::newInstance()->_exportVariableToView('categoryTrail', $catTrail);
         View::newInstance()->_exportVariableToView('categories', $category['categories']);
         View::newInstance()->_reset('categories');
-    }
+	}
 
-    function osc_category_move_to_parent() {
+
+	/**
+	 * @return bool|int
+	 * @throws \Exception
+	 */
+	function osc_category_move_to_parent() {
         $category = View::newInstance()->_get('categories');
         $category = end($category);
 
-        if ( $category == '' ) return -1;
-        if ( !isset($category['fk_i_parent_id']) ) return false;
+	    if ( $category == '' ) {
+		    return - 1;
+	    }
+	    if ( ! isset( $category[ 'fk_i_parent_id' ] ) ) {
+		    return false;
+	    }
 
         $keys = View::newInstance()->_get('categoryTrail');
         $position = array_pop($keys);
@@ -326,13 +389,25 @@
      */
     function osc_count_subcategories2() {
         $category = View::newInstance()->_current('categories');
-        if ( $category == '' ) return -1;
-        if ( !isset($category['categories']) ) return 0;
-        if ( !is_array($category['categories']) ) return 0;
+	    if ( $category == '' ) {
+		    return - 1;
+	    }
+	    if ( ! isset( $category[ 'categories' ] ) ) {
+		    return 0;
+	    }
+	    if ( ! is_array( $category[ 'categories' ] ) ) {
+		    return 0;
+	    }
         return count($category['categories']);
     }
 
-    function osc_export_categories($categories = null) {
+
+	/**
+	 * @param null $categories
+	 *
+	 * @throws \Exception
+	 */
+	function osc_export_categories( $categories = null) {
         if($categories==null) {
             $categories = Category::newInstance()->toTree();
         }
@@ -341,4 +416,3 @@
     }
 
 
-?>

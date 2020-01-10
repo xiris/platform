@@ -1,4 +1,6 @@
-<?php if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -54,7 +56,7 @@
         /**
          * Set data related to t_item_comment table
          */
-        function __construct()
+        public function __construct()
         {
             parent::__construct();
             $this->setTableName('t_item_comment');
@@ -83,7 +85,7 @@
          * @param integer $id
          * @return array
          */
-        function findByItemIDAll($id)
+        public function findByItemIDAll($id)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -97,24 +99,24 @@
             return $result->result();
         }
 
-        /**
-         * Searches for comments information, given an item id, page and comments per page.
-         *
-         * @access public
-         * @since unknown
-         * @param integer $id
-         * @param integer $page
-         * @param integer $comments_per_page
-         * @return array
-         */
-        function findByItemID($id, $page = null, $commentsPerPage = null)
+	    /**
+	     * Searches for comments information, given an item id, page and comments per page.
+	     *
+	     * @access public
+	     * @since  unknown
+	     *
+	     * @param integer $id
+	     * @param integer $page
+	     * @param null    $commentsPerPage
+	     *
+	     * @return array
+	     */
+        public function findByItemID($id, $page = null, $commentsPerPage = null)
         {
             $result = array();
             if( $page == null ) { $page = osc_item_comments_page(); }
             if( $page == '' ) {
                 $page = 0;
-            } else if($page > 0) {
-                $page = $page;
             }
 
             if( $commentsPerPage == null ) { $commentsPerPage = osc_comments_per_page(); }
@@ -127,7 +129,7 @@
             $this->dao->where($conditions);
 
             if( $page !== 'all' && $commentsPerPage > 0 ) {
-                $this->dao->limit(($page*$commentsPerPage), $commentsPerPage);
+                $this->dao->limit( $page * $commentsPerPage , $commentsPerPage);
             }
 
             $result = $this->dao->get();
@@ -149,7 +151,7 @@
          * @param integer $id
          * @return integer
          */
-        function total_comments($id)
+        public function total_comments($id)
         {
             return $this->totalComments($id);
         }
@@ -162,7 +164,7 @@
          * @param integer $id
          * @return integer
          */
-        function totalComments($id)
+        public function totalComments($id)
         {
             $this->dao->select('count(pk_i_id) as total');
             $this->dao->from($this->getTableName());
@@ -191,7 +193,7 @@
          * @param integer $id
          * @return array
          */
-        function findByAuthorID($id)
+        public function findByAuthorID($id)
         {
             $this->dao->select();
             $this->dao->from($this->getTableName());
@@ -216,23 +218,22 @@
          * @param integer $itemId
          * @return array
          */
-        function getAllComments($itemId = null)
+        public function getAllComments($itemId = null)
         {
             $this->dao->select('c.*');
             $this->dao->from($this->getTableName().' c');
             $this->dao->from(DB_TABLE_PREFIX.'t_item i');
 
             $conditions = array();
-            if(is_null($itemId)) {
-                $conditions = 'c.fk_i_item_id = i.pk_i_id';
-            } else {
-                $conditions = array(
-                    'i.pk_i_id'      => $itemId,
-                    'c.fk_i_item_id' => $itemId
-                );
+	        $conditions = array (
+		        'i.pk_i_id'      => $itemId ,
+		        'c.fk_i_item_id' => $itemId
+	        );
+	        if ( null === $itemId ) {
+		        $conditions = 'c.fk_i_item_id = i.pk_i_id';
             }
 
-            $this->dao->where($conditions);
+	        $this->dao->where( $conditions );
             $this->dao->orderBy('c.dt_pub_date','DESC');
             $aux = $this->dao->get();
             if($aux == false) {
@@ -248,12 +249,16 @@
          *
          * @access public
          * @since unknown
+         *
          * @param integer $num
-         * @return array
+         *
+         * @return array|bool
          */
-        function getLastComments($num)
+        public function getLastComments($num)
         {
-            if(!intval($num)) return false;
+	        if ( ! (int) $num ) {
+		        return false;
+	        }
 
             $lang = osc_current_user_locale();
 
@@ -333,16 +338,15 @@
             $this->dao->from(DB_TABLE_PREFIX.'t_item i');
 
             $conditions = array();
-            if(is_null($itemId)) {
-                $conditions = 'c.fk_i_item_id = i.pk_i_id';
-            } else {
-                $conditions = array(
-                    'i.pk_i_id'      => $itemId,
-                    'c.fk_i_item_id' => $itemId
-                );
+	        $conditions = array (
+		        'i.pk_i_id'      => $itemId ,
+		        'c.fk_i_item_id' => $itemId
+	        );
+	        if ( null === $itemId ) {
+		        $conditions = 'c.fk_i_item_id = i.pk_i_id';
             }
 
-            $this->dao->where($conditions);
+	        $this->dao->where( $conditions );
 
             if(!$all) {
                 $auxCond = '( c.b_enabled = 0 OR c.b_active = 0 OR c.b_spam = 1 )';
@@ -363,7 +367,8 @@
          * Count the number of comments
          *
          * @param int item's ID or null
-         * @return int
+         *
+         * @return array|int
          */
         public function count($itemId = null) {
             $this->dao->select('COUNT(*) AS numrows');
@@ -371,16 +376,15 @@
             $this->dao->from(DB_TABLE_PREFIX.'t_item i');
 
             $conditions = array();
-            if(is_null($itemId)) {
-                $conditions = 'c.fk_i_item_id = i.pk_i_id';
-            } else {
-                $conditions = array(
-                    'i.pk_i_id'      => $itemId,
-                    'c.fk_i_item_id' => $itemId
-                );
+	        $conditions = array (
+		        'i.pk_i_id'      => $itemId ,
+		        'c.fk_i_item_id' => $itemId
+	        );
+	        if ( null === $itemId ) {
+		        $conditions = 'c.fk_i_item_id = i.pk_i_id';
             }
 
-            $this->dao->where($conditions);
+	        $this->dao->where( $conditions );
             $aux = $this->dao->get();
             if($aux == false) {
                 return array();
@@ -389,14 +393,19 @@
             return $row['numrows'];
         }
 
-        public function countAll($aConditions = null )
+	    /**
+	     * @param null $aConditions
+	     *
+	     * @return bool|int
+	     */
+	    public function countAll( $aConditions = null )
         {
             $this->dao->select('count(*) as total');
             $this->dao->from($this->getTableName().' c');
             $this->dao->from(DB_TABLE_PREFIX.'t_item i');
 
             $this->dao->where('c.fk_i_item_id = i.pk_i_id');
-            if(!is_null($aConditions)) {
+	        if ( null !== $aConditions ) {
                 $this->dao->where($aConditions);
             }
             $result = $this->dao->get();
@@ -413,4 +422,3 @@
 
     }
     /* file end: ./oc-includes/osclass/model/ItemComment.php */
-?>

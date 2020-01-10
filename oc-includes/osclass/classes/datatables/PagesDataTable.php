@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -28,16 +30,22 @@
     {
 
         private $pages;
-        
-        public function table($params)
+
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     * @throws \Exception
+	     */
+	    public function table( $params )
         {
             
             $this->addTableHeader();
 
             $start = ((int)$params['iPage']-1) * $params['iDisplayLength'];
 
-            $this->start = intval( $start );
-            $this->limit = intval( $params['iDisplayLength'] );
+	        $this->start = (int) $start;
+	        $this->limit = (int) $params[ 'iDisplayLength' ];
             
             $pages = Page::newInstance()->listAll(0, null, null, $this->start, $this->limit);
             $this->processData($pages);
@@ -57,10 +65,15 @@
             $this->addColumn('order', __('Order'));
 
             $dummy = &$this;
-            osc_run_hook("admin_pages_table", $dummy);
+            osc_run_hook( 'admin_pages_table' , $dummy);
         }
-        
-        private function processData($pages)
+
+	    /**
+	     * @param $pages
+	     *
+	     * @throws \Exception
+	     */
+	    private function processData( $pages )
         {
             if(!empty($pages)) {
             
@@ -106,4 +119,4 @@
         
     }
 
-?>
+

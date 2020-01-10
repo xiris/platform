@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -35,10 +37,16 @@
 
         public function __construct()
         {
+            parent::__construct();
             osc_add_filter('datatable_user_class', array(&$this, 'row_class'));
         }
 
-        public function table($params)
+	    /**
+	     * @param $params
+	     *
+	     * @return array
+	     */
+	    public function table( $params )
         {
 
             $this->withUserId = false;
@@ -69,10 +77,13 @@
             $this->addColumn('update_date', __('Update date'));
 
             $dummy = &$this;
-            osc_run_hook("admin_users_table", $dummy);
+            osc_run_hook( 'admin_users_table' , $dummy);
         }
 
-        private function processData($users)
+	    /**
+	     * @param $users
+	     */
+	    private function processData( $users )
         {
             if(!empty($users)) {
 
@@ -105,7 +116,7 @@
                     // more actions
                     $moreOptions = '<li class="show-more">'.PHP_EOL.'<a href="#" class="show-more-trigger">'. __('Show more') .'...</a>'. PHP_EOL .'<ul>'. PHP_EOL;
                     foreach( $options_more as $actual ) {
-                        $moreOptions .= '<li>'.$actual."</li>".PHP_EOL;
+                        $moreOptions .= '<li>'.$actual . '</li>' . PHP_EOL;
                     }
                     $moreOptions .= '</ul>'. PHP_EOL .'</li>'.PHP_EOL;
 
@@ -127,7 +138,7 @@
                     $row['email'] = '<a href="' . osc_admin_base_url(true) . '?page=items&userId='. $aRow['pk_i_id'] .'&user='. $aRow['s_name'] .'">' . $aRow['s_email'] . '</a>'. $actions;
                     $row['username'] = $aRow['s_username'];
                     $row['name'] = $aRow['s_name'];
-                    $row['date'] = osc_format_date($aRow['dt_mod_date'], osc_date_format() . ' ' . osc_time_format());
+                    $row['date'] = osc_format_date($aRow['dt_reg_date'], osc_date_format() . ' ' . osc_time_format());
                     $row['items'] = $aRow['i_items'];
                     $row['update_date'] = ($aRow['dt_mod_date'] != NULL) ? osc_format_date($aRow['dt_mod_date'], osc_date_format() . ' ' . osc_time_format() ) : '';
 
@@ -140,7 +151,10 @@
             }
         }
 
-        private function getDBParams($_get)
+	    /**
+	     * @param $_get
+	     */
+	    private function getDBParams( $_get )
         {
 
             if( !isset($_get['iDisplayStart']) ) {
@@ -232,36 +246,48 @@
             // set start and limit using iPage param
             $start = ($this->iPage - 1) * $_get['iDisplayLength'];
 
-            $this->start = intval( $start );
-            $this->limit = intval( $_get['iDisplayLength'] );
+	        $this->start = (int) $start;
+	        $this->limit = (int) $_get[ 'iDisplayLength' ];
         }
 
-        public function withFilters()
+	    /**
+	     * @return bool
+	     */
+	    public function withFilters()
         {
             return $this->withFilters;
         }
 
-        public function row_class($class, $rawRow, $row)
+	    /**
+	     * @param $class
+	     * @param $rawRow
+	     * @param $row
+	     *
+	     * @return array
+	     */
+	    public function row_class( $class , $rawRow , $row )
         {
             $status = $this->get_row_status($rawRow);
             $class[] = $status['class'];
             return $class;
         }
 
-        /**
-         * Get the status of the row. There are three status:
-         *     - blocked
-         *     - inactive
-         *     - active
-         *
-         * @since 3.3
-         *
-         * @return array Array with the class and text of the status of the listing in this row. Example:
-         *     array(
-         *         'class' => '',
-         *         'text'  => ''
-         *     )
-         */
+	    /**
+	     * Get the status of the row. There are three status:
+	     *     - blocked
+	     *     - inactive
+	     *     - active
+	     *
+	     * @since 3.3
+	     *
+	     * @param $user
+	     *
+	     * @return array Array with the class and text of the status of the listing in this row. Example:
+	     *     array(
+	     *         'class' => '',
+	     *         'text'  => ''
+	     *     )
+	     */
         private function get_row_status($user)
         {
 
@@ -287,4 +313,4 @@
 
     }
 
-?>
+

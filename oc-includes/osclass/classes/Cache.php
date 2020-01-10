@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -29,7 +31,13 @@
         private $objectKey;
         private $expiration;
 
-        public function __construct($objectKey, $expiration = 900 /* 15 minutes */) {
+	    /**
+	     * Cache constructor.
+	     *
+	     * @param     $objectKey
+	     * @param int $expiration
+	     */
+	    public function __construct( $objectKey , $expiration = 900 /* 15 minutes */ ) {
             $this->objectKey = $objectKey;
             $this->expiration = $expiration;
         }
@@ -42,7 +50,9 @@
          */
         public function check() {
             $path = $this->preparePath();
-            if(!file_exists($path)) return false;
+	        if ( ! file_exists( $path ) ) {
+		        return false;
+	        }
 
             if(time() - filemtime($path) > $this->expiration) {
                 unlink($path);
@@ -52,9 +62,11 @@
             return true;
         }
 
-        /**
-         * Stores the object passed as parameter in the cache backend (filesystem).
-         */
+	    /**
+	     * Stores the object passed as parameter in the cache backend (filesystem).
+	     *
+	     * @param $object
+	     */
         public function store($object) {
             $serialized = serialize($object);
             file_put_contents($this->preparePath(), $serialized);
@@ -76,4 +88,3 @@
         }
     }
 
-?>

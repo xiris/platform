@@ -1,4 +1,6 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php if ( ! defined( 'ABS_PATH' ) ) {
+	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
+}
 
 /*
  * Copyright 2014 Osclass
@@ -29,7 +31,13 @@
             $this->urls = array();
         }
 
-        public function addURL($loc, $changeFreq = 'daily', $priority = 0.7, $lastMod = null) {
+	    /**
+	     * @param        $loc
+	     * @param string $changeFreq
+	     * @param float  $priority
+	     * @param null   $lastMod
+	     */
+	    public function addURL( $loc , $changeFreq = 'daily' , $priority = 0.7 , $lastMod = null ) {
             $this->urls[] = array(
                 'loc' => $loc,
                 'lastMod' => $lastMod,
@@ -56,4 +64,3 @@
         }
     }
 
-?>
