@@ -13,6 +13,12 @@
       "**/Test/**"
     ]
   },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git@github.com:claxifieds/akismet.git"
+    }
+  ],
   "require": {
     "php": ">=5.6.20",
     "ext-json": "*",
@@ -29,14 +35,16 @@
     "phpseclib/phpseclib": "2.0.x",
     "pensiero/php-openssl-cryptor": "0.1.0",
     "google/recaptcha": "1.1.x",
-    "gettext/gettext": "4.6.x"
+    "gettext/gettext": "4.6.x",
+    "servicescout/akismet": "0.5.2"
   },
   "require-dev": {
+    "roave/security-advisories": "dev-master",
     "phpunit/phpunit": "~4.2",
-    "squizlabs/php_codesniffer": "1.5.3",
+    "squizlabs/php_codesniffer": "3.*",
     "phpmd/phpmd": "@stable",
     "pdepend/pdepend": "2.4.0",
-    "roave/security-advisories": "dev-master"
+    "friendsofphp/php-cs-fixer": "^2.16"
   },
   "minimum-stability": "alpha",
   "prefer-stable": true

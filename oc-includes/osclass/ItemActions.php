@@ -1,4 +1,8 @@
-<?php if (!defined('ABS_PATH')) {
+<?php
+
+use ServiceScout\Akismet\Akismet;
+
+if (!defined('ABS_PATH')) {
     exit('ABS_PATH is not loaded. Direct access is not allowed.');
 }
 
@@ -438,7 +442,6 @@
                 $_description = $description[ $k ];
                 $content      = $_title . ' ' . $_description;
                 if (osc_akismet_key()) {
-                    require_once LIB_PATH . 'Akismet.class.php';
                     $akismet = new Akismet(osc_base_url(), osc_akismet_key());
 
                     $akismet->setCommentContent($content);
@@ -1447,7 +1450,7 @@
             }
 
             if (osc_akismet_key()) {
-                require_once LIB_PATH . 'Akismet.class.php';
+
                 $akismet = new Akismet(osc_base_url(), osc_akismet_key());
                 $akismet->setCommentAuthor($authorName);
                 $akismet->setCommentAuthorEmail($authorEmail);
