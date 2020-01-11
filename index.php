@@ -15,8 +15,7 @@
  * limitations under the License.
  */
 
-    define('ABS_PATH', str_replace('\\', '/', dirname($_SERVER['SCRIPT_FILENAME']) . '/'));
-    
+    define('ABS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
     
     if(PHP_SAPI==='cli') {
         define('CLI', true);

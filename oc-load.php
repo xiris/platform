@@ -15,8 +15,8 @@
      * limitations under the License.
      */
 
-    if ( ! defined('ABS_PATH')) {
-        define('ABS_PATH', str_replace('\\', '/', dirname(__FILE__) . '/'));
+    if ( !defined('ABS_PATH')) {
+        define('ABS_PATH', dirname(__DIR__) . DIRECTORY_SEPARATOR);
     }
 
     define('LIB_PATH', ABS_PATH . 'oc-includes/');
@@ -26,7 +26,7 @@
     define('TRANSLATIONS_PATH', CONTENT_PATH . 'languages/');
 
     // Load vendor
-    require __DIR__ . '/vendor/autoload.php';
+    require ABS_PATH . 'vendor/autoload.php';
     
     
     if ( !file_exists(ABS_PATH . 'config.php')) {
@@ -56,10 +56,10 @@
     
     require_once LIB_PATH . 'osclass/db.php';
     require_once LIB_PATH . 'osclass/Logger/LogDatabase.php';
-    require_once LIB_PATH . 'osclass/classes/database/DBConnectionClass.php';
-    require_once LIB_PATH . 'osclass/classes/database/DBCommandClass.php';
-    require_once LIB_PATH . 'osclass/classes/database/DBRecordsetClass.php';
-    require_once LIB_PATH . 'osclass/classes/database/DAO.php';
+    require_once LIB_PATH . 'database/DBConnectionClass.php';
+    require_once LIB_PATH . 'database/DBCommandClass.php';
+    require_once LIB_PATH . 'database/DBRecordsetClass.php';
+    require_once LIB_PATH . 'database/DAO.php';
     require_once LIB_PATH . 'osclass/model/SiteInfo.php';
     require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
     require_once LIB_PATH . 'osclass/model/Preference.php';
