@@ -2,6 +2,7 @@
 
 namespace Libs\Database;
 
+use LogDatabase;
 use mysqli;
 
 /*

@@ -18,6 +18,8 @@ namespace Libs\Database;
      * limitations under the License.
      */
 
+    use LogDatabase;
+
     /**
      * Database command object
      *
