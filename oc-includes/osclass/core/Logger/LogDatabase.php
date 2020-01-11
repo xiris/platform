@@ -254,4 +254,4 @@
         }
     }
 
-    /* file end: ./oc-includes/osclass/Logger/LogDatabase.php */
+    /* file end: ./oc-includes/osclass/core/Logger/LogDatabase.php */

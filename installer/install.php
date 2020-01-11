@@ -28,9 +28,9 @@
     require ABS_PATH . 'vendor/autoload.php';
 
 	if ( extension_loaded( 'mysqli' ) ) {
-		require_once LIB_PATH . 'osclass/Logger/Logger.php';
-		require_once LIB_PATH . 'osclass/Logger/LogDatabase.php';
-		require_once LIB_PATH . 'osclass/Logger/LogOsclassInstaller.php';
+		require_once LIB_PATH . 'osclass/core/Logger/Logger.php';
+		require_once LIB_PATH . 'osclass/core/Logger/LogDatabase.php';
+		require_once LIB_PATH . 'osclass/core/Logger/LogOsclassInstaller.php';
 		require_once LIB_PATH . 'database/DBConnectionClass.php';
 		require_once LIB_PATH . 'database/DBCommandClass.php';
 		require_once LIB_PATH . 'database/DBRecordsetClass.php';

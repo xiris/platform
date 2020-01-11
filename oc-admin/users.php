@@ -389,7 +389,7 @@
                                         $this->redirectTo(osc_admin_base_url(true) . '?page=users&action=settings');
                 break;
                 case('alerts'):                // manage alerts view
-                                        require_once osc_lib_path()."osclass/classes/datatables/AlertsDataTable.php";
+                                        require_once osc_lib_path()."osclass/core/classes/datatables/AlertsDataTable.php";
 
                                         // set default iDisplayLength
                                         if( Params::getParam('iDisplayLength') != '' ) {
@@ -452,7 +452,7 @@
                                             osc_run_hook("ban_rules_bulk_".Params::getParam("action"), Params::getParam('id'));
                                         }
 
-                                        require_once osc_lib_path()."osclass/classes/datatables/BanRulesDataTable.php";
+                                        require_once osc_lib_path()."osclass/core/classes/datatables/BanRulesDataTable.php";
 
                                         // set default iDisplayLength
                                         if( Params::getParam('iDisplayLength') != '' ) {
@@ -582,7 +582,7 @@
                                             osc_run_hook("user_bulk_".Params::getParam("action"), Params::getParam('id'));
                                         }
 
-                                        require_once osc_lib_path()."osclass/classes/datatables/UsersDataTable.php";
+                                        require_once osc_lib_path()."osclass/core/classes/datatables/UsersDataTable.php";
 
                                         // set default iDisplayLength
                                         if( Params::getParam('iDisplayLength') != '' ) {

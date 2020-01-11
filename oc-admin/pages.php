@@ -219,7 +219,7 @@
                         osc_run_hook("page_bulk_".Params::getParam("action"), Params::getParam('id'));
                     }
 
-                    require_once osc_lib_path()."osclass/classes/datatables/PagesDataTable.php";
+                    require_once osc_lib_path()."osclass/core/classes/datatables/PagesDataTable.php";
 
                     // set default iDisplayLength
                     if( Params::getParam('iDisplayLength') != '' ) {

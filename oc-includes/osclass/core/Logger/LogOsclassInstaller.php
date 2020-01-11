@@ -108,4 +108,4 @@
         }
     }
 
-    /* file end: ./oc-includes/osclass/Logger/LogOsclassInstaller.php */
+    /* file end: ./oc-includes/osclass/core/Logger/LogOsclassInstaller.php */

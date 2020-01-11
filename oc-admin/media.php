@@ -75,7 +75,7 @@
                                         $this->redirectTo( osc_admin_base_url(true) . '?page=media' );
                 break;
                 default:
-                                        require_once osc_lib_path()."osclass/classes/datatables/MediaDataTable.php";
+                                        require_once osc_lib_path()."osclass/core/classes/datatables/MediaDataTable.php";
 
                                         // set default iDisplayLength
                                         if( Params::getParam('iDisplayLength') != '' ) {

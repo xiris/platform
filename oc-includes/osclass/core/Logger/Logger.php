@@ -68,4 +68,4 @@
         abstract public function fatal($message = '', $caller = null );
     }
 
-    /* file end: ./oc-includes/osclass/Logger/Logger.php */
+    /* file end: ./oc-includes/osclass/core/Logger/Logger.php */

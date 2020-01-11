@@ -702,7 +702,7 @@
                 break;
                 case('items_reported'):
 
-                                        require_once osc_lib_path()."osclass/classes/datatables/ItemsDataTable.php";
+                                        require_once osc_lib_path()."osclass/core/classes/datatables/ItemsDataTable.php";
 
                                         // set default iDisplayLength
                                         if( Params::getParam('iDisplayLength') != '' ) {
@@ -762,7 +762,7 @@
                 break;
                 default:                // default
 
-                                        require_once osc_lib_path()."osclass/classes/datatables/ItemsDataTable.php";
+                                        require_once osc_lib_path()."osclass/core/classes/datatables/ItemsDataTable.php";
 
                                         // set default iDisplayLength
                                         if( Params::getParam('iDisplayLength') != '' ) {

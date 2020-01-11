@@ -197,7 +197,7 @@
                                             $this->redirectTo( osc_admin_base_url(true) . "?page=comments" );
                 break;
                 default:
-                                            require_once osc_lib_path()."osclass/classes/datatables/CommentsDataTable.php";
+                                            require_once osc_lib_path()."osclass/core/classes/datatables/CommentsDataTable.php";
 
                                             // set default iDisplayLength
                                             if( Params::getParam('iDisplayLength') != '' ) {
