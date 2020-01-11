@@ -1,4 +1,9 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php
+
+use Libs\Database\DBCommandClass;
+use Libs\Database\DBConnectionClass;
+
+if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 
 /*
  * Copyright 2014 Osclass

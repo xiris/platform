@@ -1,4 +1,8 @@
 <?php
+
+use Libs\Database\DBCommandClass;
+use Libs\Database\DBConnectionClass;
+
     /*
      * Copyright 2014 Osclass
      *
@@ -15,7 +19,7 @@
      * limitations under the License.
      */
 
-    /**
+/**
      * @return array
      */
     function osc_listLocales()

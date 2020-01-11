@@ -1,5 +1,9 @@
 <?php
-	/*
+
+use Libs\Database\DBCommandClass;
+use Libs\Database\DBConnectionClass;
+
+/*
 	 * Copyright 2014 Osclass
 	 *
 	 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +19,7 @@
 	 * limitations under the License.
 	 */
 
-	/**
+/**
 	 * @param null $catId
 	 */
 	function osc_meta_publish( $catId = null ) {

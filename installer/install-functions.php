@@ -1,5 +1,9 @@
 <?php
-	/*
+
+use Libs\Database\DBCommandClass;
+use Libs\Database\DBConnectionClass;
+
+/*
 	 * Copyright 2014 Osclass
 	 *
 	 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,7 +19,7 @@
 	 * limitations under the License.
 	 */
 
-	require_once LIB_PATH . 'osclass/compatibility.php';
+require_once LIB_PATH . 'osclass/compatibility.php';
 	/**
 	 * @param $value
 	 * @param $xss_check

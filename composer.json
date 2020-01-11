@@ -5,14 +5,6 @@
   "homepage": "https://github.com/claxifieds/platform",
   "license": "Apache-2.0",
   "type": "project",
-  "autoload": {
-    "psr-0": {
-      "": "src/"
-    },
-    "exclude-from-classmap": [
-      "**/Test/**"
-    ]
-  },
   "repositories": [
     {
       "type": "git",
@@ -54,6 +46,11 @@
     "phpmd/phpmd": "@stable",
     "pdepend/pdepend": "2.4.0",
     "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "autoload": {
+    "classmap": [
+      "libs"
+    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true

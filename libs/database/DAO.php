@@ -1,5 +1,7 @@
 <?php
 
+namespace Libs\Database;
+
 /*
  * Copyright 2014 Osclass
  *

@@ -1,5 +1,9 @@
 <?php
 
+namespace Libs\Database;
+
+use mysqli;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -16,7 +20,7 @@
  * limitations under the License.
  */
 
-    /**
+/**
      * Database connection object
      *
      * @package Osclass

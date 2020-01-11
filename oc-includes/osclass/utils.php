@@ -1,5 +1,9 @@
 <?php
 
+use Libs\Database\DBCommandClass;
+use Libs\Database\DBConnectionClass;
+use ReCaptcha\ReCaptcha;
+
     /*
  * Copyright 2014 Osclass
  *
@@ -16,7 +20,7 @@
  * limitations under the License.
  */
 
-    use ReCaptcha\ReCaptcha;
+
 
     /**
      * check if the item is expired
