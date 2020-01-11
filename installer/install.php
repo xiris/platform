@@ -31,10 +31,10 @@
 		require_once LIB_PATH . 'osclass/core/Logger/Logger.php';
 		require_once LIB_PATH . 'osclass/core/Logger/LogDatabase.php';
 		require_once LIB_PATH . 'osclass/core/Logger/LogOsclassInstaller.php';
-		require_once LIB_PATH . 'database/DBConnectionClass.php';
-		require_once LIB_PATH . 'database/DBCommandClass.php';
-		require_once LIB_PATH . 'database/DBRecordsetClass.php';
-		require_once LIB_PATH . 'database/DAO.php';
+		#require_once LIB_PATH . 'database/DBConnectionClass.php';
+		#require_once LIB_PATH . 'database/DBCommandClass.php';
+		#require_once LIB_PATH . 'database/DBRecordsetClass.php';
+		#require_once LIB_PATH . 'database/DAO.php';
 		require_once ABS_PATH . 'app/model/Preference.php';
 		require_once LIB_PATH . 'osclass/helpers/hPreference.php';
 	}
@@ -56,7 +56,7 @@
 	require_once INSTALLER_PATH . 'install-functions.php';
 	require_once LIB_PATH . 'osclass/utils.php';
 	require_once LIB_PATH . 'osclass/core/Translation.php';
-	require_once LIB_PATH . 'osclass/classes/Plugins.php';
+	require_once LIB_PATH . 'osclass/core/classes/Plugins.php';
 	require_once LIB_PATH . 'osclass/locales.php';
 
 
