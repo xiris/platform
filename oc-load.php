@@ -85,7 +85,6 @@
     require_once LIB_PATH . 'osclass/helpers/hItems.php';
     require_once LIB_PATH . 'osclass/helpers/hSearch.php';
     require_once LIB_PATH . 'osclass/helpers/hUtils.php';
-
     require_once LIB_PATH . 'osclass/helpers/hCategories.php';
     require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
     require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
@@ -106,16 +105,15 @@
     require_once LIB_PATH . 'osclass/core/WebSecBaseModel.php';
     require_once LIB_PATH . 'osclass/core/AdminSecBaseModel.php';
     require_once LIB_PATH . 'osclass/core/Translation.php';
-
-    require_once LIB_PATH . 'osclass/Themes.php';
-    require_once LIB_PATH . 'osclass/AdminThemes.php';
-    require_once LIB_PATH . 'osclass/WebThemes.php';
+    require_once LIB_PATH . 'osclass/core/Themes.php';
+    require_once LIB_PATH . 'osclass/core/AdminThemes.php';
+    require_once LIB_PATH . 'osclass/core/WebThemes.php';
     require_once LIB_PATH . 'osclass/utils.php';
     require_once LIB_PATH . 'osclass/formatting.php';
     require_once LIB_PATH . 'osclass/locales.php';
     require_once LIB_PATH . 'osclass/classes/Plugins.php';
     require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
-    require_once LIB_PATH . 'osclass/ItemActions.php';
+    require_once LIB_PATH . 'osclass/core/ItemActions.php';
     require_once LIB_PATH . 'osclass/emails.php';
     require_once ABS_PATH . 'app/model/Admin.php';
     require_once ABS_PATH . 'app/model/Alerts.php';
@@ -147,9 +145,7 @@
     require_once ABS_PATH . 'app/model/RegionStats.php';
     require_once ABS_PATH . 'app/model/CityStats.php';
     require_once ABS_PATH . 'app/model/BanRule.php';
-
     require_once ABS_PATH . 'app/model/LocationsTmp.php';
-
     require_once LIB_PATH . 'osclass/classes/Cache.php';
     require_once LIB_PATH . 'osclass/classes/ImageProcessing.php';
     require_once LIB_PATH . 'osclass/classes/RSSFeed.php';
@@ -163,11 +159,9 @@
     require_once LIB_PATH . 'osclass/classes/Breadcrumb.php';
     require_once LIB_PATH . 'osclass/classes/EmailVariables.php';
     require_once LIB_PATH . 'osclass/alerts.php';
-
     require_once LIB_PATH . 'osclass/classes/Dependencies.php';
     require_once LIB_PATH . 'osclass/classes/Scripts.php';
     require_once LIB_PATH . 'osclass/classes/Styles.php';
-
     require_once LIB_PATH . 'osclass/frm/Form.form.class.php';
     require_once LIB_PATH . 'osclass/frm/Page.form.class.php';
     require_once LIB_PATH . 'osclass/frm/Category.form.class.php';
@@ -182,17 +176,13 @@
     require_once LIB_PATH . 'osclass/frm/Admin.form.class.php';
     require_once LIB_PATH . 'osclass/frm/ManageItems.form.class.php';
     require_once LIB_PATH . 'osclass/frm/BanRule.form.class.php';
-
     require_once LIB_PATH . 'osclass/functions.php';
     require_once LIB_PATH . 'osclass/helpers/hAdminMenu.php';
-
-
     require_once LIB_PATH . 'osclass/core/iObject_Cache.php';
     require_once LIB_PATH . 'osclass/core/Object_Cache_Factory.php';
     require_once LIB_PATH . 'osclass/helpers/hCache.php';
     require_once LIB_PATH . 'osclass/compatibility.php';
-
-
+    
     if ( ! defined('OSC_CRYPT_KEY')) {
         define('OSC_CRYPT_KEY', osc_get_preference('crypt_key'));
     }
