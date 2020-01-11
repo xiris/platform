@@ -19,7 +19,7 @@
 	require_once LIB_PATH . 'osclass/Logger/LogOsclassInstaller.php';
 	require_once LIB_PATH . 'osclass/core/Session.php';
 	require_once LIB_PATH . 'osclass/core/Params.php';
-	require_once LIB_PATH . 'osclass/model/Preference.php';
+	require_once ABS_PATH . 'app/model/Preference.php';
 	require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
 	require_once LIB_PATH . 'osclass/helpers/hDefines.php';
 	require_once LIB_PATH . 'osclass/helpers/hErrors.php';
@@ -60,7 +60,7 @@
 	 * @return array
 	 */
 	function basic_info() {
-		require_once LIB_PATH . 'osclass/model/Admin.php';
+		require_once ABS_PATH . 'app/model/Admin.php';
 		require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
 
 		$admin = Params::getParam( 's_name' );

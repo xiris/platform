@@ -701,7 +701,7 @@
      */
     function osc_dbdump($path, $file)
     {
-        require_once LIB_PATH . 'osclass/model/Dump.php';
+        require_once ABS_PATH . 'app/model/Dump.php';
         if (!is_writable($path)) {
             return -4;
         }

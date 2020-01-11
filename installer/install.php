@@ -35,7 +35,7 @@
 		require_once LIB_PATH . 'database/DBCommandClass.php';
 		require_once LIB_PATH . 'database/DBRecordsetClass.php';
 		require_once LIB_PATH . 'database/DAO.php';
-		require_once LIB_PATH . 'osclass/model/Preference.php';
+		require_once ABS_PATH . 'app/model/Preference.php';
 		require_once LIB_PATH . 'osclass/helpers/hPreference.php';
 	}
 	require_once LIB_PATH . 'osclass/core/iObject_Cache.php';

@@ -419,7 +419,7 @@
 			}
 		}
 
-		require_once LIB_PATH . 'osclass/model/OSCLocale.php';
+		require_once ABS_PATH . 'app/model/OSCLocale.php';
 		$localeManager = OSCLocale::newInstance();
 
 		$locales = osc_listLocales();
@@ -507,7 +507,7 @@
 	function oc_install_example_data() {
 		require_once LIB_PATH . 'osclass/formatting.php';
 		require INSTALLER_PATH . 'basic_data.php';
-		require_once LIB_PATH . 'osclass/model/Category.php';
+		require_once ABS_PATH . 'app/model/Category.php';
 		$mCat = Category::newInstance();
 
 		if ( ! function_exists( 'osc_apply_filter' ) ) {
@@ -536,24 +536,24 @@
 			$mCat->insert( $fields , $aFieldsDescription );
 		}
 
-		require_once LIB_PATH . 'osclass/model/Item.php';
-		require_once LIB_PATH . 'osclass/model/ItemComment.php';
-		require_once LIB_PATH . 'osclass/model/ItemLocation.php';
-		require_once LIB_PATH . 'osclass/model/ItemResource.php';
-		require_once LIB_PATH . 'osclass/model/ItemStats.php';
-		require_once LIB_PATH . 'osclass/model/User.php';
-		require_once LIB_PATH . 'osclass/model/Country.php';
-		require_once LIB_PATH . 'osclass/model/Region.php';
-		require_once LIB_PATH . 'osclass/model/City.php';
-		require_once LIB_PATH . 'osclass/model/CityArea.php';
-		require_once LIB_PATH . 'osclass/model/Field.php';
-		require_once LIB_PATH . 'osclass/model/Page.php';
-		require_once LIB_PATH . 'osclass/model/Log.php';
+		require_once ABS_PATH . 'app/model/Item.php';
+		require_once ABS_PATH . 'app/model/ItemComment.php';
+		require_once ABS_PATH . 'app/model/ItemLocation.php';
+		require_once ABS_PATH . 'app/model/ItemResource.php';
+		require_once ABS_PATH . 'app/model/ItemStats.php';
+		require_once ABS_PATH . 'app/model/User.php';
+		require_once ABS_PATH . 'app/model/Country.php';
+		require_once ABS_PATH . 'app/model/Region.php';
+		require_once ABS_PATH . 'app/model/City.php';
+		require_once ABS_PATH . 'app/model/CityArea.php';
+		require_once ABS_PATH . 'app/model/Field.php';
+		require_once ABS_PATH . 'app/model/Page.php';
+		require_once ABS_PATH . 'app/model/Log.php';
 
-		require_once LIB_PATH . 'osclass/model/CategoryStats.php';
-		require_once LIB_PATH . 'osclass/model/CountryStats.php';
-		require_once LIB_PATH . 'osclass/model/RegionStats.php';
-		require_once LIB_PATH . 'osclass/model/CityStats.php';
+		require_once ABS_PATH . 'app/model/CategoryStats.php';
+		require_once ABS_PATH . 'app/model/CountryStats.php';
+		require_once ABS_PATH . 'app/model/RegionStats.php';
+		require_once ABS_PATH . 'app/model/CityStats.php';
 
 		require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
 		require_once LIB_PATH . 'osclass/helpers/hValidate.php';
@@ -711,9 +711,9 @@ CONFIG;
 
 
 	function finish_installation( $password ) {
-		require_once LIB_PATH . 'osclass/model/Admin.php';
-		require_once LIB_PATH . 'osclass/model/Category.php';
-		require_once LIB_PATH . 'osclass/model/Item.php';
+		require_once ABS_PATH . 'app/model/Admin.php';
+		require_once ABS_PATH . 'app/model/Category.php';
+		require_once ABS_PATH . 'app/model/Item.php';
 		require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
 		require_once LIB_PATH . 'osclass/classes/Plugins.php';
 
@@ -961,7 +961,7 @@ CONFIG;
         <p class="bottom space-left-10">
 			<?php echo $error[ 'error' ] ?>
         </p>
-        <a href="<?php echo get_absolute_url(); ?>oc-includes/osclass/install.php?step=<?php echo $step; ?>"
+        <a href="<?php echo get_absolute_url(); ?>installer/install.php?step=<?php echo $step; ?>"
            class="button"><?php _e( 'Go back' ); ?></a>
         <div class="clear bottom"></div>
 		<?php
