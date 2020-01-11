@@ -158,13 +158,6 @@
             return array ( 0 => 'asc', 1 => 'desc');
         }
 
-
-        // juanramon: little hack to get alerts work in search layout
-        public function reconnect()
-        {
-         //   $this->conn = getConnection();
-        }
-
         /**
          * Add conditions to the search
          *
