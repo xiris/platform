@@ -54,12 +54,12 @@
         error_reporting(E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING);
     }
     
-    require_once LIB_PATH . 'osclass/db.php';
-    require_once LIB_PATH . 'osclass/Logger/LogDatabase.php';
+    require_once LIB_PATH . 'database/Db.php';
     require_once LIB_PATH . 'database/DBConnectionClass.php';
     require_once LIB_PATH . 'database/DBCommandClass.php';
     require_once LIB_PATH . 'database/DBRecordsetClass.php';
     require_once LIB_PATH . 'database/DAO.php';
+    require_once LIB_PATH . 'osclass/Logger/LogDatabase.php';
     require_once LIB_PATH . 'osclass/model/SiteInfo.php';
     require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
     require_once LIB_PATH . 'osclass/model/Preference.php';
