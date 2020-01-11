@@ -1,7 +1,7 @@
 <?php
 
-use Libs\Database\DBCommandClass;
-use Libs\Database\DBConnectionClass;
+use Claxifieds\Database\DBCommandClass;
+use Claxifieds\Database\DBConnectionClass;
 
     /*
      * Copyright 2014 Osclass

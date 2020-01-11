@@ -12,6 +12,10 @@
     },
     {
       "type": "git",
+      "url": "git@github.com:claxifieds/database.git"
+    },
+    {
+      "type": "git",
       "url": "git@github.com:claxifieds/akismet.git"
     },
     {
@@ -37,7 +41,8 @@
     "google/recaptcha": "1.1.x",
     "gettext/gettext": "4.6.x",
     "servicescout/akismet": "0.5.2",
-    "claxifieds/ajaxuploader": "0.1.0"
+    "claxifieds/ajaxuploader": "0.1.0",
+    "claxifieds/database": "master"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
@@ -46,11 +51,6 @@
     "phpmd/phpmd": "@stable",
     "pdepend/pdepend": "2.4.0",
     "friendsofphp/php-cs-fixer": "^2.16"
-  },
-  "autoload": {
-    "classmap": [
-      "libs"
-    ]
   },
   "minimum-stability": "dev",
   "prefer-stable": true

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c835669935338fcd9fbfae785fa7ac2d",
+    "content-hash": "b33007abfb5feb4c1e670983b288a7c7",
     "packages": [
         {
             "name": "claxifieds/ajaxuploader",
@@ -34,6 +34,40 @@
             ],
             "description": "OSclass Ajaxuploader library",
             "time": "2020-01-10T16:42:31+00:00"
+        },
+        {
+            "name": "claxifieds/database",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:claxifieds/database.git",
+                "reference": "b6a59687bca201b2b15ca83439ca36805ce8c1fb"
+            },
+            "require": {
+                "ext-mysqli": "*",
+                "php": ">=5.6.3"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "2.4.0",
+                "phpmd/phpmd": "@stable",
+                "phpunit/phpunit": "~4.2",
+                "squizlabs/php_codesniffer": "1.5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Claxifieds\\Database\\": "src"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Claxifieds database library",
+            "keywords": [
+                "database",
+                "osclass"
+            ],
+            "time": "2020-01-11T22:49:37+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
