@@ -37,7 +37,7 @@
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
                 <title><?php echo $title; ?></title>
-                <link rel="stylesheet" type="text/css" media="all" href="<?php echo osc_get_absolute_url(); ?>oc-includes/osclass/installer/install.css" />
+                <link rel="stylesheet" type="text/css" media="all" href="<?php echo osc_get_absolute_url(); ?>/installer/assets/install.css" />
             </head>
             <body class="page-error">
                 <h1><?php echo $title; ?></h1>
@@ -102,5 +102,5 @@
 	 */
 	function osc_get_absolute_url() {
         $protocol = ( getErrorParam('HTTPS') === 'on' || getErrorParam( 'HTTPS') == 1 || getErrorParam( 'HTTP_X_FORWARDED_PROTO') === 'https')? 'https' : 'http';
-        return $protocol . '://' . getErrorParam('HTTP_HOST') . preg_replace('/((oc-admin)|(oc-includes)|(oc-content)|([a-z]+\.php)|(\?.*)).*/i', '', getErrorParam('REQUEST_URI', false, false));
+        return $protocol . '://' . getErrorParam('HTTP_HOST') . preg_replace('/((oc-admin)|(oc-includes)|(oc-content)|(installer)|([a-z]+\.php)|(\?.*)).*/i', '', getErrorParam('REQUEST_URI', false, false));
     }
