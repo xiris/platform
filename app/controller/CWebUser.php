@@ -1,4 +1,24 @@
-<?php if ( ! defined( 'ABS_PATH' ) ) {
+<?php
+
+namespace Claxifieds\Controller;
+
+use Alerts;
+use City;
+use Cookie;
+use Country;
+use Item;
+use OSCLocale;
+use Params;
+use Region;
+use Search;
+use Session;
+use User;
+use UserActions;
+use UserEmailTmp;
+use View;
+use WebSecBaseModel;
+
+if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
 }
 
@@ -268,7 +288,7 @@
                         if(!empty($user) && osc_logged_user_id()==$id && $secret==$user['s_secret']) {
 	                        try {
 		                        User::newInstance()->deleteUser( osc_logged_user_id() );
-	                        } catch ( Exception $e ) {
+	                        } catch ( \Exception $e ) {
 	                        }
 
 	                        Session::newInstance()->_drop('userId');

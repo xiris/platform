@@ -1,4 +1,25 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php
+
+namespace Claxifieds\Controller;
+
+use BaseModel;
+use Category;
+use City;
+use Country;
+use Item;
+use ItemActions;
+use ItemComment;
+use ItemResource;
+use ItemStats;
+use Log;
+use OSCLocale;
+use Params;
+use Region;
+use Session;
+use User;
+use View;
+
+if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 
 /*
  * Copyright 2014 Osclass
@@ -675,4 +696,4 @@
     }
 
     /* file end: ./item.php */
-?>
+

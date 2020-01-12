@@ -1,4 +1,23 @@
-<?php if ( ! defined( 'ABS_PATH' ) ) {
+<?php
+
+namespace Claxifieds\Controller;
+
+use AjaxUploader;
+use Alerts;
+use BaseModel;
+use City;
+use Country;
+use ImageProcessing;
+use Item;
+use ItemResource;
+use Log;
+use Params;
+use Region;
+use Rewrite;
+use Session;
+use User;
+
+if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
 }
 
@@ -111,10 +130,10 @@
                         echo json_encode($json);
                         return false;
                     }
-
+                    
 	                try {
 		                $aItem = Item::newInstance()->findByPrimaryKey( $item );
-	                } catch ( Exception $e ) {
+	                } catch ( \Exception $e ) {
 	                }
 
 	                // Check if the item exists
@@ -312,7 +331,7 @@
 
                         $result['uploadName'] = 'auto_' . $filename;
                         echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
-                    } catch (Exception $e) {
+                    } catch (\Exception $e) {
                         echo '';
                     }
                     break;
@@ -322,7 +341,7 @@
                     $secret = Params::getParam('secret');
 	                try {
 		                $item = Item::newInstance()->findByPrimaryKey( $id );
-	                } catch ( Exception $e ) {
+	                } catch ( \Exception $e ) {
 	                }
 	                if($item['s_secret']!=$secret) { echo json_encode(array('success' => false)); die();}
                     $nResources = ItemResource::newInstance()->countResources($id);

@@ -64,7 +64,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Claxifieds\\": "app/",
+      "Claxifieds\\": "app",
       "Installer\\": "installer/"
     },
     "files": [

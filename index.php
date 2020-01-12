@@ -15,7 +15,20 @@
  * limitations under the License.
  */
 
-    define('ABS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+use Claxifieds\Controller\CWebAjax;
+use Claxifieds\Controller\CWebContact;
+use Claxifieds\Controller\CWebCustom;
+use Claxifieds\Controller\CWebItem;
+use Claxifieds\Controller\CWebLanguage;
+use Claxifieds\Controller\CWebLogin;
+use Claxifieds\Controller\CWebMain;
+use Claxifieds\Controller\CWebPage;
+use Claxifieds\Controller\CWebRegister;
+use Claxifieds\Controller\CWebSearch;
+use Claxifieds\Controller\CWebUser;
+use Claxifieds\Controller\CWebUserNonSecure;
+
+define('ABS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
     
     if(PHP_SAPI==='cli') {
         define('CLI', true);
@@ -83,62 +96,50 @@
                             || (Params::getParam('action')=='unsub_alert' && !osc_is_web_user_logged_in())
                             || Params::getParam('action')=='contact_post'
                             || Params::getParam('action')=='pub_profile') {
-                                require_once(osc_base_path() . 'app/controller/user-non-secure.php');
                                 $do = new CWebUserNonSecure();
                                 $do->doModel();
                             } else {
-                                require_once(osc_base_path() . 'app/controller/user.php');
                                 $do = new CWebUser();
                                 $do->doModel();
                             }
         break;
         case ('item'):      // item pages
-                            require_once(osc_base_path() . 'app/controller/item.php');
                             $do = new CWebItem();
                             $do->doModel();
         break;
         case ('search'):    // search pages
-                            require_once(osc_base_path() . 'app/controller/search.php');
                             $do = new CWebSearch();
                             $do->doModel();
         break;
         case ('page'):      // static pages
-                            require_once(osc_base_path() . 'app/controller/page.php');
                             $do = new CWebPage();
                             $do->doModel();
         break;
         case ('register'):  // register page
-                            require_once(osc_base_path() . 'app/controller/register.php');
                             $do = new CWebRegister();
                             $do->doModel();
         break;
         case ('ajax'):      // ajax
-                            require_once(osc_base_path() . 'app/controller/ajax.php');
                             $do = new CWebAjax();
                             $do->doModel();
         break;
         case ('login'):     // login page
-                            require_once(osc_base_path() . 'app/controller/login.php');
                             $do = new CWebLogin();
                             $do->doModel();
         break;
         case ('language'):  // set language
-                            require_once(osc_base_path() . 'app/controller/language.php');
                             $do = new CWebLanguage();
                             $do->doModel();
         break;
         case ('contact'):   //contact
-                            require_once(osc_base_path() . 'app/controller/contact.php');
                             $do = new CWebContact();
                             $do->doModel();
         break;
         case ('custom'):   //custom
-                            require_once(osc_base_path() . 'app/controller/custom.php');
                             $do = new CWebCustom();
                             $do->doModel();
         break;
         default:            // home and static pages that are mandatory...
-                            require_once(osc_base_path() . 'app/controller/main.php');
                             $do = new CWebMain();
                             $do->doModel();
         break;

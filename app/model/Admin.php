@@ -143,7 +143,7 @@ if ( ! defined( 'ABS_PATH' ) ) {
 
             return $result->row();
         }
-
+    
         /**
          * Searches for admin information, given a username and password
          * If credential don't match return false.
@@ -155,6 +155,7 @@ if ( ! defined( 'ABS_PATH' ) ) {
          * @param string $password
          *
          * @return array|bool
+         * @throws Exception
          */
         public function findByCredentials($userName, $password)
         {

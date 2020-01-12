@@ -1,4 +1,21 @@
-<?php if ( ! defined( 'ABS_PATH' ) ) {
+<?php
+
+namespace Claxifieds\Controller;
+
+use Alerts;
+use BaseModel;
+use Category;
+use City;
+use Country;
+use Field;
+use LatestSearches;
+use Params;
+use Region;
+use RSSFeed;
+use Search;
+use Session;
+
+if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
 }
 
@@ -82,7 +99,7 @@
                         if(!Params::existParam('sCategory')) {
 	                        try {
 		                        $category = Category::newInstance()->findBySlug( $search_uri );
-	                        } catch ( Exception $e ) {
+	                        } catch ( \Exception $e ) {
 	                        }
 	                        if( count($category) === 0 ) {
                                 $this->do404();
@@ -93,13 +110,13 @@
                                 $tmp = explode( '/' , preg_replace( '|/$|', '', Params::getParam( 'sCategory')));
 		                        try {
 			                        $category = Category::newInstance()->findBySlug( $tmp[ count( $tmp ) - 1 ] );
-		                        } catch ( Exception $e ) {
+		                        } catch ( \Exception $e ) {
 		                        }
 		                        Params::setParam('sCategory', $tmp[count($tmp)-1]);
                             } else {
 		                        try {
 			                        $category = Category::newInstance()->findBySlug( Params::getParam( 'sCategory' ) );
-		                        } catch ( Exception $e ) {
+		                        } catch ( \Exception $e ) {
 		                        }
 		                        Params::setParam('sCategory', Params::getParam('sCategory'));
                             }
@@ -181,7 +198,7 @@
             $uriParams = Params::getParamsAsArray();
 	        try {
 		        $searchUri = osc_search_url( $uriParams );
-	        } catch ( Exception $e ) {
+	        } catch ( \Exception $e ) {
 	        }
 	        if( $this->uri !== 'feed') {
                 $_base_url = WEB_PATH;
@@ -330,7 +347,7 @@
                 foreach($p_sCategory as $category) {
 	                try {
 		                $successCat = ( $this->mSearch->addCategory( $category ) || $successCat );
-	                } catch ( Exception $e ) {
+	                } catch ( \Exception $e ) {
 	                }
                 }
             } else {
@@ -415,7 +432,7 @@
             $custom_fields = Params::getParam('meta');
 	        try {
 		        $fields = Field::newInstance()->findIDSearchableByCategories( $p_sCategory );
-	        } catch ( Exception $e ) {
+	        } catch ( \Exception $e ) {
 	        }
 	        $table = DB_TABLE_PREFIX.'t_item_meta';
             if(is_array($custom_fields)) {
@@ -498,7 +515,7 @@
             $found  = null;
 	        try {
 		        $cache = osc_cache_get( $key , $found );
-	        } catch ( Exception $e ) {
+	        } catch ( \Exception $e ) {
 	        }
 
 	        $aItems         = null;
@@ -513,7 +530,7 @@
                 $_cache['iTotalItems'] = $iTotalItems;
 	            try {
 		            osc_cache_set( $key , $_cache , OSC_CACHE_TTL );
-	            } catch ( Exception $e ) {
+	            } catch ( \Exception $e ) {
 	            }
             }
             
@@ -626,14 +643,14 @@
 			                        'category'    => osc_item_category() ,
 			                        'dt_pub_date' => osc_item_pub_date()
 		                        );
-	                        } catch ( Exception $e ) {
+	                        } catch ( \Exception $e ) {
 	                        }
 
 	                        try {
 		                        if ( osc_count_item_resources() > 0 ) {
 			                        try {
 				                        osc_has_item_resources();
-			                        } catch ( Exception $e ) {
+			                        } catch ( \Exception $e ) {
 			                        }
 			                        try {
 				                        $itemArray[ 'image' ] = array (
@@ -641,10 +658,10 @@
 					                        'title' => osc_item_title() ,
 					                        'link'  => htmlentities( osc_item_url() , ENT_COMPAT , 'UTF-8' )
 				                        );
-			                        } catch ( Exception $e ) {
+			                        } catch ( \Exception $e ) {
 			                        }
 		                        }
-	                        } catch ( Exception $e ) {
+	                        } catch ( \Exception $e ) {
 	                        }
 	                        $feed->addItem($itemArray);
                         }

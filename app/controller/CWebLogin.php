@@ -1,4 +1,16 @@
-<?php if ( ! defined( 'ABS_PATH' ) ) {
+<?php
+
+namespace Claxifieds\Controller;
+
+use BaseModel;
+use Cookie;
+use Params;
+use Rewrite;
+use Session;
+use User;
+use UserActions;
+
+if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
 }
 
