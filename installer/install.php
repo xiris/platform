@@ -28,9 +28,6 @@
     require ABS_PATH . 'vendor/autoload.php';
 
 	if ( extension_loaded( 'mysqli' ) ) {
-		require_once LIB_PATH . 'osclass/core/Logger/Logger.php';
-		require_once LIB_PATH . 'osclass/core/Logger/LogDatabase.php';
-		require_once LIB_PATH . 'osclass/core/Logger/LogOsclassInstaller.php';
 		require_once ABS_PATH . 'app/model/Preference.php';
 		require_once LIB_PATH . 'osclass/helpers/hPreference.php';
 	}

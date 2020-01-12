@@ -10,9 +10,6 @@
     require ABS_PATH . '/vendor/autoload.php';
 	
 	require_once ABS_PATH . 'config.php';
-	require_once LIB_PATH . 'osclass/core/Logger/Logger.php';
-	require_once LIB_PATH . 'osclass/core/Logger/LogDatabase.php';
-	require_once LIB_PATH . 'osclass/core/Logger/LogOsclassInstaller.php';
 	require_once LIB_PATH . 'osclass/core/Session.php';
 	require_once LIB_PATH . 'osclass/core/Params.php';
 	require_once ABS_PATH . 'app/model/Preference.php';

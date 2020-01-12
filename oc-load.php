@@ -54,7 +54,6 @@
         error_reporting(E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING);
     }
     
-    require_once LIB_PATH . 'osclass/core/Logger/LogDatabase.php';
     require_once ABS_PATH . 'app/model/SiteInfo.php';
     require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
     require_once ABS_PATH . 'app/model/Preference.php';

@@ -2,6 +2,7 @@
 
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
+use Claxifieds\Logger\LogOsclassInstaller;
 
 /*
 	 * Copyright 2014 Osclass

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b33007abfb5feb4c1e670983b288a7c7",
+    "content-hash": "e85c97976f2fdafc47050c20165b1a0f",
     "packages": [
         {
             "name": "claxifieds/ajaxuploader",
@@ -41,9 +41,10 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:claxifieds/database.git",
-                "reference": "b6a59687bca201b2b15ca83439ca36805ce8c1fb"
+                "reference": "0f36fae5632e694e0bede7734679dd21df27928b"
             },
             "require": {
+                "claxifieds/logger": "master",
                 "ext-mysqli": "*",
                 "php": ">=5.6.3"
             },
@@ -67,7 +68,40 @@
                 "database",
                 "osclass"
             ],
-            "time": "2020-01-11T22:49:37+00:00"
+            "time": "2020-01-12T12:59:20+00:00"
+        },
+        {
+            "name": "claxifieds/logger",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:claxifieds/logger.git",
+                "reference": "afde18bf0691d638bd0a8521ac9a48f472c498cf"
+            },
+            "require": {
+                "php": ">=5.6.3"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "2.4.0",
+                "phpmd/phpmd": "@stable",
+                "phpunit/phpunit": "~4.2",
+                "squizlabs/php_codesniffer": "1.5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Claxifieds\\Logger\\": "src"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Claxifieds logger library",
+            "keywords": [
+                "log",
+                "osclass"
+            ],
+            "time": "2020-01-12T12:53:41+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
