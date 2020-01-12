@@ -20,6 +20,7 @@
     }
 
     define('LIB_PATH', ABS_PATH . 'oc-includes/');
+    define('CONFIG_PATH', ABS_PATH . 'config/');
     define('CONTENT_PATH', ABS_PATH . 'oc-content/');
     define('THEMES_PATH', CONTENT_PATH . 'themes/');
     define('PLUGINS_PATH', CONTENT_PATH . 'plugins/');
@@ -29,7 +30,7 @@
     require ABS_PATH . 'vendor/autoload.php';
     
     
-    if ( !file_exists(ABS_PATH . 'config.php')) {
+    if ( !file_exists(CONFIG_PATH . 'config.php')) {
         require_once LIB_PATH . 'osclass/helpers/hErrors.php';
         $title   = 'Osclass &raquo; Error';
         $message = 'There doesn\'t seem to be a <code>config.php</code> file. Osclass isn\'t installed. <a href="https://osclass.discourse.group/">Need more help?</a></p>';
@@ -37,9 +38,8 @@
         osc_die($title, $message);
     }
     
-// load database configuration
-    require_once ABS_PATH . 'config.php';
-    require_once ABS_PATH . 'config/default-constants.php';
+    require_once CONFIG_PATH . 'config.php';
+
 // Sets PHP error handling
     if (OSC_DEBUG) {
         ini_set('display_errors', 1);

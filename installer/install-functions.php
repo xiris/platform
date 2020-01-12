@@ -181,8 +181,8 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 		$config_writable = false;
 		$root_writable   = false;
 		$config_sample   = false;
-		if ( file_exists( ABS_PATH . 'config.php' ) ) {
-			if ( is_writable( ABS_PATH . 'config.php' ) ) {
+		if ( file_exists( CONFIG_PATH . 'config.php' ) ) {
+			if ( is_writable( CONFIG_PATH . 'config.php' ) ) {
 				$config_writable = true;
 			}
 			$array[ 'File <code>config.php</code> is writable' ] = array (
@@ -200,7 +200,7 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 				'solution'    => sprintf( __( 'Root folder has to be writable, i.e.: <code>chmod 0755 %s</code>' ) , ABS_PATH )
 			);
 
-			if ( file_exists( ABS_PATH . 'config-sample.php' ) ) {
+			if ( file_exists( CONFIG_PATH . 'config-sample.php' ) ) {
 				$config_sample = true;
 			}
 			$array[ 'File <code>config-sample.php</code> exists' ] = array (
@@ -372,8 +372,8 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 			}
 		}
 
-		if ( file_exists( ABS_PATH . 'config.php' ) ) {
-			if ( ! is_writable( ABS_PATH . 'config.php' ) ) {
+		if ( file_exists( CONFIG_PATH . 'config.php' ) ) {
+			if ( ! is_writable( CONFIG_PATH . 'config.php' ) ) {
 				if ( reportToOsclass() ) {
 					LogOsclassInstaller::instance()->error( __( "Can't write in config.php file. Check if the file is writable." ) , __FILE__ . "::" . __LINE__ );
 				}
@@ -382,14 +382,14 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 			}
 			create_config_file( $dbname , $username , $password , $dbhost , $tableprefix );
 		} else {
-			if ( ! file_exists( ABS_PATH . 'config-sample.php' ) ) {
+			if ( ! file_exists( CONFIG_PATH . 'config-sample.php' ) ) {
 				if ( reportToOsclass() ) {
 					LogOsclassInstaller::instance()->error( __( "config-sample.php doesn't exist. Check if everything is decompressed correctly." ) , __FILE__ . "::" . __LINE__ );
 				}
 
 				return array ( 'error' => __( "config-sample.php doesn't exist. Check if everything is decompressed correctly." ) );
 			}
-			if ( ! is_writable( ABS_PATH ) ) {
+			if ( ! is_writable( CONFIG_PATH ) ) {
 				if ( reportToOsclass() ) {
 					LogOsclassInstaller::instance()->error( __( 'Can\'t copy config-sample.php. Check if the root directory is writable.' ) , __FILE__ . "::" . __LINE__ );
 				}
@@ -398,9 +398,9 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 			}
 			copy_config_file( $dbname , $username , $password , $dbhost , $tableprefix );
 		}
-
-		require_once ABS_PATH . 'config.php';
-
+  
+		require_once CONFIG_PATH . 'config.php';
+		
 		$sql = file_get_contents( INSTALLER_PATH . 'struct.sql' );
 
 		$c_db = $conn->getOsclassDb();
@@ -639,7 +639,7 @@ define('WEB_PATH', '$abs_url');
 
 CONFIG;
 
-		file_put_contents( ABS_PATH . 'config.php' , $config_text );
+		file_put_contents( CONFIG_PATH . 'config.php' , $config_text );
 
 		return;
 	}
@@ -654,7 +654,7 @@ CONFIG;
 		$password      = addslashes( $password );
 		$abs_url       = get_absolute_url();
 		$rel_url       = get_relative_url();
-		$config_sample = file( ABS_PATH . 'config-sample.php' );
+		$config_sample = file( CONFIG_PATH . 'config-sample.php' );
 
 		foreach ( $config_sample as $line_num => $line ) {
 			switch ( substr( $line , 0 , 16 ) ) {
@@ -682,22 +682,23 @@ CONFIG;
 			}
 		}
 
-		$handle = fopen( ABS_PATH . 'config.php' , 'w' );
+		$handle = fopen( CONFIG_PATH . 'config.php' , 'w' );
 		foreach ( $config_sample as $line ) {
 			fwrite( $handle , $line );
 		}
 		fclose( $handle );
-		chmod( ABS_PATH . 'config.php' , 0666 );
+		chmod( CONFIG_PATH . 'config.php' , 0666 );
 	}
 
 
 	function is_osclass_installed() {
-		if ( ! file_exists( ABS_PATH . 'config.php' ) ) {
+		if ( ! file_exists( CONFIG_PATH . 'config.php' ) ) {
 			return false;
 		}
-
-		require_once ABS_PATH . 'config.php';
-
+  
+		require_once CONFIG_PATH . 'config.php';
+		
+		
 		$conn = new DBConnectionClass( osc_db_host() , osc_db_user() , osc_db_password() , osc_db_name() );
 		$c_db = $conn->getOsclassDb();
 		$comm = new DBCommandClass( $c_db );

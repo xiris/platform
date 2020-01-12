@@ -44,7 +44,6 @@
 	require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
 	require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
 	require_once LIB_PATH . 'osclass/helpers/hSanitize.php';
-	require_once CONFIG_PATH . 'default-constants.php';
 	require_once INSTALLER_PATH . 'install-functions.php';
 	require_once LIB_PATH . 'osclass/utils.php';
 	require_once LIB_PATH . 'osclass/core/Translation.php';

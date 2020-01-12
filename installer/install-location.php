@@ -4,12 +4,10 @@
 
 	define( 'ABS_PATH' , dirname(__DIR__) . '/');
 	define( 'LIB_PATH' , ABS_PATH . 'oc-includes/' );
-    define( 'CONFIG_PATH' , ABS_PATH . 'config/');
     define( 'INSTALLER_PATH' , ABS_PATH . 'installer/');
     
     require ABS_PATH . '/vendor/autoload.php';
-	
-	require_once ABS_PATH . 'config.php';
+    
 	require_once LIB_PATH . 'osclass/core/Session.php';
 	require_once LIB_PATH . 'osclass/core/Params.php';
 	require_once ABS_PATH . 'app/model/Preference.php';
@@ -22,7 +20,6 @@
 	require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
 	require_once LIB_PATH . 'osclass/helpers/hUtils.php';
 	require_once LIB_PATH . 'osclass/compatibility.php';
-	require_once CONFIG_PATH . 'default-constants.php';
 	require_once LIB_PATH . 'osclass/formatting.php';
 	require_once INSTALLER_PATH . 'install-functions.php';
 	require_once LIB_PATH . 'osclass/utils.php';

@@ -62,6 +62,15 @@
     "pdepend/pdepend": "2.4.0",
     "friendsofphp/php-cs-fixer": "^2.16"
   },
+  "autoload": {
+    "psr-4": {
+      "Claxifieds\\": "app/",
+      "Installer\\": "installer/"
+    },
+    "files": [
+      "config/default-constants.php"
+    ]
+  },
   "minimum-stability": "dev",
   "prefer-stable": true
 }
