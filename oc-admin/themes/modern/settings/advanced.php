@@ -1,4 +1,7 @@
 <?php
+
+use Claxifieds\Cache\Object_Cache_Factory;
+
 if (!defined('OC_ADMIN'))
     exit('Direct access is not allowed.');
 /*

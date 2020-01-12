@@ -15,7 +15,9 @@
  * limitations under the License.
  */
 
-	/**
+use Claxifieds\Cache\Object_Cache_Factory;
+
+/**
 	 * @param     $key
 	 * @param     $data
 	 * @param int $expire

@@ -20,6 +20,10 @@
     },
     {
       "type": "git",
+      "url": "git@github.com:claxifieds/cache.git"
+    },
+    {
+      "type": "git",
       "url": "git@github.com:claxifieds/akismet.git"
     },
     {
@@ -47,7 +51,8 @@
     "servicescout/akismet": "0.5.2",
     "claxifieds/ajaxuploader": "0.1.0",
     "claxifieds/database": "master",
-    "claxifieds/logger": "master"
+    "claxifieds/logger": "master",
+    "claxifieds/cache": "master"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",

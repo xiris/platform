@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e85c97976f2fdafc47050c20165b1a0f",
+    "content-hash": "c1d7c66d6d29151404ed0c2c1b45ee84",
     "packages": [
         {
             "name": "claxifieds/ajaxuploader",
@@ -34,6 +34,40 @@
             ],
             "description": "OSclass Ajaxuploader library",
             "time": "2020-01-10T16:42:31+00:00"
+        },
+        {
+            "name": "claxifieds/cache",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:claxifieds/cache.git",
+                "reference": "93428cac19ef244c916f762a881ca4f40dcfaa9b"
+            },
+            "require": {
+                "php": ">=5.6.3"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "2.4.0",
+                "phpmd/phpmd": "@stable",
+                "phpunit/phpunit": "~4.2",
+                "squizlabs/php_codesniffer": "1.5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Claxifieds\\Cache\\": "src"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "description": "Claxifieds cache library",
+            "keywords": [
+                "cache",
+                "memcached",
+                "osclass"
+            ],
+            "time": "2020-01-12T13:53:55+00:00"
         },
         {
             "name": "claxifieds/database",

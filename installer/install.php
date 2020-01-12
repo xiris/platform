@@ -31,8 +31,7 @@
 		require_once ABS_PATH . 'app/model/Preference.php';
 		require_once LIB_PATH . 'osclass/helpers/hPreference.php';
 	}
-	require_once LIB_PATH . 'osclass/core/iObject_Cache.php';
-	require_once LIB_PATH . 'osclass/core/Object_Cache_Factory.php';
+
 	require_once LIB_PATH . 'osclass/helpers/hCache.php';
 
 	require_once LIB_PATH . 'osclass/core/Session.php';
