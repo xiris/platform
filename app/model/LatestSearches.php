@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 
 if ( ! defined( 'ABS_PATH' ) ) {
@@ -27,15 +29,9 @@ if ( ! defined( 'ABS_PATH' ) ) {
      */
     class LatestSearches extends DAO
     {
-        /**
-         *
-         * @var type
-         */
+
         private static $instance;
 
-	    /**
-	     * @return \LatestSearches|\type
-	     */
 	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {

@@ -23,7 +23,10 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\Category;
+use Claxifieds\Model\Page;
+
+/**
      * Gets current page object
      *
      * @return array

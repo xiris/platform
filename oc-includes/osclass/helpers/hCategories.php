@@ -23,7 +23,9 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\Category;
+
+/**
      * Gets current category
      *
      * @return array

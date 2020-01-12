@@ -26,9 +26,16 @@
     ////////////////////////////////////////////////////////////////
     // FUNCTIONS THAT RETURNS OBJECT FROM THE STATIC CLASS (VIEW) //
     ////////////////////////////////////////////////////////////////
+use Claxifieds\Model\Category;
+use Claxifieds\Model\Currency;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemComment;
+use Claxifieds\Model\ItemResource;
+use Claxifieds\Model\ItemStats;
+use Claxifieds\Model\Search;
 
 
-	/**
+/**
 	 * Gets new premiums ads
 	 *
 	 * @param int $max
@@ -450,7 +457,7 @@
 
     /**
      * Gets total number of comments of current premium
-     *
+     * @TODO check if any usage. Apparently this is not called
      * @return int
      */
     function osc_premium_total_comments() {

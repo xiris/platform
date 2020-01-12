@@ -2,17 +2,17 @@
 
 namespace Claxifieds\Controller;
 
-use Alerts;
+use Claxifieds\Model\Alerts;
 use BaseModel;
-use Category;
-use City;
-use Country;
-use Field;
-use LatestSearches;
+use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Field;
+use Claxifieds\Model\LatestSearches;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\Search;
 use Params;
-use Region;
 use RSSFeed;
-use Search;
 use Session;
 
 if ( ! defined( 'ABS_PATH' ) ) {

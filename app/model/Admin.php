@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 
 if ( ! defined( 'ABS_PATH' ) ) {
@@ -46,10 +48,7 @@ if ( ! defined( 'ABS_PATH' ) ) {
          * @var array
          */
         private $cachedAdmin;
-
-	    /**
-	     * @return \Admin
-	     */
+        
 	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {
@@ -149,13 +148,13 @@ if ( ! defined( 'ABS_PATH' ) ) {
          * If credential don't match return false.
          *
          * @access public
-         * @since unknown
-         *
          * @param string $userName
          * @param string $password
          *
          * @return array|bool
-         * @throws Exception
+         * @throws \Exception
+         * @since unknown
+         *
          */
         public function findByCredentials($userName, $password)
         {

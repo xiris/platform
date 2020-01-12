@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 
 if ( ! defined( 'ABS_PATH' ) ) {
@@ -40,15 +42,7 @@ if ( ! defined( 'ABS_PATH' ) ) {
          * @var CityStats
          */
         private static $instance;
-
-	    /**
-	     * It creates a new CityStats object class if it has been created
-	     * before, it return the previous object
-	     *
-	     * @access public
-	     * @since  2.4
-	     * @return \CityStats
-	     */
+        
         public static function newInstance()
         {
             if( !self::$instance instanceof self ) {

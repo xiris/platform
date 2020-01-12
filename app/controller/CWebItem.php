@@ -3,20 +3,20 @@
 namespace Claxifieds\Controller;
 
 use BaseModel;
-use Category;
-use City;
-use Country;
-use Item;
+use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemComment;
+use Claxifieds\Model\ItemResource;
+use Claxifieds\Model\ItemStats;
+use Claxifieds\Model\OSCLocale;
+use Claxifieds\Model\Region;
 use ItemActions;
-use ItemComment;
-use ItemResource;
-use ItemStats;
-use Log;
-use OSCLocale;
+use Claxifieds\Model\Log;
 use Params;
-use Region;
 use Session;
-use User;
+use Claxifieds\Model\User;
 use View;
 
 if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');

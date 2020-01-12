@@ -2,14 +2,14 @@
 
 namespace Claxifieds\Controller;
 
-use Alerts;
+use Claxifieds\Model\Alerts;
 use BaseModel;
-use Item;
-use ItemComment;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemComment;
+use Claxifieds\Model\User;
+use Claxifieds\Model\UserEmailTmp;
 use Params;
 use Session;
-use User;
-use UserEmailTmp;
 use View;
 
 if ( ! defined( 'ABS_PATH' ) ) {

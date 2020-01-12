@@ -3,19 +3,19 @@
 namespace Claxifieds\Controller;
 
 use AjaxUploader;
-use Alerts;
+use Claxifieds\Model\Alerts;
 use BaseModel;
-use City;
-use Country;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemResource;
+use Claxifieds\Model\Region;
 use ImageProcessing;
-use Item;
-use ItemResource;
-use Log;
+use Claxifieds\Model\Log;
 use Params;
-use Region;
 use Rewrite;
 use Session;
-use User;
+use Claxifieds\Model\User;
 
 if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );

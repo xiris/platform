@@ -1,4 +1,13 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php use Claxifieds\Model\Alerts;
+use Claxifieds\Model\BanRule;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Log;
+use Claxifieds\Model\OSCLocale;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\User;
+
+if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 
 /*
  * Copyright 2014 Osclass

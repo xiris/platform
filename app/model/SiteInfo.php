@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
@@ -45,10 +47,6 @@ if ( ! defined( 'ABS_PATH' ) ) {
          */
         private $siteInfo;
 
-	    /**
-	     *
-	     * @return \SiteInfo
-	     */
         public static function newInstance()
         {
             if( !self::$instance instanceof self ) {

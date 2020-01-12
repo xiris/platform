@@ -23,7 +23,9 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\Preference;
+
+/**
      * Gets cookie's life
      *
      * @return int

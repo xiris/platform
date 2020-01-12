@@ -1,4 +1,9 @@
-<?php if ( ! defined( 'ABS_PATH' ) ) {
+<?php use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\User;
+
+if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
 }
 

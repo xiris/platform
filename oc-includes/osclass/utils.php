@@ -2,6 +2,19 @@
 
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
+use Claxifieds\Model\Category;
+use Claxifieds\Model\CategoryStats;
+use Claxifieds\Model\City;
+use Claxifieds\Model\CityStats;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\CountryStats;
+use Claxifieds\Model\Dump;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemResource;
+use Claxifieds\Model\LocationsTmp;
+use Claxifieds\Model\Log;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\RegionStats;
 use ReCaptcha\ReCaptcha;
 
     /*
@@ -812,6 +825,7 @@ use ReCaptcha\ReCaptcha;
      * Returns true if there is fsockopen on system environment
      *
      * @return bool|\type
+     * @noinspection PhpUndefinedClassInspection
      */
     function testFsockopen()
     {
@@ -888,6 +902,7 @@ use ReCaptcha\ReCaptcha;
      *
      * @return array|\type
      * @since 3.0
+     * @noinspection PhpUndefinedClassInspection
      */
     function processResponse($content)
     {
@@ -909,6 +924,7 @@ use ReCaptcha\ReCaptcha;
      * @param string $headers
      *
      * @return array|\type
+     * @noinspection PhpUndefinedClassInspection
      */
     function processHeaders($headers)
     {

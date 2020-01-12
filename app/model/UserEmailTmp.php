@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 
 if ( ! defined( 'ABS_PATH' ) ) {
@@ -27,15 +29,9 @@ if ( ! defined( 'ABS_PATH' ) ) {
      */
     class UserEmailTmp extends DAO
     {
-        /**
-         *
-         * @var
-         */
+
         private static $instance;
 
-	    /**
-	     * @return \type|\UserEmailTmp
-	     */
 	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {

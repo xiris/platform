@@ -26,7 +26,8 @@ use Claxifieds\Database\DBConnectionClass;
     {
         /**
          *
-         * @var type 
+         * @var type
+         * @noinspection PhpUndefinedClassInspection
          */
         private static $instance;
 	    private $conn;

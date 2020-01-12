@@ -15,7 +15,13 @@
      * limitations under the License.
      */
 
-    /**
+use Claxifieds\Model\Alerts;
+use Claxifieds\Model\AlertsStats;
+use Claxifieds\Model\Cron;
+use Claxifieds\Model\Search;
+use Claxifieds\Model\User;
+
+/**
      * @param null $type
      * @param null $last_exec
      */

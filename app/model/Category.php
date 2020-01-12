@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 
 if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not allowed.');
@@ -25,10 +27,7 @@ if ( !defined('ABS_PATH') ) exit('ABS_PATH is not loaded. Direct access is not a
      */
     class Category extends DAO
     {
-        /**
-         *
-         * @var type
-         */
+
         private static $instance;
         private $_language;
         private $_tree;

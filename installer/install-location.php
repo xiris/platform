@@ -1,6 +1,11 @@
 <?php
 
-	error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
+use Claxifieds\Database\DBCommandClass;
+use Claxifieds\Database\DBConnectionClass;
+use Claxifieds\Model\Admin;
+use Claxifieds\Model\Preference;
+
+error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 
 	define( 'ABS_PATH' , dirname(__DIR__) . '/');
 	define( 'LIB_PATH' , ABS_PATH . 'oc-includes/' );

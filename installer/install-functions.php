@@ -3,6 +3,11 @@
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
 use Claxifieds\Logger\LogOsclassInstaller;
+use Claxifieds\Model\Admin;
+use Claxifieds\Model\Category;
+use Claxifieds\Model\OSCLocale;
+use Claxifieds\Model\Page;
+use Claxifieds\Model\Preference;
 
 /*
 	 * Copyright 2014 Osclass

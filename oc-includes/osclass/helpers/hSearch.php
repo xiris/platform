@@ -22,7 +22,18 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\CityStats;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\CountryStats;
+use Claxifieds\Model\LatestSearches;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\RegionStats;
+use Claxifieds\Model\Search;
+use Claxifieds\Model\User;
+
+/**
      * Gets search object
      *
      * @return mixed

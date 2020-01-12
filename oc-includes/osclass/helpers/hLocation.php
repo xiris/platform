@@ -23,7 +23,9 @@
     * @author Osclass
     */
 
-	/**
+use Claxifieds\Model\Search;
+
+/**
 	 * Gets current country
 	 *
 	 * @return array|string

@@ -3,9 +3,9 @@
 namespace Claxifieds\Controller;
 
 use BaseModel;
+use Claxifieds\Model\User;
 use Params;
 use Session;
-use User;
 use UserActions;
 
 if ( ! defined( 'ABS_PATH' ) ) {

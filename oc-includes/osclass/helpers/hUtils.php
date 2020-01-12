@@ -22,6 +22,8 @@
  * @author Osclass
  */
 
+use Claxifieds\Model\Widget;
+
 /**
  * Getting from View the $key index
  *

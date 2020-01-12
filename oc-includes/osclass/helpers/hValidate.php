@@ -22,7 +22,12 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Region;
+
+/**
      * Validate the text with a minimum of non-punctuation characters (international)
      *
      * @param string $value

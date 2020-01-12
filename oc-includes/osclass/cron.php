@@ -1,4 +1,8 @@
-<?php if ( ! defined( 'ABS_PATH' ) ) {
+<?php use Claxifieds\Model\Cron;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\LatestSearches;
+
+if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
 }
 

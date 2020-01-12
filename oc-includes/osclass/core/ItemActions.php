@@ -1,5 +1,21 @@
 <?php
 
+use Claxifieds\Model\Category;
+use Claxifieds\Model\CategoryStats;
+use Claxifieds\Model\City;
+use Claxifieds\Model\CityStats;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\CountryStats;
+use Claxifieds\Model\Field;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemComment;
+use Claxifieds\Model\ItemLocation;
+use Claxifieds\Model\ItemResource;
+use Claxifieds\Model\ItemStats;
+use Claxifieds\Model\Log;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\RegionStats;
+use Claxifieds\Model\User;
 use ServiceScout\Akismet\Akismet;
 
 if (!defined('ABS_PATH')) {

@@ -23,7 +23,9 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\SiteInfo;
+
+/**
      * Gets database name
      *
      * @return string

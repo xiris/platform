@@ -9,7 +9,10 @@ Author URI: http://www.osclass.org/
 Plugin update URI: http://www.osclass.org/files/plugins/google_maps/update.php
 */
 
-    function google_maps_location() {
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemLocation;
+
+function google_maps_location() {
         $item = osc_item();
         osc_google_maps_header();
         require 'map.php';

@@ -6,7 +6,10 @@
      * @author Osclass
      */
 
-    /**
+use Claxifieds\Model\Admin;
+use Claxifieds\Model\User;
+
+/**
      * Gets a specific field from current user
      *
      * @param string $field
@@ -431,6 +434,7 @@
      * Gets address of current user
      *
      * @return address
+     * @noinspection PhpUndefinedClassInspection
      */
     function osc_user_address() {
         return (string) osc_user_field("s_address");
@@ -612,6 +616,7 @@
      * Gets next user in users array
      *
      * @return <type>
+     * @noinspection PhpUndefinedClassInspection
      */
     function osc_prepare_user_info() {
         if ( !View::newInstance()->_exists('users') ) {

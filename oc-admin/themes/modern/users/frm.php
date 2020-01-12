@@ -1,4 +1,7 @@
-<?php if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
+<?php use Claxifieds\Model\Alerts;
+use Claxifieds\Model\Search;
+
+if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass
  *

@@ -3,7 +3,8 @@
 namespace Claxifieds\Controller;
 
 use BaseModel;
-use Page;
+use Claxifieds\Model\Page;
+use Claxifieds\Model\Page;
 use Params;
 use Session;
 

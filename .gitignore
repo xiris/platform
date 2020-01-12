@@ -10,6 +10,8 @@ sftp-config*
 
 # Config Osclass
 /config.php
+/config/config.php
+/config/config*.php
 /_config.php
 oc-includes/osclass/t/config.php
 .maintenance

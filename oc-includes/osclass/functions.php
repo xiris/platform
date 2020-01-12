@@ -2,6 +2,11 @@
 
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
+use Claxifieds\Model\Category;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemComment;
+use Claxifieds\Model\OSCLocale;
+use Claxifieds\Model\Region;
 
 /*
 	 * Copyright 2014 Osclass

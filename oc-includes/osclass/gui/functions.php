@@ -24,7 +24,13 @@
 DEFINES
 
 */
-    define('BENDER_THEME_VERSION', '315');
+
+use Claxifieds\Model\Category;
+use Claxifieds\Model\Preference;
+use Claxifieds\Model\Search;
+use Claxifieds\Model\User;
+
+define('BENDER_THEME_VERSION', '315');
     if( (string)osc_get_preference('keyword_placeholder', 'bender')=="" ) {
         Params::setParam('keyword_placeholder', __('ie. PHP Programmer', 'bender') ) ;
     }
@@ -127,7 +133,8 @@ FUNCTIONS
             *
             * @param string $echo Optional parameter.
             * @return print string with all body classes concatenated
-            */
+             * @noinspection PhpUndefinedClassInspection
+             */
             osc_add_filter('bender_bodyClass','bender_add_body_class_construct');
             $classes = osc_apply_filter('bender_bodyClass', array());
             if($echo && count($classes)){
@@ -216,7 +223,8 @@ FUNCTIONS
     if( !function_exists('bender_show_as') ){
 	    /**
 	     * @return \Purified|string
-	     */
+         * @noinspection PhpUndefinedClassInspection
+         */
 	    function bender_show_as() {
 
             $p_sShowAs    = Params::getParam('sShowAs');

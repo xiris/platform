@@ -15,7 +15,11 @@
  * limitations under the License.
  */
 
-	/**
+use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Region;
+
+/**
 	 * Class Breadcrumb
 	 */
 	class Breadcrumb

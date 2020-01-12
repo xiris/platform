@@ -7,7 +7,7 @@ use Cookie;
 use Params;
 use Rewrite;
 use Session;
-use User;
+use Claxifieds\Model\User;
 use UserActions;
 
 if ( ! defined( 'ABS_PATH' ) ) {

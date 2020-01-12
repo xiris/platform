@@ -2,6 +2,12 @@
 
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
+use Claxifieds\Model\City;
+use Claxifieds\Model\CityStats;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\ItemLocation;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\RegionStats;
 
 if (!defined('ABS_PATH')) {
     exit('ABS_PATH is not loaded. Direct access is not allowed.');

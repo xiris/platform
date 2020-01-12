@@ -9,7 +9,9 @@ Author URI: http://www.osclass.org/
 Plugin update URI: http://www.osclass.org/files/plugins/google_analytics/update.php
 */
 
-    function google_analytics_call_after_install() {
+use Claxifieds\Model\Preference;
+
+function google_analytics_call_after_install() {
         $fields              = array();
         $fields["s_section"] = 'plugin-google_analytics';
         $fields["s_name"]    = 'google_analytics_id';

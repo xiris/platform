@@ -26,8 +26,15 @@
     ////////////////////////////////////////////////////////////////
     // FUNCTIONS THAT RETURNS OBJECT FROM THE STATIC CLASS (VIEW) //
     ////////////////////////////////////////////////////////////////
+use Claxifieds\Model\Category;
+use Claxifieds\Model\Currency;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\ItemComment;
+use Claxifieds\Model\ItemResource;
+use Claxifieds\Model\ItemStats;
+use Claxifieds\Model\Search;
 
-    /**
+/**
     * Gets current item array from view
     *
     * @return array $item, or null if not exist
@@ -78,7 +85,8 @@
     * @param type $field
     * @param type $locale
     * @return field_type
-    */
+     * @noinspection PhpUndefinedClassInspection
+     */
     function osc_item_field($field, $locale = "") {
         return osc_field(osc_item(), $field, $locale);
     }
@@ -89,7 +97,8 @@
     * @param type $field
     * @param type $locale
     * @return field_type
-    */
+     * @noinspection PhpUndefinedClassInspection
+     */
     function osc_comment_field($field, $locale = '') {
         return osc_field(osc_comment(), $field, $locale);
     }
@@ -100,7 +109,8 @@
     * @param type $field
     * @param type $locale
     * @return field_type
-    */
+     * @noinspection PhpUndefinedClassInspection
+     */
     function osc_resource_field($field, $locale = '') {
         return osc_field(osc_resource(), $field, $locale);
     }
@@ -199,6 +209,7 @@
      *
      * @param type $locale
      * @return string
+     * @noinspection PhpUndefinedClassInspection
      */
     function osc_item_category_description($locale = "") {
         if ( !View::newInstance()->_exists('item_category') ) {
@@ -640,6 +651,7 @@
      * Gets number of items per page for current pagination
      *
      * @return <type>
+     * @noinspection PhpUndefinedClassInspection
      */
     function osc_list_items_per_page() {
         return View::newInstance()->_get('items_per_page');
@@ -658,6 +670,7 @@
      * Gets page of comments in current pagination
      *
      * @return <type>
+     * @noinspection PhpUndefinedClassInspection
      */
     function osc_item_comments_page() {
         $page = Params::getParam('comments-page');

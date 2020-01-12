@@ -1,6 +1,9 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
+use DateTime;
 
 if ( ! defined( 'ABS_PATH' ) ) {
 	exit( 'ABS_PATH is not loaded. Direct access is not allowed.' );
@@ -27,15 +30,9 @@ if ( ! defined( 'ABS_PATH' ) ) {
      */
     class User extends DAO
     {
-        /**
-         *
-         * @var type
-         */
+
         private static $instance;
 
-	    /**
-	     * @return \type|\User
-	     */
 	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {

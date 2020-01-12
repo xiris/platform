@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Model;
+
 use Claxifieds\Database\DAO;
 
 if ( ! defined( 'ABS_PATH' ) ) {
@@ -36,10 +38,7 @@ if ( ! defined( 'ABS_PATH' ) ) {
          * @var Country
          */
         private static $instance;
-
-	    /**
-	     * @return \Country
-	     */
+        
 	    public static function newInstance()
         {
             if( !self::$instance instanceof self ) {

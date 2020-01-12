@@ -2,19 +2,19 @@
 
 namespace Claxifieds\Controller;
 
-use Alerts;
-use City;
+use Claxifieds\Model\Alerts;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\OSCLocale;
+use Claxifieds\Model\Region;
+use Claxifieds\Model\Search;
+use Claxifieds\Model\User;
+use Claxifieds\Model\UserEmailTmp;
 use Cookie;
-use Country;
-use Item;
-use OSCLocale;
 use Params;
-use Region;
-use Search;
 use Session;
-use User;
 use UserActions;
-use UserEmailTmp;
 use View;
 use WebSecBaseModel;
 

@@ -24,7 +24,14 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\Admin;
+use Claxifieds\Model\Category;
+use Claxifieds\Model\City;
+use Claxifieds\Model\Country;
+use Claxifieds\Model\Currency;
+use Claxifieds\Model\Region;
+
+/**
      * Gets the root url for your installation
      *
      * @param boolean $with_index true if index.php in the url is needed

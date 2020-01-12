@@ -1,4 +1,10 @@
-<?php if ( ! defined('ABS_PATH')) {
+<?php use Claxifieds\Model\Admin;
+use Claxifieds\Model\Item;
+use Claxifieds\Model\OSCLocale;
+use Claxifieds\Model\Page;
+use Claxifieds\Model\User;
+
+if ( ! defined('ABS_PATH')) {
     exit('ABS_PATH is not loaded. Direct access is not allowed.');
 }
 

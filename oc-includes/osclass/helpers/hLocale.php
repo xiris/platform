@@ -23,7 +23,9 @@
     * @author Osclass
     */
 
-    /**
+use Claxifieds\Model\OSCLocale;
+
+/**
      * Gets locale generic field
      *
      * @param $field
