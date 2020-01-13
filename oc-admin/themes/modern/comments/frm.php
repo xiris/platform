@@ -1,5 +1,7 @@
 <?php
 
+use Claxifieds\Forms\CommentForm;
+
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 
 /*

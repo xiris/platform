@@ -22,7 +22,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
     $(".sub_button").click(function(){
-        $.post('<?php echo osc_base_url(true); ?>', {email:$("#alert_email").val(), userid:$("#alert_userId").val(), alert:$("#alert").val(), page:"ajax", action:"alerts"},
+        $.post('<?php use Claxifieds\Forms\AlertForm;echo osc_base_url(true); ?>', {email:$("#alert_email").val(), userid:$("#alert_userId").val(), alert:$("#alert").val(), page:"ajax", action:"alerts"},
             function(data){
                 if(data==1) { alert('<?php echo osc_esc_js(__('You have sucessfully subscribed to the alert', 'bender')); ?>'); }
                 else if(data==-1) { alert('<?php echo osc_esc_js(__('Invalid email address', 'bender')); ?>'); }

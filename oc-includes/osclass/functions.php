@@ -2,6 +2,7 @@
 
 use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
+use Claxifieds\Forms\FieldForm;
 use Claxifieds\Model\Category;
 use Claxifieds\Model\Item;
 use Claxifieds\Model\ItemComment;

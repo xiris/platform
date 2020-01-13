@@ -1,4 +1,7 @@
 <?php
+
+use Claxifieds\Forms\ItemForm;
+
 osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');

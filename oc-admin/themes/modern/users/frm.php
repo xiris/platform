@@ -1,4 +1,5 @@
-<?php use Claxifieds\Model\Alerts;
+<?php use Claxifieds\Forms\UserForm;
+use Claxifieds\Model\Alerts;
 use Claxifieds\Model\Search;
 
 

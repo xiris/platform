@@ -1,5 +1,7 @@
 <?php
 
+use Claxifieds\Forms\AdminForm;
+
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass

@@ -1,4 +1,7 @@
 <?php
+
+use Claxifieds\Forms\UserForm;
+
 osc_add_hook('header','bender_nofollow_construct');
 
     bender_add_body_class('login');

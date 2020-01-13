@@ -1,5 +1,8 @@
 <div id="sidebar">
     <?php
+
+    use Claxifieds\Forms\ContactForm;
+
     if(osc_logged_user_id() !=  osc_user_id()) { ?>
     <?php     if(osc_reg_user_can_contact() && osc_is_web_user_logged_in() || !osc_reg_user_can_contact() ) { ?>
         <div id="contact" class="widget-box form-container form-vertical">

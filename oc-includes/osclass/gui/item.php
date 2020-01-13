@@ -20,7 +20,9 @@
      */
 
     // meta tag robots
-    if( osc_item_is_spam() || osc_premium_is_spam() ) {
+use Claxifieds\Forms\CommentForm;
+
+if( osc_item_is_spam() || osc_premium_is_spam() ) {
         osc_add_hook('header','bender_nofollow_construct');
     } else {
         osc_add_hook('header','bender_follow_construct');

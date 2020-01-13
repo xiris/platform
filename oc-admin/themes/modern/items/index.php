@@ -1,5 +1,8 @@
 <?php
 
+use Claxifieds\Forms\ItemForm;
+use Claxifieds\Forms\ManageItemsForm;
+
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass

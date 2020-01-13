@@ -1,5 +1,7 @@
 <?php
 
+use Claxifieds\Forms\LanguageForm;
+
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 
 /*

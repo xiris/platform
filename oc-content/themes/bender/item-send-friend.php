@@ -1,4 +1,8 @@
 <?php
+
+use Claxifieds\Forms\ContactForm;
+use Claxifieds\Forms\SendFriendForm;
+
 osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');

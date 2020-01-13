@@ -20,7 +20,9 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use Claxifieds\Forms\ItemForm;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');
     bender_add_body_class('item item-post');

@@ -1,4 +1,5 @@
-<?php use Claxifieds\Model\Category;
+<?php use Claxifieds\Forms\ItemForm;
+use Claxifieds\Model\Category;
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*

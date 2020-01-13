@@ -17,7 +17,9 @@
 ?>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-    <title><?php try {
+    <title><?php use Claxifieds\Forms\FieldForm;
+    
+        try {
 		    echo meta_title();
 	    } catch ( Exception $e ) {
 	    } ?></title>

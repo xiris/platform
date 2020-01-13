@@ -20,7 +20,9 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use Claxifieds\Forms\ContactForm;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     bender_add_body_class('contact');
     osc_enqueue_script('jquery-validate');

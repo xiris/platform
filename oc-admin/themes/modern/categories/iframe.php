@@ -1,4 +1,5 @@
-<?php use Claxifieds\Model\OSCLocale;
+<?php use Claxifieds\Forms\CategoryForm;
+use Claxifieds\Model\OSCLocale;
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
