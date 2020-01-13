@@ -1,6 +1,6 @@
 <?php
 
-namespace Claxifieds\Helpers;
+
 
 /*
  * Copyright 2014 Osclass
@@ -17,9 +17,6 @@ namespace Claxifieds\Helpers;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-use AdminMenu;
-use Params;
 
 /**
      * Helper Menu Admin

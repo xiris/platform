@@ -1,50 +1,6 @@
-<?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-?>
-</div><!-- content -->
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_contact_url;
-use function Claxifieds\Helpers\osc_count_web_enabled_locales;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_goto_first_locale;
-use function Claxifieds\Helpers\osc_has_static_pages;
-use function Claxifieds\Helpers\osc_has_web_enabled_locales;
-use function Claxifieds\Helpers\osc_is_web_user_logged_in;
-use function Claxifieds\Helpers\osc_item_post_url_in_category;
-use function Claxifieds\Helpers\osc_locale_code;
-use function Claxifieds\Helpers\osc_locale_name;
-use function Claxifieds\Helpers\osc_logged_user_name;
-use function Claxifieds\Helpers\osc_reg_user_post;
-use function Claxifieds\Helpers\osc_register_account_url;
-use function Claxifieds\Helpers\osc_reset_static_pages;
-use function Claxifieds\Helpers\osc_run_hook;
-use function Claxifieds\Helpers\osc_show_widgets;
-use function Claxifieds\Helpers\osc_static_page_title;
-use function Claxifieds\Helpers\osc_static_page_url;
-use function Claxifieds\Helpers\osc_user_dashboard_url;
-use function Claxifieds\Helpers\osc_user_login_url;
-use function Claxifieds\Helpers\osc_user_logout_url;
-use function Claxifieds\Helpers\osc_user_registration_enabled;
-use function Claxifieds\Helpers\osc_users_enabled;
 
+</div><!-- content -->
+<?php
 osc_run_hook('after-main'); ?>
 </div>
 <div id="responsive-trigger"></div>

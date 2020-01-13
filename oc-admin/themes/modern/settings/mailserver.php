@@ -1,19 +1,4 @@
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_mailserver_auth;
-use function Claxifieds\Helpers\osc_mailserver_host;
-use function Claxifieds\Helpers\osc_mailserver_mail_from;
-use function Claxifieds\Helpers\osc_mailserver_name_from;
-use function Claxifieds\Helpers\osc_mailserver_password;
-use function Claxifieds\Helpers\osc_mailserver_pop;
-use function Claxifieds\Helpers\osc_mailserver_port;
-use function Claxifieds\Helpers\osc_mailserver_ssl;
-use function Claxifieds\Helpers\osc_mailserver_type;
-use function Claxifieds\Helpers\osc_mailserver_username;
+<?php
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*

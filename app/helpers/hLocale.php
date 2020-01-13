@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 /*
  * Copyright 2014 Osclass
@@ -26,8 +25,6 @@ namespace Claxifieds\Helpers;
     */
 
 use Claxifieds\Model\OSCLocale;
-use Session;
-use View;
 
 /**
      * Gets locale generic field

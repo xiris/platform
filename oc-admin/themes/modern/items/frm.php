@@ -1,23 +1,4 @@
 <?php use Claxifieds\Model\Category;
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_count_item_resources;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_enqueue_script;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_esc_js;
-use function Claxifieds\Helpers\osc_get_locales;
-use function Claxifieds\Helpers\osc_images_enabled_at_items;
-use function Claxifieds\Helpers\osc_item_id;
-use function Claxifieds\Helpers\osc_item_ip;
-use function Claxifieds\Helpers\osc_item_secret;
-use function Claxifieds\Helpers\osc_item_url;
-use function Claxifieds\Helpers\osc_locale_dec_point;
-use function Claxifieds\Helpers\osc_locale_thousands_sep;
-use function Claxifieds\Helpers\osc_max_images_per_item;
-use function Claxifieds\Helpers\osc_price_enabled_at_items;
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*

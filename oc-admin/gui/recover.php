@@ -20,17 +20,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta name="robots" content="noindex, nofollow, noarchive"/>
         <meta name="googlebot" content="noindex, nofollow, noarchive"/>
-        <title><?php use function Claxifieds\Helpers\_e;
-            use function Claxifieds\Helpers\osc_admin_base_url;
-            use function Claxifieds\Helpers\osc_assets_url;
-            use function Claxifieds\Helpers\osc_base_url;
-            use function Claxifieds\Helpers\osc_esc_html;
-            use function Claxifieds\Helpers\osc_page_title;
-            use function Claxifieds\Helpers\osc_run_hook;
-            use function Claxifieds\Helpers\osc_show_flash_message;
-            use function Claxifieds\Helpers\osc_show_recaptcha;
-    
-            echo osc_page_title(); ?> &raquo; <?php _e('Lost your password'); ?></title>
+        <title><?php echo osc_page_title(); ?> &raquo; <?php _e('Lost your password'); ?></title>
         <script type="text/javascript" src="<?php echo osc_assets_url('js/jquery.min.js'); ?>"></script>
         <link type="text/css" href="style/backoffice_login.css" media="screen" rel="stylesheet"/>
         <?php osc_run_hook('admin_login_header'); ?>

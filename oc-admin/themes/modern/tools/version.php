@@ -1,6 +1,4 @@
-<?php use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
+<?php
 
 if (!defined('OC_ADMIN')) {
     exit('Direct access is not allowed.');

@@ -16,16 +16,6 @@ use Claxifieds\Controller\CWebSearch;
 use Claxifieds\Controller\CWebUser;
 use Claxifieds\Controller\CWebUserNonSecure;
 use Claxifieds\Model\User;
-use function Claxifieds\Helpers\osc_auto_cron;
-use function Claxifieds\Helpers\osc_base_url;
-use function Claxifieds\Helpers\osc_current_web_theme_path;
-use function Claxifieds\Helpers\osc_die;
-use function Claxifieds\Helpers\osc_is_admin_user_logged_in;
-use function Claxifieds\Helpers\osc_is_web_user_logged_in;
-use function Claxifieds\Helpers\osc_lib_path;
-use function Claxifieds\Helpers\osc_logged_user_id;
-use function Claxifieds\Helpers\osc_page_title;
-use function Claxifieds\Helpers\osc_users_enabled;
     
     if(PHP_SAPI==='cli') {
         define('CLI', true);

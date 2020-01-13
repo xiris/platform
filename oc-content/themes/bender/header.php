@@ -20,33 +20,7 @@
      */
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" dir="<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_base_url;
-use function Claxifieds\Helpers\osc_breadcrumb;
-use function Claxifieds\Helpers\osc_categories_select;
-use function Claxifieds\Helpers\osc_count_categories;
-use function Claxifieds\Helpers\osc_current_user_locale;
-use function Claxifieds\Helpers\osc_current_web_theme_path;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_is_home_page;
-use function Claxifieds\Helpers\osc_is_static_page;
-use function Claxifieds\Helpers\osc_is_web_user_logged_in;
-use function Claxifieds\Helpers\osc_item_post_url_in_category;
-use function Claxifieds\Helpers\osc_logged_user_name;
-use function Claxifieds\Helpers\osc_page_description;
-use function Claxifieds\Helpers\osc_reg_user_post;
-use function Claxifieds\Helpers\osc_register_account_url;
-use function Claxifieds\Helpers\osc_run_hook;
-use function Claxifieds\Helpers\osc_show_flash_message;
-use function Claxifieds\Helpers\osc_show_widgets;
-use function Claxifieds\Helpers\osc_user_dashboard_url;
-use function Claxifieds\Helpers\osc_user_login_url;
-use function Claxifieds\Helpers\osc_user_logout_url;
-use function Claxifieds\Helpers\osc_user_registration_enabled;
-use function Claxifieds\Helpers\osc_users_enabled;
-
-echo bender_default_direction()=='0' ? 'ltr': 'rtl'; ?>" lang="<?php echo str_replace('_', '-', osc_current_user_locale()); ?>">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="<?php echo bender_default_direction()=='0' ? 'ltr': 'rtl'; ?>" lang="<?php echo str_replace('_', '-', osc_current_user_locale()); ?>">
     <head>
         <?php osc_current_web_theme_path('common/head.php') ; ?>
     </head>

@@ -1,7 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
-
 /*
  * Copyright 2014 Osclass
  *
@@ -18,14 +16,16 @@ namespace Claxifieds\Helpers;
  * limitations under the License.
  */
 
-    /**
+use Claxifieds\Model\Preference;
+
+/**
     * Helper Preferences
     * @package Osclass
     * @subpackage Helpers
     * @author Osclass
     */
 
-use Claxifieds\Model\Preference;
+
 
 /**
      * Gets cookie's life

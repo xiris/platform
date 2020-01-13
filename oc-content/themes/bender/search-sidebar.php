@@ -1,42 +1,5 @@
 <?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-
 use Claxifieds\Model\Search;
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_alert_form;
-use function Claxifieds\Helpers\osc_base_url;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_images_enabled_at_items;
-use function Claxifieds\Helpers\osc_price_enabled_at_items;
-use function Claxifieds\Helpers\osc_run_hook;
-use function Claxifieds\Helpers\osc_search_category;
-use function Claxifieds\Helpers\osc_search_category_id;
-use function Claxifieds\Helpers\osc_search_city;
-use function Claxifieds\Helpers\osc_search_has_pic;
-use function Claxifieds\Helpers\osc_search_order;
-use function Claxifieds\Helpers\osc_search_order_type;
-use function Claxifieds\Helpers\osc_search_pattern;
-use function Claxifieds\Helpers\osc_search_price_max;
-use function Claxifieds\Helpers\osc_search_price_min;
-use function Claxifieds\Helpers\osc_search_user;
 
 $category = __get("category");
      if(!isset($category['pk_i_id']) ) {

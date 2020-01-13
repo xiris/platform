@@ -1,18 +1,5 @@
 <?php use Claxifieds\Model\OSCLocale;
-use function Claxifieds\Helpers\_m;
-use function Claxifieds\Helpers\osc_add_flash_error_message;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_add_flash_warning_message;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_csrf_check;
-use function Claxifieds\Helpers\osc_csrf_token_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_language;
-use function Claxifieds\Helpers\osc_run_hook;
-use function Claxifieds\Helpers\osc_translations_path;
-use function Claxifieds\Helpers\osc_validate_int;
-use function Claxifieds\Helpers\osc_validate_text;
+
 
 if (!defined('ABS_PATH')) {
     exit('ABS_PATH is not loaded. Direct access is not allowed.');

@@ -7,17 +7,6 @@ use Claxifieds\Model\OSCLocale;
 use Claxifieds\Model\Page;
 use Claxifieds\Model\Region;
 use Claxifieds\Model\User;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_add_flash_warning_message;
-use function Claxifieds\Helpers\osc_contact_email;
-use function Claxifieds\Helpers\osc_csrf_check;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_format_date;
-use function Claxifieds\Helpers\osc_language;
-use function Claxifieds\Helpers\osc_market_external_sources;
-use function Claxifieds\Helpers\osc_page_title;
-use function Claxifieds\Helpers\osc_plugins_path;
-use function Claxifieds\Helpers\osc_run_hook;
 
 if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 

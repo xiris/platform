@@ -1,11 +1,4 @@
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_base_path;
-use function Claxifieds\Helpers\osc_csrf_token_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_esc_html;
+<?php
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*

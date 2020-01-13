@@ -1,86 +1,8 @@
 <?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-
-/**
-
-DEFINES
-
-*/
-
 use Claxifieds\Model\Category;
 use Claxifieds\Model\Preference;
 use Claxifieds\Model\Search;
 use Claxifieds\Model\User;
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\getPreference;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_flash_error_message;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_menu_appearance;
-use function Claxifieds\Helpers\osc_admin_render_theme_url;
-use function Claxifieds\Helpers\osc_assets_url;
-use function Claxifieds\Helpers\osc_base_url;
-use function Claxifieds\Helpers\osc_category_name;
-use function Claxifieds\Helpers\osc_category_slug;
-use function Claxifieds\Helpers\osc_category_total_items;
-use function Claxifieds\Helpers\osc_change_user_email_url;
-use function Claxifieds\Helpers\osc_change_user_password_url;
-use function Claxifieds\Helpers\osc_change_user_username_url;
-use function Claxifieds\Helpers\osc_count_categories;
-use function Claxifieds\Helpers\osc_count_subcategories;
-use function Claxifieds\Helpers\osc_current_web_theme_url;
-use function Claxifieds\Helpers\osc_default_results_per_page_at_search;
-use function Claxifieds\Helpers\osc_delete_preference;
-use function Claxifieds\Helpers\osc_enqueue_script;
-use function Claxifieds\Helpers\osc_enqueue_style;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_locales;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_goto_first_category;
-use function Claxifieds\Helpers\osc_has_categories;
-use function Claxifieds\Helpers\osc_has_subcategories;
-use function Claxifieds\Helpers\osc_is_home_page;
-use function Claxifieds\Helpers\osc_is_search_page;
-use function Claxifieds\Helpers\osc_is_static_page;
-use function Claxifieds\Helpers\osc_item_category_id;
-use function Claxifieds\Helpers\osc_item_description;
-use function Claxifieds\Helpers\osc_item_id;
-use function Claxifieds\Helpers\osc_item_region;
-use function Claxifieds\Helpers\osc_item_title;
-use function Claxifieds\Helpers\osc_page_title;
-use function Claxifieds\Helpers\osc_register_script;
-use function Claxifieds\Helpers\osc_reset_preferences;
-use function Claxifieds\Helpers\osc_search_category_url;
-use function Claxifieds\Helpers\osc_search_page;
-use function Claxifieds\Helpers\osc_search_total_items;
-use function Claxifieds\Helpers\osc_set_preference;
-use function Claxifieds\Helpers\osc_update_search_url;
-use function Claxifieds\Helpers\osc_uploads_path;
-use function Claxifieds\Helpers\osc_user_alerts_url;
-use function Claxifieds\Helpers\osc_user_field;
-use function Claxifieds\Helpers\osc_user_id;
-use function Claxifieds\Helpers\osc_user_list_items_url;
-use function Claxifieds\Helpers\osc_user_profile_url;
-use function Claxifieds\Helpers\osc_user_public_profile_url;
 
 define('BENDER_THEME_VERSION', '320');
     if( (string)osc_get_preference('keyword_placeholder', 'bender')=="" ) {

@@ -4,9 +4,6 @@ use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
 use Claxifieds\Model\Admin;
 use Claxifieds\Model\Preference;
-use function Claxifieds\Helpers\osc_genRandomPassword;
-use function Claxifieds\Helpers\osc_get_locations_sql_url;
-use function Claxifieds\Helpers\osc_hash_password;
 
 error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 

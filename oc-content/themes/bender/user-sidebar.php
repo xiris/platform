@@ -20,11 +20,7 @@
      */
 ?>
 <div class="actions">
-  <a href="#" data-bclass-toggle="display-filters" class="resp-toogle show-filters-btn"><?php use function Claxifieds\Helpers\_e;
-      use function Claxifieds\Helpers\osc_esc_html;
-      use function Claxifieds\Helpers\osc_private_user_menu;
-    
-      _e('Display menu','bender'); ?></a>
+  <a href="#" data-bclass-toggle="display-filters" class="resp-toogle show-filters-btn"><?php _e('Display menu','bender'); ?></a>
 </div>
 <div id="sidebar">
     <?php echo osc_private_user_menu( get_user_menu() ); ?>

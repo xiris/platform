@@ -1,48 +1,4 @@
 <?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-?>
-
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_count_premium_resources;
-use function Claxifieds\Helpers\osc_current_web_theme_url;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_esc_js;
-use function Claxifieds\Helpers\osc_format_date;
-use function Claxifieds\Helpers\osc_format_price;
-use function Claxifieds\Helpers\osc_highlight;
-use function Claxifieds\Helpers\osc_images_enabled_at_items;
-use function Claxifieds\Helpers\osc_premium_category;
-use function Claxifieds\Helpers\osc_premium_city;
-use function Claxifieds\Helpers\osc_premium_currency_symbol;
-use function Claxifieds\Helpers\osc_premium_description;
-use function Claxifieds\Helpers\osc_premium_is_inactive;
-use function Claxifieds\Helpers\osc_premium_price;
-use function Claxifieds\Helpers\osc_premium_pub_date;
-use function Claxifieds\Helpers\osc_premium_region;
-use function Claxifieds\Helpers\osc_premium_title;
-use function Claxifieds\Helpers\osc_premium_url;
-use function Claxifieds\Helpers\osc_price_enabled_at_items;
-use function Claxifieds\Helpers\osc_resource_thumbnail_url;
-use function Claxifieds\Helpers\osc_thumbnail_dimensions;
-
 $size = explode('x', osc_thumbnail_dimensions()); ?>
 <li class="listing-card <?php echo $class; ?> premium">
     <?php if( osc_images_enabled_at_items() ) { ?>

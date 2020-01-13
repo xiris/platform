@@ -1,23 +1,5 @@
 <?php use Claxifieds\Model\Category;
 use Claxifieds\Model\PluginCategory;
-use function Claxifieds\Helpers\_m;
-use function Claxifieds\Helpers\osc_add_flash_error_message;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_add_flash_warning_message;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_csrf_check;
-use function Claxifieds\Helpers\osc_csrf_token_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_current_admin_theme_url;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_plugins;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_plugin_get_info;
-use function Claxifieds\Helpers\osc_plugin_is_enabled;
-use function Claxifieds\Helpers\osc_plugin_is_installed;
-use function Claxifieds\Helpers\osc_plugins_path;
-use function Claxifieds\Helpers\osc_run_hook;
-use function Claxifieds\Helpers\osc_sanitize_url;
 
 if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 

@@ -1,7 +1,4 @@
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_esc_js;
+<?php
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*

@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 /*
  * Copyright 2014 Osclass
@@ -29,8 +28,7 @@ use Claxifieds\Model\Category;
 use Claxifieds\Model\City;
 use Claxifieds\Model\Country;
 use Claxifieds\Model\Region;
-use Cookie;
-use Session;
+
 
 /**
      * Validate the text with a minimum of non-punctuation characters (international)

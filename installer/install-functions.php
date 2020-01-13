@@ -8,16 +8,6 @@ use Claxifieds\Model\Category;
 use Claxifieds\Model\OSCLocale;
 use Claxifieds\Model\Page;
 use Claxifieds\Model\Preference;
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_current_admin_locale;
-use function Claxifieds\Helpers\osc_db_host;
-use function Claxifieds\Helpers\osc_db_name;
-use function Claxifieds\Helpers\osc_db_password;
-use function Claxifieds\Helpers\osc_db_user;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_locations_json_url;
-use function Claxifieds\Helpers\osc_search_url;
-use function Claxifieds\Helpers\osc_set_preference;
 
 /*
 	 * Copyright 2014 Osclass

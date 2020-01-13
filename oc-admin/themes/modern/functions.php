@@ -1,16 +1,4 @@
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_url;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_locales;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_item;
-use function Claxifieds\Helpers\osc_last_version_check;
-use function Claxifieds\Helpers\osc_load_scripts;
-use function Claxifieds\Helpers\osc_load_styles;
-use function Claxifieds\Helpers\osc_set_preference;
+<?php
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 

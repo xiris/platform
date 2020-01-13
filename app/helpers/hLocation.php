@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 /*
  * Copyright 2014 Osclass
@@ -26,7 +25,6 @@ namespace Claxifieds\Helpers;
     */
 
 use Claxifieds\Model\Search;
-use View;
 
 /**
 	 * Gets current country

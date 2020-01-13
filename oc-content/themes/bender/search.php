@@ -1,43 +1,4 @@
 <?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-
-    // meta tag robots
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_base_url;
-use function Claxifieds\Helpers\osc_count_items;
-use function Claxifieds\Helpers\osc_count_premiums;
-use function Claxifieds\Helpers\osc_current_web_theme_path;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_premiums;
-use function Claxifieds\Helpers\osc_list_orders;
-use function Claxifieds\Helpers\osc_rewrite_enabled;
-use function Claxifieds\Helpers\osc_run_hook;
-use function Claxifieds\Helpers\osc_search_order;
-use function Claxifieds\Helpers\osc_search_order_type;
-use function Claxifieds\Helpers\osc_search_pagination;
-use function Claxifieds\Helpers\osc_search_pattern;
-use function Claxifieds\Helpers\osc_search_show_as;
-use function Claxifieds\Helpers\osc_update_search_url;
-
 if( osc_count_items() == 0 || stripos($_SERVER['REQUEST_URI'], 'search') ) {
         osc_add_hook('header','bender_nofollow_construct');
     } else {

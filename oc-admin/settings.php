@@ -1,4 +1,4 @@
-<?php use function Claxifieds\Helpers\osc_admin_base_path;
+<?php
 
 if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 

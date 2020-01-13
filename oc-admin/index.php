@@ -15,14 +15,6 @@
  * limitations under the License.
  */
 
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_base_path;
-use function Claxifieds\Helpers\osc_assets_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_js_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_styles_url;
-use function Claxifieds\Helpers\osc_enqueue_script;
-use function Claxifieds\Helpers\osc_enqueue_style;
-use function Claxifieds\Helpers\osc_register_script;
 
 define('ABS_PATH', str_replace('\\', '/', dirname(dirname($_SERVER['SCRIPT_FILENAME'])) . '/'));
     define('OC_ADMIN', true);

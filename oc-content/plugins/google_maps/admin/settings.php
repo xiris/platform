@@ -1,12 +1,5 @@
 <?php
 
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_route_admin_url;
-use function Claxifieds\Helpers\osc_set_preference;
-
 if (Params::getParam('plugin_action') == 'done') {
     osc_set_preference('maps_key', Params::getParam('maps_key'), 'google_maps');
     osc_set_preference('include_maps_js', (Params::getParam('include_maps_js') ? '1' : '0'), 'google_maps');

@@ -1,4 +1,4 @@
-<?php use function Claxifieds\Helpers\osc_run_hook;
+<?php
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.'); ?>
             </div></div><div class="clear"></div></div><!-- #grid-system -->

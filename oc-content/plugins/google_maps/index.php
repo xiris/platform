@@ -11,15 +11,6 @@ Plugin update URI: http://www.osclass.org/files/plugins/google_maps/update.php
 
 use Claxifieds\Model\Item;
 use Claxifieds\Model\ItemLocation;
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_admin_submenu_divider;
-use function Claxifieds\Helpers\osc_add_admin_submenu_page;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_add_route;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_item;
-use function Claxifieds\Helpers\osc_remove_hook;
-use function Claxifieds\Helpers\osc_route_admin_url;
 
 function google_maps_location() {
         $item = osc_item();

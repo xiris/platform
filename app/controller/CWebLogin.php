@@ -158,7 +158,6 @@ if ( ! defined( 'ABS_PATH' ) ) {
 											if ( Params::getParam('remember') == 1 ) {
 
 												//this include contains de osc_genRandomPassword function
-												require_once osc_lib_path() . 'osclass/helpers/hSecurity.php';
 												$secret = osc_genRandomPassword();
 
 												User::newInstance()->update(

@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 /*
  * Copyright 2014 Osclass
@@ -26,9 +25,9 @@ namespace Claxifieds\Helpers;
     * @author Osclass
     */
 
-use CategoryForm;
+
 use Claxifieds\Model\Category;
-use View;
+
 
 /**
      * Gets current category

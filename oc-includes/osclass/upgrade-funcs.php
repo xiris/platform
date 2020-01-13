@@ -22,7 +22,6 @@ if (! defined('ABS_PATH')) {
     }
 
     require_once ABS_PATH . 'oc-load.php';
-    require_once LIB_PATH . 'osclass/helpers/hErrors.php';
 
     if (!defined('AUTO_UPGRADE')) {
         if (file_exists(osc_lib_path() . 'osclass/installer/struct.sql')) {

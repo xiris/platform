@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 /*
  * Copyright 2014 Osclass
@@ -27,10 +26,8 @@ namespace Claxifieds\Helpers;
 
 use Claxifieds\Model\BanRule;
 use OpensslCryptor\Cryptor;
-use Params;
 use phpseclib\Crypt\Rijndael;
-use Session;
-use View;
+
 
 if(!defined( 'BCRYPT_COST')) { define( 'BCRYPT_COST', 15); }
 

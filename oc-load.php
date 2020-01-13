@@ -1,16 +1,5 @@
 <?php
 
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\getBoolPreference;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_assets_url;
-use function Claxifieds\Helpers\osc_cache_init;
-use function Claxifieds\Helpers\osc_die;
-use function Claxifieds\Helpers\osc_get_absolute_url;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_register_script;
-use function Claxifieds\Helpers\osc_timezone;
-
     if ( !file_exists(CONFIG_PATH . 'config.php')) {
         $title   = 'Osclass &raquo; Error';
         $message = 'There doesn\'t seem to be a <code>config.php</code> file. Osclass isn\'t installed. <a href="https://osclass.discourse.group/">Need more help?</a></p>';
@@ -121,7 +110,7 @@ use function Claxifieds\Helpers\osc_timezone;
                 <?php _e("The website is currently undergoing maintenance"); ?>
             </div>
             <style>
-                #maintenance {
+                #   maintenance {
                     position: static;
                     top: 0px;
                     right: 0px;

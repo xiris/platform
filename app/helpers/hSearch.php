@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 /*
  * Copyright 2014 Osclass
@@ -35,8 +34,6 @@ use Claxifieds\Model\Region;
 use Claxifieds\Model\RegionStats;
 use Claxifieds\Model\Search;
 use Claxifieds\Model\User;
-use Params;
-use View;
 
 /**
      * Gets search object

@@ -1,34 +1,4 @@
 <?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-
-    // meta tag robots
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_base_url;
-use function Claxifieds\Helpers\osc_current_web_theme_path;
-use function Claxifieds\Helpers\osc_enqueue_script;
-use function Claxifieds\Helpers\osc_esc_js;
-use function Claxifieds\Helpers\osc_user;
-
 osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');

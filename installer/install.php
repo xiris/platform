@@ -15,10 +15,6 @@
 	 * limitations under the License.
 	 */
 
-use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_die;
-use function Claxifieds\Helpers\osc_esc_html;
-
 error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 
 	define( 'ABS_PATH' , dirname(__DIR__) . DIRECTORY_SEPARATOR);

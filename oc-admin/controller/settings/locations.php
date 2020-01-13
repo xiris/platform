@@ -8,16 +8,7 @@ use Claxifieds\Model\Country;
 use Claxifieds\Model\ItemLocation;
 use Claxifieds\Model\Region;
 use Claxifieds\Model\RegionStats;
-use function Claxifieds\Helpers\_m;
-use function Claxifieds\Helpers\_n;
-use function Claxifieds\Helpers\osc_add_flash_error_message;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_add_flash_warning_message;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_csrf_check;
-use function Claxifieds\Helpers\osc_get_locations_json_url;
-use function Claxifieds\Helpers\osc_get_locations_sql_url;
-use function Claxifieds\Helpers\osc_validate_min;
+
 
 if (!defined('ABS_PATH')) {
     exit('ABS_PATH is not loaded. Direct access is not allowed.');

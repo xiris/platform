@@ -1,6 +1,5 @@
 <?php
 
-namespace Claxifieds\Helpers;
 
 	/*
 	 * Copyright 2014 Osclass

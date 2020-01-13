@@ -1,36 +1,5 @@
-<?php
-    /*
-     *      Osclass – software for creating and publishing online classified
-     *                           advertising platforms
-     *
-     *                        Copyright (C) 2014 OSCLASS
-     *
-     *       This program is free software: you can redistribute it and/or
-     *     modify it under the terms of the GNU Affero General Public License
-     *     as published by the Free Software Foundation, either version 3 of
-     *            the License, or (at your option) any later version.
-     *
-     *     This program is distributed in the hope that it will be useful, but
-     *         WITHOUT ANY WARRANTY; without even the implied warranty of
-     *        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-     *             GNU Affero General Public License for more details.
-     *
-     *      You should have received a copy of the GNU Affero General Public
-     * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-     */
-?>
 <div id="sidebar">
-    <?php use function Claxifieds\Helpers\_e;
-    use function Claxifieds\Helpers\osc_base_url;
-    use function Claxifieds\Helpers\osc_is_web_user_logged_in;
-    use function Claxifieds\Helpers\osc_item_id;
-    use function Claxifieds\Helpers\osc_logged_user_id;
-    use function Claxifieds\Helpers\osc_recaptcha_public_key;
-    use function Claxifieds\Helpers\osc_reg_user_can_contact;
-    use function Claxifieds\Helpers\osc_run_hook;
-    use function Claxifieds\Helpers\osc_show_recaptcha;
-    use function Claxifieds\Helpers\osc_user_id;
-
+    <?php
     if(osc_logged_user_id() !=  osc_user_id()) { ?>
     <?php     if(osc_reg_user_can_contact() && osc_is_web_user_logged_in() || !osc_reg_user_can_contact() ) { ?>
         <div id="contact" class="widget-box form-container form-vertical">

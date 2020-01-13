@@ -1,25 +1,4 @@
-<?php use function Claxifieds\Helpers\_e;
-use function Claxifieds\Helpers\osc_add_filter;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_base_url;
-use function Claxifieds\Helpers\osc_current_admin_theme_path;
-use function Claxifieds\Helpers\osc_esc_html;
-use function Claxifieds\Helpers\osc_images_enabled_at_items;
-use function Claxifieds\Helpers\osc_item_attachment;
-use function Claxifieds\Helpers\osc_items_wait_time;
-use function Claxifieds\Helpers\osc_logged_user_item_validation;
-use function Claxifieds\Helpers\osc_max_characters_per_description;
-use function Claxifieds\Helpers\osc_max_characters_per_title;
-use function Claxifieds\Helpers\osc_max_images_per_item;
-use function Claxifieds\Helpers\osc_moderate_items;
-use function Claxifieds\Helpers\osc_notify_contact_friends;
-use function Claxifieds\Helpers\osc_notify_contact_item;
-use function Claxifieds\Helpers\osc_notify_new_item;
-use function Claxifieds\Helpers\osc_price_enabled_at_items;
-use function Claxifieds\Helpers\osc_recaptcha_items_enabled;
-use function Claxifieds\Helpers\osc_reg_user_can_contact;
-use function Claxifieds\Helpers\osc_reg_user_post;
-use function Claxifieds\Helpers\osc_warn_expiration;
+<?php
 
 if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*

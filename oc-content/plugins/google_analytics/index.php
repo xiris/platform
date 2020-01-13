@@ -10,14 +10,6 @@ Plugin update URI: http://www.osclass.org/files/plugins/google_analytics/update.
 */
 
 use Claxifieds\Model\Preference;
-use function Claxifieds\Helpers\osc_add_flash_ok_message;
-use function Claxifieds\Helpers\osc_add_hook;
-use function Claxifieds\Helpers\osc_admin_menu_plugins;
-use function Claxifieds\Helpers\osc_admin_render_plugin;
-use function Claxifieds\Helpers\osc_admin_render_plugin_url;
-use function Claxifieds\Helpers\osc_get_preference;
-use function Claxifieds\Helpers\osc_plugins_path;
-use function Claxifieds\Helpers\osc_register_plugin;
 
 function google_analytics_call_after_install() {
         $fields              = array();
