@@ -20,7 +20,33 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_current_user_locale;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_get_cities;
+use function Claxifieds\Helpers\osc_get_countries;
+use function Claxifieds\Helpers\osc_get_regions;
+use function Claxifieds\Helpers\osc_images_enabled_at_items;
+use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+use function Claxifieds\Helpers\osc_item;
+use function Claxifieds\Helpers\osc_item_country_code;
+use function Claxifieds\Helpers\osc_item_id;
+use function Claxifieds\Helpers\osc_item_secret;
+use function Claxifieds\Helpers\osc_locale_dec_point;
+use function Claxifieds\Helpers\osc_locale_thousands_sep;
+use function Claxifieds\Helpers\osc_price_enabled_at_items;
+use function Claxifieds\Helpers\osc_recaptcha_items_enabled;
+use function Claxifieds\Helpers\osc_show_recaptcha;
+use function Claxifieds\Helpers\osc_user;
+use function Claxifieds\Helpers\osc_user_field;
+use function Claxifieds\Helpers\osc_user_region_id;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');
     bender_add_body_class('item item-post');

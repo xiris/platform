@@ -8,6 +8,16 @@ use Claxifieds\Model\Category;
 use Claxifieds\Model\OSCLocale;
 use Claxifieds\Model\Page;
 use Claxifieds\Model\Preference;
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_current_admin_locale;
+use function Claxifieds\Helpers\osc_db_host;
+use function Claxifieds\Helpers\osc_db_name;
+use function Claxifieds\Helpers\osc_db_password;
+use function Claxifieds\Helpers\osc_db_user;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_get_locations_json_url;
+use function Claxifieds\Helpers\osc_search_url;
+use function Claxifieds\Helpers\osc_set_preference;
 
 /*
 	 * Copyright 2014 Osclass
@@ -279,7 +289,6 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 		$password    = Params::getParam( 'password' , false , false );
 		$tableprefix = Params::getParam( 'tableprefix' );
 		$createdb    = false;
-		require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
 
 		if ( $tableprefix == '' ) {
 			$tableprefix = 'oc_';
@@ -517,7 +526,6 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 	function oc_install_example_data() {
 		require_once LIB_PATH . 'osclass/formatting.php';
 		require INSTALLER_PATH . 'basic_data.php';
-		require_once ABS_PATH . 'app/model/Category.php';
 		$mCat = Category::newInstance();
 
 		if ( ! function_exists( 'osc_apply_filter' ) ) {
@@ -545,30 +553,8 @@ require_once LIB_PATH . 'osclass/compatibility.php';
 
 			$mCat->insert( $fields , $aFieldsDescription );
 		}
-
-		require_once ABS_PATH . 'app/model/Item.php';
-		require_once ABS_PATH . 'app/model/ItemComment.php';
-		require_once ABS_PATH . 'app/model/ItemLocation.php';
-		require_once ABS_PATH . 'app/model/ItemResource.php';
-		require_once ABS_PATH . 'app/model/ItemStats.php';
-		require_once ABS_PATH . 'app/model/User.php';
-		require_once ABS_PATH . 'app/model/Country.php';
-		require_once ABS_PATH . 'app/model/Region.php';
-		require_once ABS_PATH . 'app/model/City.php';
-		require_once ABS_PATH . 'app/model/CityArea.php';
-		require_once ABS_PATH . 'app/model/Field.php';
-		require_once ABS_PATH . 'app/model/Page.php';
-		require_once ABS_PATH . 'app/model/Log.php';
-
-		require_once ABS_PATH . 'app/model/CategoryStats.php';
-		require_once ABS_PATH . 'app/model/CountryStats.php';
-		require_once ABS_PATH . 'app/model/RegionStats.php';
-		require_once ABS_PATH . 'app/model/CityStats.php';
-
-		require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
-		require_once LIB_PATH . 'osclass/helpers/hValidate.php';
-		require_once LIB_PATH . 'osclass/helpers/hUsers.php';
-		require_once LIB_PATH . 'osclass/ItemActions.php';
+		
+		require_once LIB_PATH . 'osclass/core/ItemActions.php';
 
 		$mItem = new ItemActions( true );
 
@@ -722,11 +708,7 @@ CONFIG;
 
 
 	function finish_installation( $password ) {
-		require_once ABS_PATH . 'app/model/Admin.php';
-		require_once ABS_PATH . 'app/model/Category.php';
-		require_once ABS_PATH . 'app/model/Item.php';
-		require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
-		require_once LIB_PATH . 'osclass/classes/Plugins.php';
+		require_once LIB_PATH . 'osclass/core/classes/Plugins.php';
 
 		$data = array ();
 
@@ -866,7 +848,6 @@ CONFIG;
 
 
 	function display_target() {
-		require_once LIB_PATH . 'osclass/helpers/hUtils.php';
 		$country_list = osc_file_get_contents(osc_get_locations_json_url());
 		$country_list = json_decode($country_list, true);
 		$country_list = $country_list['children'];

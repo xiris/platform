@@ -19,7 +19,10 @@
      * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
      */
 
-    bender_add_body_class('custom');
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_render_file;
+
+bender_add_body_class('custom');
     osc_current_web_theme_path('header.php') ;
 ?>
 <?php osc_render_file(); ?>

@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -25,8 +27,12 @@
 
 use Claxifieds\Model\BanRule;
 use OpensslCryptor\Cryptor;
+use Params;
+use phpseclib\Crypt\Rijndael;
+use Session;
+use View;
 
-	if(!defined( 'BCRYPT_COST')) { define( 'BCRYPT_COST', 15); }
+if(!defined( 'BCRYPT_COST')) { define( 'BCRYPT_COST', 15); }
 
     /**
      * Creates a random password.
@@ -288,7 +294,8 @@ use OpensslCryptor\Cryptor;
             $string .= "\0";
         }
 
-        $cipher = new phpseclib\Crypt\Rijndael();
+        #$cipher = new phpseclib\Crypt\Rijndael();
+        $cipher = new Rijndael();
         $cipher->disablePadding();
         $cipher->setBlockLength(256);
         $cipher->setKey($key);
@@ -312,7 +319,7 @@ use OpensslCryptor\Cryptor;
 
         // COMPATIBILITY
 
-        $cipher = new phpseclib\Crypt\Rijndael();
+        $cipher = new Rijndael();
         $cipher->disablePadding();
         $cipher->setBlockLength(256);
         $cipher->setKey($key);

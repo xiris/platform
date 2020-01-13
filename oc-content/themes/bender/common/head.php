@@ -21,7 +21,18 @@
 ?>
 
 <?php
-    $js_lang = array(
+
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_current_web_theme_js_url;
+use function Claxifieds\Helpers\osc_current_web_theme_url;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_get_canonical;
+use function Claxifieds\Helpers\osc_register_script;
+use function Claxifieds\Helpers\osc_run_hook;
+
+$js_lang = array(
         'delete' => __('Delete', 'bender'),
         'cancel' => __('Cancel', 'bender')
     );

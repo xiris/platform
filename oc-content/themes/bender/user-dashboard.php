@@ -20,5 +20,7 @@
      */
 
     // meta tag robots
-    osc_current_web_theme_path('user-items.php') ;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+
+osc_current_web_theme_path('user-items.php') ;
 ?>

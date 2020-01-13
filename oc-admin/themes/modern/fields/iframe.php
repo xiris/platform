@@ -1,4 +1,9 @@
-<?php if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+
+if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass
  *

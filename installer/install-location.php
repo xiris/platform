@@ -4,6 +4,9 @@ use Claxifieds\Database\DBCommandClass;
 use Claxifieds\Database\DBConnectionClass;
 use Claxifieds\Model\Admin;
 use Claxifieds\Model\Preference;
+use function Claxifieds\Helpers\osc_genRandomPassword;
+use function Claxifieds\Helpers\osc_get_locations_sql_url;
+use function Claxifieds\Helpers\osc_hash_password;
 
 error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 
@@ -15,15 +18,6 @@ error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
     
 	require_once LIB_PATH . 'osclass/core/Session.php';
 	require_once LIB_PATH . 'osclass/core/Params.php';
-	require_once ABS_PATH . 'app/model/Preference.php';
-	require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
-	require_once LIB_PATH . 'osclass/helpers/hDefines.php';
-	require_once LIB_PATH . 'osclass/helpers/hErrors.php';
-	require_once LIB_PATH . 'osclass/helpers/hLocale.php';
-	require_once LIB_PATH . 'osclass/helpers/hPreference.php';
-	require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
-	require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
-	require_once LIB_PATH . 'osclass/helpers/hUtils.php';
 	require_once LIB_PATH . 'osclass/compatibility.php';
 	require_once LIB_PATH . 'osclass/formatting.php';
 	require_once INSTALLER_PATH . 'install-functions.php';
@@ -55,9 +49,6 @@ error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 	 * @return array
 	 */
 	function basic_info() {
-		require_once ABS_PATH . 'app/model/Admin.php';
-		require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
-
 		$admin = Params::getParam( 's_name' );
 		if ( $admin == '' ) {
 			$admin = 'admin';

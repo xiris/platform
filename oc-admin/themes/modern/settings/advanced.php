@@ -1,6 +1,15 @@
 <?php
 
 use Claxifieds\Cache\Object_Cache_Factory;
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_current_admin_theme_path;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_subdomain_host;
+use function Claxifieds\Helpers\osc_subdomain_type;
 
 if (!defined('OC_ADMIN'))
     exit('Direct access is not allowed.');

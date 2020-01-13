@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -16,7 +18,11 @@
  * limitations under the License.
  */
 
-    /**
+use Scripts;
+use Session;
+use Styles;
+
+/**
      * Gets urls for current theme administrations options
      *
      * @param string $file must be a relative path, from ABS_PATH

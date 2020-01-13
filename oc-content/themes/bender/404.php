@@ -22,7 +22,20 @@
 
 <?php
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_category_name;
+use function Claxifieds\Helpers\osc_category_slug;
+use function Claxifieds\Helpers\osc_category_total_items;
+use function Claxifieds\Helpers\osc_count_subcategories;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_goto_first_category;
+use function Claxifieds\Helpers\osc_has_categories;
+use function Claxifieds\Helpers\osc_has_subcategories;
+use function Claxifieds\Helpers\osc_search_category_url;
+
+osc_add_hook('header','bender_nofollow_construct');
     bender_add_body_class('error not-found');
     osc_current_web_theme_path('header.php') ;
 ?>

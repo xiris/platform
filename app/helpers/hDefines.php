@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -24,12 +26,18 @@
     * @author Osclass
     */
 
+use AdminThemes;
+use Breadcrumb;
 use Claxifieds\Model\Admin;
 use Claxifieds\Model\Category;
 use Claxifieds\Model\City;
 use Claxifieds\Model\Country;
 use Claxifieds\Model\Currency;
 use Claxifieds\Model\Region;
+use Params;
+use Rewrite;
+use View;
+use WebThemes;
 
 /**
      * Gets the root url for your installation

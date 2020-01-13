@@ -1,4 +1,20 @@
 <?php use Claxifieds\Model\Admin;
+use function Claxifieds\Helpers\_m;
+use function Claxifieds\Helpers\osc_add_flash_error_message;
+use function Claxifieds\Helpers\osc_add_flash_ok_message;
+use function Claxifieds\Helpers\osc_add_flash_warning_message;
+use function Claxifieds\Helpers\osc_admin_base_path;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_csrf_check;
+use function Claxifieds\Helpers\osc_forgot_admin_password_confirm_url;
+use function Claxifieds\Helpers\osc_genRandomPassword;
+use function Claxifieds\Helpers\osc_get_http_referer;
+use function Claxifieds\Helpers\osc_hash_password;
+use function Claxifieds\Helpers\osc_lib_path;
+use function Claxifieds\Helpers\osc_recaptcha_private_key;
+use function Claxifieds\Helpers\osc_run_hook;
+use function Claxifieds\Helpers\osc_time_cookie;
+use function Claxifieds\Helpers\osc_verify_password;
 
 if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 

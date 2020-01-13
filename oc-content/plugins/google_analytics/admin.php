@@ -1,4 +1,8 @@
-<h2 class="render-title"><?php _e('Google Analytics', 'google_analytics'); ?></h2>
+<h2 class="render-title"><?php use function Claxifieds\Helpers\_e;
+    use function Claxifieds\Helpers\osc_admin_render_plugin_url;
+    use function Claxifieds\Helpers\osc_esc_html;
+    
+    _e('Google Analytics', 'google_analytics'); ?></h2>
 <form action="<?php echo osc_admin_render_plugin_url('google_analytics/admin.php'); ?>" method="post">
     <input type="hidden" name="option" value="stepone" />
     <fieldset>

@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -16,7 +18,9 @@
  * limitations under the License.
  */
 
-    /**
+use Plugins;
+
+/**
     * Helper Plugins
     * @package Osclass
     * @subpackage Helpers

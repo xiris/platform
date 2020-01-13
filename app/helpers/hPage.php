@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -25,6 +27,7 @@
 
 use Claxifieds\Model\Category;
 use Claxifieds\Model\Page;
+use View;
 
 /**
      * Gets current page object

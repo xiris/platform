@@ -1,4 +1,7 @@
 <?php
+
+namespace Claxifieds\Helpers;
+
     /**
      * Helper Users
      * @package Osclass
@@ -8,6 +11,9 @@
 
 use Claxifieds\Model\Admin;
 use Claxifieds\Model\User;
+use Cookie;
+use Session;
+use View;
 
 /**
      * Gets a specific field from current user

@@ -1,4 +1,32 @@
-<?php if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_assets_url;
+use function Claxifieds\Helpers\osc_base_path;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_csrf_token_url;
+use function Claxifieds\Helpers\osc_current_admin_theme_path;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_enqueue_style;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_force_aspect_image;
+use function Claxifieds\Helpers\osc_force_jpeg;
+use function Claxifieds\Helpers\osc_is_watermark_image;
+use function Claxifieds\Helpers\osc_is_watermark_text;
+use function Claxifieds\Helpers\osc_keep_original_image;
+use function Claxifieds\Helpers\osc_max_size_kb;
+use function Claxifieds\Helpers\osc_normal_dimensions;
+use function Claxifieds\Helpers\osc_preview_dimensions;
+use function Claxifieds\Helpers\osc_thumbnail_dimensions;
+use function Claxifieds\Helpers\osc_uploads_path;
+use function Claxifieds\Helpers\osc_use_imagick;
+use function Claxifieds\Helpers\osc_watermark_place;
+use function Claxifieds\Helpers\osc_watermark_text;
+use function Claxifieds\Helpers\osc_watermark_text_color;
+
+if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass
  *

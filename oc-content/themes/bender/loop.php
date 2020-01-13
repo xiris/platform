@@ -21,6 +21,12 @@
 ?>
 
 <?php
+
+use function Claxifieds\Helpers\osc_has_items;
+use function Claxifieds\Helpers\osc_has_latest_items;
+use function Claxifieds\Helpers\osc_has_premiums;
+use function Claxifieds\Helpers\osc_run_hook;
+
 $loopClass = '';
 $type = 'items';
 if(View::newInstance()->_exists('listType')){

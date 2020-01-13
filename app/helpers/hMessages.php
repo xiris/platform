@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -16,8 +18,10 @@
  * limitations under the License.
  */
 
+use Session;
 
-    /**
+
+/**
     * Helper Flash Messages
     * @package Osclass
     * @subpackage Helpers

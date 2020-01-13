@@ -1,19 +1,7 @@
 <?php
-/*
- * Copyright 2014 Osclass
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+define('ABS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+
+require ABS_PATH . 'vendor/autoload.php';
 
 use Claxifieds\Controller\CWebAjax;
 use Claxifieds\Controller\CWebContact;
@@ -27,8 +15,17 @@ use Claxifieds\Controller\CWebRegister;
 use Claxifieds\Controller\CWebSearch;
 use Claxifieds\Controller\CWebUser;
 use Claxifieds\Controller\CWebUserNonSecure;
-
-define('ABS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
+use Claxifieds\Model\User;
+use function Claxifieds\Helpers\osc_auto_cron;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_die;
+use function Claxifieds\Helpers\osc_is_admin_user_logged_in;
+use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+use function Claxifieds\Helpers\osc_lib_path;
+use function Claxifieds\Helpers\osc_logged_user_id;
+use function Claxifieds\Helpers\osc_page_title;
+use function Claxifieds\Helpers\osc_users_enabled;
     
     if(PHP_SAPI==='cli') {
         define('CLI', true);
@@ -59,7 +56,7 @@ define('ABS_PATH', __DIR__ . DIRECTORY_SEPARATOR);
                 osc_current_web_theme_path('maintenance.php');
                 die();
             } else {
-                require_once LIB_PATH . 'osclass/helpers/hErrors.php';
+
 
                 $title   = sprintf(__('Maintenance &raquo; %s'), osc_page_title());
                 $message = sprintf(__('We are sorry for any inconvenience. %s is undergoing maintenance.') . '.', osc_page_title() );

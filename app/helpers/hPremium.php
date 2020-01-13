@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -33,6 +35,8 @@ use Claxifieds\Model\ItemComment;
 use Claxifieds\Model\ItemResource;
 use Claxifieds\Model\ItemStats;
 use Claxifieds\Model\Search;
+use Params;
+use View;
 
 
 /**

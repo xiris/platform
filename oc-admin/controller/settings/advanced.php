@@ -1,4 +1,13 @@
-<?php if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
+<?php use function Claxifieds\Helpers\_m;
+use function Claxifieds\Helpers\osc_add_flash_ok_message;
+use function Claxifieds\Helpers\osc_add_flash_warning_message;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_cache_flush;
+use function Claxifieds\Helpers\osc_csrf_check;
+use function Claxifieds\Helpers\osc_set_preference;
+use function Claxifieds\Helpers\osc_subdomain_type;
+
+if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 
 /*
  * Copyright 2014 Osclass

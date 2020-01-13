@@ -20,7 +20,20 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+use function Claxifieds\Helpers\osc_item_id;
+use function Claxifieds\Helpers\osc_logged_user_email;
+use function Claxifieds\Helpers\osc_logged_user_name;
+use function Claxifieds\Helpers\osc_run_hook;
+use function Claxifieds\Helpers\osc_show_recaptcha;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');
     bender_add_body_class('contact');

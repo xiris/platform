@@ -68,7 +68,30 @@
       "Installer\\": "installer/"
     },
     "files": [
-      "config/default-constants.php"
+      "config/default-constants.php",
+      "app/helpers/hAdminMenu.php",
+      "app/helpers/hCache.php",
+      "app/helpers/hCategories.php",
+      "app/helpers/hDatabaseInfo.php",
+      "app/helpers/hDefines.php",
+      "app/helpers/hErrors.php",
+      "app/helpers/hItems.php",
+      "app/helpers/hLocale.php",
+      "app/helpers/hLocation.php",
+      "app/helpers/hMessages.php",
+      "app/helpers/hPage.php",
+      "app/helpers/hPagination.php",
+      "app/helpers/hPlugins.php",
+      "app/helpers/hPreference.php",
+      "app/helpers/hPremium.php",
+      "app/helpers/hSanitize.php",
+      "app/helpers/hSearch.php",
+      "app/helpers/hSecurity.php",
+      "app/helpers/hTheme.php",
+      "app/helpers/hTranslations.php",
+      "app/helpers/hUsers.php",
+      "app/helpers/hUtils.php",
+      "app/helpers/hValidate.php"
     ]
   },
   "minimum-stability": "dev",

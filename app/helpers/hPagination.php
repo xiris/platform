@@ -1,5 +1,7 @@
 <?php
 
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -16,7 +18,11 @@
  * limitations under the License.
  */
 
-    /**
+use Pagination;
+use Params;
+use View;
+
+/**
     * Helper Pagination
     * @package Osclass
     * @subpackage Helpers

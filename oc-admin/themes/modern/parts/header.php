@@ -1,4 +1,13 @@
-<?php if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.'); ?>
+<?php use function Claxifieds\Helpers\osc_current_admin_locale;
+use function Claxifieds\Helpers\osc_draw_admin_menu;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_get_locales;
+use function Claxifieds\Helpers\osc_language;
+use function Claxifieds\Helpers\osc_page_title;
+use function Claxifieds\Helpers\osc_run_hook;
+use function Claxifieds\Helpers\osc_show_flash_message;
+
+if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.'); ?>
 <!DOCTYPE html>
 <html lang="<?php echo substr(osc_current_admin_locale(), 0, 2); ?>">
 <head>

@@ -20,7 +20,25 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_follow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_count_items;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_current_web_theme_url;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_pagination_items;
+use function Claxifieds\Helpers\osc_user_address;
+use function Claxifieds\Helpers\osc_user_city;
+use function Claxifieds\Helpers\osc_user_city_area;
+use function Claxifieds\Helpers\osc_user_country;
+use function Claxifieds\Helpers\osc_user_email;
+use function Claxifieds\Helpers\osc_user_info;
+use function Claxifieds\Helpers\osc_user_name;
+use function Claxifieds\Helpers\osc_user_region;
+use function Claxifieds\Helpers\osc_user_website;
+use function Claxifieds\Helpers\osc_user_zip;
+
+osc_add_hook('header','bender_follow_construct');
 
     $address = '';
     if(osc_user_address()!='') {

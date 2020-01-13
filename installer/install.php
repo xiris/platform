@@ -15,7 +15,11 @@
 	 * limitations under the License.
 	 */
 
-	error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_die;
+use function Claxifieds\Helpers\osc_esc_html;
+
+error_reporting( E_ERROR | E_CORE_ERROR | E_COMPILE_ERROR | E_PARSE );
 
 	define( 'ABS_PATH' , dirname(__DIR__) . DIRECTORY_SEPARATOR);
 	define( 'INSTALLER_PATH' , ABS_PATH . 'installer/');
@@ -27,23 +31,8 @@
 
     require ABS_PATH . 'vendor/autoload.php';
 
-	if ( extension_loaded( 'mysqli' ) ) {
-		require_once ABS_PATH . 'app/model/Preference.php';
-		require_once LIB_PATH . 'osclass/helpers/hPreference.php';
-	}
-
-	require_once LIB_PATH . 'osclass/helpers/hCache.php';
-
 	require_once LIB_PATH . 'osclass/core/Session.php';
 	require_once LIB_PATH . 'osclass/core/Params.php';
-	require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
-	require_once LIB_PATH . 'osclass/helpers/hDefines.php';
-	require_once LIB_PATH . 'osclass/helpers/hErrors.php';
-	require_once LIB_PATH . 'osclass/helpers/hLocale.php';
-	require_once LIB_PATH . 'osclass/helpers/hSearch.php';
-	require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
-	require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
-	require_once LIB_PATH . 'osclass/helpers/hSanitize.php';
 	require_once INSTALLER_PATH . 'install-functions.php';
 	require_once LIB_PATH . 'osclass/utils.php';
 	require_once LIB_PATH . 'osclass/core/Translation.php';

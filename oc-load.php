@@ -1,37 +1,17 @@
 <?php
-    /*
-     * Copyright 2014 Osclass
-     *
-     * Licensed under the Apache License, Version 2.0 (the "License");
-     * you may not use this file except in compliance with the License.
-     * You may obtain a copy of the License at
-     *
-     *     http://www.apache.org/licenses/LICENSE-2.0
-     *
-     * Unless required by applicable law or agreed to in writing, software
-     * distributed under the License is distributed on an "AS IS" BASIS,
-     * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     * See the License for the specific language governing permissions and
-     * limitations under the License.
-     */
 
-    if ( !defined('ABS_PATH')) {
-        define('ABS_PATH', dirname(__DIR__) . DIRECTORY_SEPARATOR);
-    }
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\getBoolPreference;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_assets_url;
+use function Claxifieds\Helpers\osc_cache_init;
+use function Claxifieds\Helpers\osc_die;
+use function Claxifieds\Helpers\osc_get_absolute_url;
+use function Claxifieds\Helpers\osc_get_preference;
+use function Claxifieds\Helpers\osc_register_script;
+use function Claxifieds\Helpers\osc_timezone;
 
-    define('LIB_PATH', ABS_PATH . 'oc-includes/');
-    define('CONFIG_PATH', ABS_PATH . 'config/');
-    define('CONTENT_PATH', ABS_PATH . 'oc-content/');
-    define('THEMES_PATH', CONTENT_PATH . 'themes/');
-    define('PLUGINS_PATH', CONTENT_PATH . 'plugins/');
-    define('TRANSLATIONS_PATH', CONTENT_PATH . 'languages/');
-
-    // Load vendor
-    require ABS_PATH . 'vendor/autoload.php';
-    
-    
     if ( !file_exists(CONFIG_PATH . 'config.php')) {
-        require_once LIB_PATH . 'osclass/helpers/hErrors.php';
         $title   = 'Osclass &raquo; Error';
         $message = 'There doesn\'t seem to be a <code>config.php</code> file. Osclass isn\'t installed. <a href="https://osclass.discourse.group/">Need more help?</a></p>';
         $message .= '<p><a class="button" href="' . osc_get_absolute_url() . 'installer/install.php">Install</a></p>';
@@ -53,18 +33,12 @@
     } else {
         error_reporting(E_CORE_ERROR | E_CORE_WARNING | E_COMPILE_ERROR | E_ERROR | E_WARNING | E_PARSE | E_USER_ERROR | E_USER_WARNING);
     }
-    
-    require_once ABS_PATH . 'app/model/SiteInfo.php';
-    require_once LIB_PATH . 'osclass/helpers/hDatabaseInfo.php';
-    require_once ABS_PATH . 'app/model/Preference.php';
-    require_once LIB_PATH . 'osclass/helpers/hPreference.php';
 
 // check if Osclass is installed
     if ( ! getBoolPreference('osclass_installed') && MULTISITE) {
         header('Location: ' . WEB_PATH);
         die;
     } elseif ( ! getBoolPreference('osclass_installed')) {
-        require_once LIB_PATH . 'osclass/helpers/hErrors.php';
 
         $title   = 'Osclass &raquo; Error';
         $message = 'Osclass isn\'t installed. <a href="https://osclass.discourse.group/">Need more help?</a></p>';
@@ -72,24 +46,7 @@
 
         osc_die($title, $message);
     }
-
-    require_once LIB_PATH . 'osclass/helpers/hDefines.php';
-    require_once LIB_PATH . 'osclass/helpers/hLocale.php';
-    require_once LIB_PATH . 'osclass/helpers/hMessages.php';
-    require_once LIB_PATH . 'osclass/helpers/hUsers.php';
-    require_once LIB_PATH . 'osclass/helpers/hItems.php';
-    require_once LIB_PATH . 'osclass/helpers/hSearch.php';
-    require_once LIB_PATH . 'osclass/helpers/hUtils.php';
-    require_once LIB_PATH . 'osclass/helpers/hCategories.php';
-    require_once LIB_PATH . 'osclass/helpers/hTranslations.php';
-    require_once LIB_PATH . 'osclass/helpers/hSecurity.php';
-    require_once LIB_PATH . 'osclass/helpers/hSanitize.php';
-    require_once LIB_PATH . 'osclass/helpers/hValidate.php';
-    require_once LIB_PATH . 'osclass/helpers/hPage.php';
-    require_once LIB_PATH . 'osclass/helpers/hPagination.php';
-    require_once LIB_PATH . 'osclass/helpers/hPremium.php';
-    require_once LIB_PATH . 'osclass/helpers/hTheme.php';
-    require_once LIB_PATH . 'osclass/helpers/hLocation.php';
+    
     require_once LIB_PATH . 'osclass/core/Params.php';
     require_once LIB_PATH . 'osclass/core/Cookie.php';
     require_once LIB_PATH . 'osclass/core/Session.php';
@@ -107,40 +64,8 @@
     require_once LIB_PATH . 'osclass/formatting.php';
     require_once LIB_PATH . 'osclass/locales.php';
     require_once LIB_PATH . 'osclass/core/classes/Plugins.php';
-    require_once LIB_PATH . 'osclass/helpers/hPlugins.php';
     require_once LIB_PATH . 'osclass/core/ItemActions.php';
     require_once LIB_PATH . 'osclass/emails.php';
-    require_once ABS_PATH . 'app/model/Admin.php';
-    require_once ABS_PATH . 'app/model/Alerts.php';
-    require_once ABS_PATH . 'app/model/AlertsStats.php';
-    require_once ABS_PATH . 'app/model/Cron.php';
-    require_once ABS_PATH . 'app/model/Category.php';
-    require_once ABS_PATH . 'app/model/CategoryStats.php';
-    require_once ABS_PATH . 'app/model/City.php';
-    require_once ABS_PATH . 'app/model/CityArea.php';
-    require_once ABS_PATH . 'app/model/Country.php';
-    require_once ABS_PATH . 'app/model/Currency.php';
-    require_once ABS_PATH . 'app/model/OSCLocale.php';
-    require_once ABS_PATH . 'app/model/Item.php';
-    require_once ABS_PATH . 'app/model/ItemComment.php';
-    require_once ABS_PATH . 'app/model/ItemResource.php';
-    require_once ABS_PATH . 'app/model/ItemStats.php';
-    require_once ABS_PATH . 'app/model/Page.php';
-    require_once ABS_PATH . 'app/model/PluginCategory.php';
-    require_once ABS_PATH . 'app/model/Region.php';
-    require_once ABS_PATH . 'app/model/User.php';
-    require_once ABS_PATH . 'app/model/UserEmailTmp.php';
-    require_once ABS_PATH . 'app/model/ItemLocation.php';
-    require_once ABS_PATH . 'app/model/Widget.php';
-    require_once ABS_PATH . 'app/model/Search.php';
-    require_once ABS_PATH . 'app/model/LatestSearches.php';
-    require_once ABS_PATH . 'app/model/Field.php';
-    require_once ABS_PATH . 'app/model/Log.php';
-    require_once ABS_PATH . 'app/model/CountryStats.php';
-    require_once ABS_PATH . 'app/model/RegionStats.php';
-    require_once ABS_PATH . 'app/model/CityStats.php';
-    require_once ABS_PATH . 'app/model/BanRule.php';
-    require_once ABS_PATH . 'app/model/LocationsTmp.php';
     require_once LIB_PATH . 'osclass/core/classes/Cache.php';
     require_once LIB_PATH . 'osclass/core/classes/ImageProcessing.php';
     require_once LIB_PATH . 'osclass/core/classes/RSSFeed.php';
@@ -172,8 +97,6 @@
     require_once LIB_PATH . 'osclass/frm/ManageItems.form.class.php';
     require_once LIB_PATH . 'osclass/frm/BanRule.form.class.php';
     require_once LIB_PATH . 'osclass/functions.php';
-    require_once LIB_PATH . 'osclass/helpers/hAdminMenu.php';
-    require_once LIB_PATH . 'osclass/helpers/hCache.php';
     require_once LIB_PATH . 'osclass/compatibility.php';
     
     if ( ! defined('OSC_CRYPT_KEY')) {

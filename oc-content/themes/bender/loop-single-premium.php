@@ -20,7 +20,30 @@
      */
 ?>
 
-<?php $size = explode('x', osc_thumbnail_dimensions()); ?>
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_count_premium_resources;
+use function Claxifieds\Helpers\osc_current_web_theme_url;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_format_date;
+use function Claxifieds\Helpers\osc_format_price;
+use function Claxifieds\Helpers\osc_highlight;
+use function Claxifieds\Helpers\osc_images_enabled_at_items;
+use function Claxifieds\Helpers\osc_premium_category;
+use function Claxifieds\Helpers\osc_premium_city;
+use function Claxifieds\Helpers\osc_premium_currency_symbol;
+use function Claxifieds\Helpers\osc_premium_description;
+use function Claxifieds\Helpers\osc_premium_is_inactive;
+use function Claxifieds\Helpers\osc_premium_price;
+use function Claxifieds\Helpers\osc_premium_pub_date;
+use function Claxifieds\Helpers\osc_premium_region;
+use function Claxifieds\Helpers\osc_premium_title;
+use function Claxifieds\Helpers\osc_premium_url;
+use function Claxifieds\Helpers\osc_price_enabled_at_items;
+use function Claxifieds\Helpers\osc_resource_thumbnail_url;
+use function Claxifieds\Helpers\osc_thumbnail_dimensions;
+
+$size = explode('x', osc_thumbnail_dimensions()); ?>
 <li class="listing-card <?php echo $class; ?> premium">
     <?php if( osc_images_enabled_at_items() ) { ?>
         <?php if(osc_count_premium_resources()) { ?>

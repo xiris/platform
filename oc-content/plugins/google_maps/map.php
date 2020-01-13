@@ -1,5 +1,7 @@
 <div id="itemMap" style="width: 100%; height: 240px;"></div>
-<?php if($item['d_coord_lat'] != '' && $item['d_coord_long'] != '') {?>
+<?php use function Claxifieds\Helpers\osc_esc_js;
+
+if($item['d_coord_lat'] != '' && $item['d_coord_long'] != '') {?>
     <script type="text/javascript">
         var latlng = new google.maps.LatLng(<?php echo $item['d_coord_lat']; ?>, <?php echo $item['d_coord_long']; ?>);
         var myOptions = {

@@ -20,7 +20,60 @@
      */
 
     // meta tag robots
-    if( osc_item_is_spam() || osc_premium_is_spam() ) {
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_comment_author_name;
+use function Claxifieds\Helpers\osc_comment_body;
+use function Claxifieds\Helpers\osc_comment_title;
+use function Claxifieds\Helpers\osc_comment_user_id;
+use function Claxifieds\Helpers\osc_comments_enabled;
+use function Claxifieds\Helpers\osc_comments_pagination;
+use function Claxifieds\Helpers\osc_count_item_comments;
+use function Claxifieds\Helpers\osc_count_item_meta;
+use function Claxifieds\Helpers\osc_count_item_resources;
+use function Claxifieds\Helpers\osc_count_items;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_current_web_theme_url;
+use function Claxifieds\Helpers\osc_delete_comment_url;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_enqueue_style;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_format_date;
+use function Claxifieds\Helpers\osc_has_item_comments;
+use function Claxifieds\Helpers\osc_has_item_meta;
+use function Claxifieds\Helpers\osc_has_item_resources;
+use function Claxifieds\Helpers\osc_images_enabled_at_items;
+use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+use function Claxifieds\Helpers\osc_item;
+use function Claxifieds\Helpers\osc_item_city;
+use function Claxifieds\Helpers\osc_item_city_area;
+use function Claxifieds\Helpers\osc_item_country;
+use function Claxifieds\Helpers\osc_item_description;
+use function Claxifieds\Helpers\osc_item_edit_url;
+use function Claxifieds\Helpers\osc_item_formated_price;
+use function Claxifieds\Helpers\osc_item_id;
+use function Claxifieds\Helpers\osc_item_is_spam;
+use function Claxifieds\Helpers\osc_item_meta_name;
+use function Claxifieds\Helpers\osc_item_meta_value;
+use function Claxifieds\Helpers\osc_item_mod_date;
+use function Claxifieds\Helpers\osc_item_pub_date;
+use function Claxifieds\Helpers\osc_item_region;
+use function Claxifieds\Helpers\osc_item_send_friend_url;
+use function Claxifieds\Helpers\osc_item_title;
+use function Claxifieds\Helpers\osc_item_user_id;
+use function Claxifieds\Helpers\osc_logged_user_email;
+use function Claxifieds\Helpers\osc_logged_user_id;
+use function Claxifieds\Helpers\osc_logged_user_name;
+use function Claxifieds\Helpers\osc_premium_is_spam;
+use function Claxifieds\Helpers\osc_price_enabled_at_items;
+use function Claxifieds\Helpers\osc_reg_user_can_contact;
+use function Claxifieds\Helpers\osc_reg_user_post_comments;
+use function Claxifieds\Helpers\osc_resource_thumbnail_url;
+use function Claxifieds\Helpers\osc_resource_url;
+use function Claxifieds\Helpers\osc_run_hook;
+
+if( osc_item_is_spam() || osc_premium_is_spam() ) {
         osc_add_hook('header','bender_nofollow_construct');
     } else {
         osc_add_hook('header','bender_follow_construct');

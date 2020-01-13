@@ -15,7 +15,16 @@
  * limitations under the License.
  */
 
-    function addHelp() {
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_current_admin_theme_path;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_pagination_showing;
+use function Claxifieds\Helpers\osc_show_pagination_admin;
+
+function addHelp() {
         echo '<p>' . __('Add, edit or delete information associated to alerts.') . '</p>';
     }
     osc_add_hook('help_box','addHelp');

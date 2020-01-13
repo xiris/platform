@@ -20,7 +20,25 @@
      */
 
     // meta tag robots
-    if( osc_count_items() == 0 || stripos($_SERVER['REQUEST_URI'], 'search') ) {
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_count_items;
+use function Claxifieds\Helpers\osc_count_premiums;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_get_premiums;
+use function Claxifieds\Helpers\osc_list_orders;
+use function Claxifieds\Helpers\osc_rewrite_enabled;
+use function Claxifieds\Helpers\osc_run_hook;
+use function Claxifieds\Helpers\osc_search_order;
+use function Claxifieds\Helpers\osc_search_order_type;
+use function Claxifieds\Helpers\osc_search_pagination;
+use function Claxifieds\Helpers\osc_search_pattern;
+use function Claxifieds\Helpers\osc_search_show_as;
+use function Claxifieds\Helpers\osc_update_search_url;
+
+if( osc_count_items() == 0 || stripos($_SERVER['REQUEST_URI'], 'search') ) {
         osc_add_hook('header','bender_nofollow_construct');
     } else {
         osc_add_hook('header','bender_follow_construct');

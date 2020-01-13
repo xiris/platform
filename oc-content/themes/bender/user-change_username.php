@@ -20,7 +20,16 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_user;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     osc_enqueue_script('jquery-validate');
 

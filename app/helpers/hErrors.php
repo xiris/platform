@@ -1,4 +1,7 @@
 <?php
+
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -95,8 +98,7 @@
         }
         return $array;
     }
-
-
+    
 	/**
 	 * @return string
 	 */

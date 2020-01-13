@@ -1,4 +1,29 @@
-<?php if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_auto_cron;
+use function Claxifieds\Helpers\osc_contact_attachment;
+use function Claxifieds\Helpers\osc_contact_email;
+use function Claxifieds\Helpers\osc_currency;
+use function Claxifieds\Helpers\osc_current_admin_theme_path;
+use function Claxifieds\Helpers\osc_date_format;
+use function Claxifieds\Helpers\osc_default_results_per_page_at_search;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_language;
+use function Claxifieds\Helpers\osc_lib_path;
+use function Claxifieds\Helpers\osc_max_latest_items_at_home;
+use function Claxifieds\Helpers\osc_num_rss_items;
+use function Claxifieds\Helpers\osc_page_description;
+use function Claxifieds\Helpers\osc_page_title;
+use function Claxifieds\Helpers\osc_selectable_parent_categories;
+use function Claxifieds\Helpers\osc_time_format;
+use function Claxifieds\Helpers\osc_timezone;
+use function Claxifieds\Helpers\osc_week_starts_at;
+
+if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass
  *

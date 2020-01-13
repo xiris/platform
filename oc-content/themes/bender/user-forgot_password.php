@@ -20,7 +20,13 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_base_url;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_esc_html;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     bender_add_body_class('forgot');
     osc_current_web_theme_path('header.php');

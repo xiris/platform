@@ -20,7 +20,11 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_render_file;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     bender_add_body_class('user user-custom');
     osc_add_hook('before-main','sidebar');

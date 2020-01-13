@@ -1,4 +1,19 @@
-<?php if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_comments_enabled;
+use function Claxifieds\Helpers\osc_comments_per_page;
+use function Claxifieds\Helpers\osc_current_admin_theme_path;
+use function Claxifieds\Helpers\osc_enqueue_script;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_moderate_comments;
+use function Claxifieds\Helpers\osc_notify_new_comment;
+use function Claxifieds\Helpers\osc_notify_new_comment_user;
+use function Claxifieds\Helpers\osc_reg_user_post_comments;
+
+if ( ! defined('OC_ADMIN')) exit('Direct access is not allowed.');
 /*
  * Copyright 2014 Osclass
  *

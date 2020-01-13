@@ -20,7 +20,14 @@
      */
 ?>
 
-<?php if ( (!defined('ABS_PATH')) ) exit('ABS_PATH is not loaded. Direct access is not allowed.'); ?>
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_admin_render_theme_url;
+use function Claxifieds\Helpers\osc_esc_html;
+use function Claxifieds\Helpers\osc_get_preference;
+use function Claxifieds\Helpers\osc_page_title;
+use function Claxifieds\Helpers\osc_uploads_path;
+
+if ( (!defined('ABS_PATH')) ) exit('ABS_PATH is not loaded. Direct access is not allowed.'); ?>
 <?php if ( !OC_ADMIN ) exit('User access is not allowed.'); ?>
 <style type="text/css" media="screen">
     .command { background-color: white; color: #2E2E2E; border: 1px solid black; padding: 8px; }

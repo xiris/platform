@@ -20,7 +20,18 @@
      */
 ?>
 <div id="sidebar">
-    <?php if(osc_logged_user_id() !=  osc_user_id()) { ?>
+    <?php use function Claxifieds\Helpers\_e;
+    use function Claxifieds\Helpers\osc_base_url;
+    use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+    use function Claxifieds\Helpers\osc_item_id;
+    use function Claxifieds\Helpers\osc_logged_user_id;
+    use function Claxifieds\Helpers\osc_recaptcha_public_key;
+    use function Claxifieds\Helpers\osc_reg_user_can_contact;
+    use function Claxifieds\Helpers\osc_run_hook;
+    use function Claxifieds\Helpers\osc_show_recaptcha;
+    use function Claxifieds\Helpers\osc_user_id;
+
+    if(osc_logged_user_id() !=  osc_user_id()) { ?>
     <?php     if(osc_reg_user_can_contact() && osc_is_web_user_logged_in() || !osc_reg_user_can_contact() ) { ?>
         <div id="contact" class="widget-box form-container form-vertical">
             <h2><?php _e("Contact", 'bender'); ?></h2>

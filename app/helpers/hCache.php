@@ -1,4 +1,7 @@
 <?php
+
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -63,7 +66,7 @@ use Claxifieds\Cache\Object_Cache_Factory;
 function osc_cache_init() {
 	try {
 		Object_Cache_Factory::newInstance();
-	} catch ( Exception $e ) {
+	} catch ( \Exception $e ) {
 	}
 }
 

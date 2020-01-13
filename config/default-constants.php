@@ -18,7 +18,11 @@
 
     if (!defined('OSCLASS_VERSION')){
 		define('OSCLASS_VERSION', '3.9.0');
-	} 
+	}
+
+    if( !defined('WEB_PATH') ) {
+        define('WEB_PATH', 'http://localhost:8000/');
+    }
 
     if( !defined('MULTISITE') ) {
         define('MULTISITE', 0);
@@ -31,7 +35,10 @@
     if( !defined('LIB_PATH') ) {
         define('LIB_PATH', ABS_PATH . 'oc-includes/');
     }
-
+    
+    if( !defined('CONFIG_PATH') ) {
+        define('CONFIG_PATH', ABS_PATH . 'config/');
+    }
     if( !defined('BASE_PATH') ) {
         define('BASE_PATH', ABS_PATH);
     }

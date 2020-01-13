@@ -20,7 +20,18 @@
      */
 
     // meta tag robots
-    osc_add_hook('header','bender_nofollow_construct');
+use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_add_filter;
+use function Claxifieds\Helpers\osc_add_hook;
+use function Claxifieds\Helpers\osc_count_alerts;
+use function Claxifieds\Helpers\osc_count_items;
+use function Claxifieds\Helpers\osc_current_web_theme_path;
+use function Claxifieds\Helpers\osc_esc_js;
+use function Claxifieds\Helpers\osc_has_alerts;
+use function Claxifieds\Helpers\osc_user;
+use function Claxifieds\Helpers\osc_user_unsubscribe_alert_url;
+
+osc_add_hook('header','bender_nofollow_construct');
 
     bender_add_body_class('user user-profile');
     osc_add_hook('before-main','sidebar');

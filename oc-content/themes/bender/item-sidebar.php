@@ -20,7 +20,28 @@
      */
 ?>
 <div id="sidebar">
-    <?php if(!osc_is_web_user_logged_in() || osc_logged_user_id()!=osc_item_user_id()) { ?>
+    <?php use function Claxifieds\Helpers\_e;
+    use function Claxifieds\Helpers\osc_base_url;
+    use function Claxifieds\Helpers\osc_get_preference;
+    use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+    use function Claxifieds\Helpers\osc_item_attachment;
+    use function Claxifieds\Helpers\osc_item_contact_email;
+    use function Claxifieds\Helpers\osc_item_contact_name;
+    use function Claxifieds\Helpers\osc_item_id;
+    use function Claxifieds\Helpers\osc_item_show_email;
+    use function Claxifieds\Helpers\osc_item_user_id;
+    use function Claxifieds\Helpers\osc_logged_user_id;
+    use function Claxifieds\Helpers\osc_prepare_user_info;
+    use function Claxifieds\Helpers\osc_recaptcha_public_key;
+    use function Claxifieds\Helpers\osc_reg_user_can_contact;
+    use function Claxifieds\Helpers\osc_register_account_url;
+    use function Claxifieds\Helpers\osc_run_hook;
+    use function Claxifieds\Helpers\osc_show_recaptcha;
+    use function Claxifieds\Helpers\osc_user_login_url;
+    use function Claxifieds\Helpers\osc_user_phone;
+    use function Claxifieds\Helpers\osc_user_public_profile_url;
+
+    if(!osc_is_web_user_logged_in() || osc_logged_user_id()!=osc_item_user_id()) { ?>
         <form action="<?php echo osc_base_url(true); ?>" method="post" name="mask_as_form" id="mask_as_form">
             <input type="hidden" name="id" value="<?php echo osc_item_id(); ?>" />
             <input type="hidden" name="as" value="spam" />

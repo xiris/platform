@@ -20,7 +20,32 @@
      */
 ?>
 </div><!-- content -->
-<?php osc_run_hook('after-main'); ?>
+<?php use function Claxifieds\Helpers\_e;
+use function Claxifieds\Helpers\osc_contact_url;
+use function Claxifieds\Helpers\osc_count_web_enabled_locales;
+use function Claxifieds\Helpers\osc_get_preference;
+use function Claxifieds\Helpers\osc_goto_first_locale;
+use function Claxifieds\Helpers\osc_has_static_pages;
+use function Claxifieds\Helpers\osc_has_web_enabled_locales;
+use function Claxifieds\Helpers\osc_is_web_user_logged_in;
+use function Claxifieds\Helpers\osc_item_post_url_in_category;
+use function Claxifieds\Helpers\osc_locale_code;
+use function Claxifieds\Helpers\osc_locale_name;
+use function Claxifieds\Helpers\osc_logged_user_name;
+use function Claxifieds\Helpers\osc_reg_user_post;
+use function Claxifieds\Helpers\osc_register_account_url;
+use function Claxifieds\Helpers\osc_reset_static_pages;
+use function Claxifieds\Helpers\osc_run_hook;
+use function Claxifieds\Helpers\osc_show_widgets;
+use function Claxifieds\Helpers\osc_static_page_title;
+use function Claxifieds\Helpers\osc_static_page_url;
+use function Claxifieds\Helpers\osc_user_dashboard_url;
+use function Claxifieds\Helpers\osc_user_login_url;
+use function Claxifieds\Helpers\osc_user_logout_url;
+use function Claxifieds\Helpers\osc_user_registration_enabled;
+use function Claxifieds\Helpers\osc_users_enabled;
+
+osc_run_hook('after-main'); ?>
 </div>
 <div id="responsive-trigger"></div>
 <!-- footer -->

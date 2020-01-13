@@ -1,4 +1,21 @@
 <?php use Claxifieds\Model\ItemResource;
+use function Claxifieds\Helpers\_m;
+use function Claxifieds\Helpers\osc_add_flash_error_message;
+use function Claxifieds\Helpers\osc_add_flash_ok_message;
+use function Claxifieds\Helpers\osc_add_flash_warning_message;
+use function Claxifieds\Helpers\osc_admin_base_url;
+use function Claxifieds\Helpers\osc_base_path;
+use function Claxifieds\Helpers\osc_csrf_check;
+use function Claxifieds\Helpers\osc_is_watermark_image;
+use function Claxifieds\Helpers\osc_is_watermark_text;
+use function Claxifieds\Helpers\osc_normal_dimensions;
+use function Claxifieds\Helpers\osc_preview_dimensions;
+use function Claxifieds\Helpers\osc_run_hook;
+use function Claxifieds\Helpers\osc_set_preference;
+use function Claxifieds\Helpers\osc_thumbnail_dimensions;
+use function Claxifieds\Helpers\osc_uploads_path;
+use function Claxifieds\Helpers\osc_watermark_text;
+use function Claxifieds\Helpers\osc_watermark_text_color;
 
 if ( ! defined('ABS_PATH')) exit('ABS_PATH is not loaded. Direct access is not allowed.');
 

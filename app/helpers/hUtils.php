@@ -1,4 +1,7 @@
 <?php
+
+namespace Claxifieds\Helpers;
+
 /*
  * Copyright 2014 Osclass
  *
@@ -23,6 +26,10 @@
  */
 
 use Claxifieds\Model\Widget;
+use Params;
+use Rewrite;
+use Session;
+use View;
 
 /**
  * Getting from View the $key index
