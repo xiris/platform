@@ -349,7 +349,7 @@ use Claxifieds\Model\Region;
                 if( ($i == (count($this->aLevel) - 1)) && ($i != 0) ) {
                     $text .= 'class="last-child" ';
                 }
-                $text .='itemscope itemtype="http://data-vocabulary.org/Breadcrumb" >';
+                $text .='>';
                 // set separator
                 if( $i > 0 ) {
                     $text .= ' ' . $separator . ' ';
