@@ -96,21 +96,19 @@
 
         public function setCurrentThemePath()
         {
+            $this->theme_exists = false;
+            $this->theme_path   = osc_lib_path() . 'templates/default/';
             if ( file_exists( $this->path . $this->theme . '/' ) ) {
                 $this->theme_exists = true;
                 $this->theme_path   = $this->path . $this->theme . '/';
-            } else {
-                $this->theme_exists = false;
-                $this->theme_path   = osc_lib_path() . 'osclass/gui/';
             }
         }
 
         public function setCurrentThemeUrl()
         {
+            $this->theme_url = osc_apply_filter('theme_url', osc_base_url() . 'templates/default/');
             if ( $this->theme_exists ) {
                 $this->theme_url = osc_apply_filter('theme_url', osc_base_url() . str_replace(osc_base_path(), '', $this->theme_path));
-            } else {
-                $this->theme_url = osc_apply_filter('theme_url', osc_base_url() . 'oc-includes/osclass/gui/');
             }
         }
 
@@ -145,8 +143,8 @@
             $this->theme = '';
 
             $this->theme_exists = false;
-            $this->theme_path   = osc_lib_path() . 'osclass/gui/';
-            $this->theme_url    = osc_base_url() . 'oc-includes/osclass/gui/';
+            $this->theme_path   = osc_base_path() . 'templates/default/';
+            $this->theme_url    = osc_base_url() . 'templates/default/';
 
             $functions_path = $this->getCurrentThemePath() . 'functions.php';
             if( file_exists($functions_path) ) {
@@ -307,5 +305,4 @@
         }
 
     }
-
-    /* file end: ./oc-includes/osclass/WebThemes.php */
+    
